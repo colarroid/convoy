@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans), 'Helvetica Neue', 'Helvetica', 'Arial', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+}
+
+/* Headings use the bold cut by default.
+   NOTE: deliberately no `color` here — color is inherited (black on light
+   backgrounds via body, white on dark sections) so headings stay readable
+   everywhere. Set an explicit text-* utility to override. */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+@layer components {
+  .input-field {
+    @apply w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-900 placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white
+           transition-all duration-150 text-sm;
+  }
+
+  .btn-primary {
+    @apply w-full py-3.5 px-6 bg-black text-white rounded-xl font-medium text-sm
+           hover:bg-gray-800 active:scale-[0.98] transition-all duration-150
+           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black;
+  }
+
+  .btn-secondary {
+    @apply w-full py-3.5 px-6 bg-white text-gray-700 rounded-xl font-medium text-sm border border-gray-200
+           hover:bg-gray-50 active:scale-[0.98] transition-all duration-150
+           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300
+           flex items-center justify-center gap-3;
+  }
+
+  .btn-outline {
+    @apply py-3 px-6 border border-black text-black rounded-full font-medium text-sm
+           hover:bg-black hover:text-white active:scale-[0.98] transition-all duration-150
+           focus:outline-none;
+  }
+
+  /* Navbar pill link — Uber-style rounded hover */
+  .nav-pill {
+    @apply text-sm text-white/70 font-medium px-3 py-2.5 rounded-full
+           hover:text-white hover:bg-white/10
+           transition-all duration-150;
+  }
+
+  .mobile-nav-link {
+    @apply py-2.5 px-3 text-sm text-white/70 rounded-xl hover:text-white hover:bg-white/10 transition-colors;
+  }
+}
+
+/* ── Animations ───────────────────────────────────────── */
+@keyframes convoy-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes convoy-slide-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes convoy-pop {
+  0%   { opacity: 0; transform: scale(0.5); }
+  60%  { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes convoy-collapse {
+  to { opacity: 0; transform: translateX(48px) scale(0.95); }
+}
+
+.animate-fade-up   { animation: convoy-fade-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-slide-up  { animation: convoy-slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-pop       { animation: convoy-pop 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-collapse  { animation: convoy-collapse 0.3s ease forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up, .animate-slide-up, .animate-pop, .animate-collapse {
+    animation: none;
+  }
+}

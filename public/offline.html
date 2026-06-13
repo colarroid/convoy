@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>You're offline · Convoy</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      font-family: 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+      background: #fff;
+      color: #000;
+    }
+    .wrap {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+    .logo { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 40px; }
+    .icon {
+      width: 64px; height: 64px; border-radius: 9999px;
+      background: #f4f4f5; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    p { font-size: 14px; color: #6b7280; line-height: 1.5; max-width: 280px; margin-bottom: 28px; }
+    button {
+      border: none; background: #000; color: #fff;
+      font-size: 14px; font-weight: 600; padding: 12px 24px;
+      border-radius: 12px; cursor: pointer;
+    }
+    button:active { transform: scale(0.97); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo">Convoy</div>
+    <div class="icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0119 12.55M5 12.55a10.94 10.94 0 015.17-2.39M10.71 5.05A16 16 0 0122.58 9M1.42 9a15.91 15.91 0 014.7-2.88M8.53 16.11a6 6 0 016.95 0M12 20h.01" />
+      </svg>
+    </div>
+    <h1>You're offline</h1>
+    <p>Check your connection and try again. Convoy needs internet to find and offer rides.</p>
+    <button onclick="location.reload()">Try again</button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,301 @@
+import type { Metadata } from 'next'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+
+export const metadata: Metadata = {
+  title: 'Terms of Use — Convoy',
+  description: 'The terms governing your access to and use of Convoy, a community carpooling coordination service.',
+}
+
+type Block =
+  | { type: 'p'; text: string }
+  | { type: 'list'; items: string[] }
+  | { type: 'callout'; text: string }
+
+interface Section {
+  n: number
+  title: string
+  blocks: Block[]
+}
+
+const SECTIONS: Section[] = [
+  {
+    n: 1,
+    title: 'Introduction and acceptance',
+    blocks: [
+      { type: 'p', text: 'Welcome to Convoy (the “Platform”), a community carpooling coordination service operated by Convoy (“we”, “us”, or “our”), a company registered (or to be registered) in Nigeria.' },
+      { type: 'p', text: 'These Terms of Use (“Terms”) govern your access to and use of the Platform, including our website and any associated web application. By creating an account, entering a community code, or otherwise using the Platform, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree, you must not use the Platform.' },
+      { type: 'p', text: 'The Platform is currently offered as a pilot (MVP) and is provided on an “as is” and “as available” basis. Features may change, be limited, or be withdrawn during this period.' },
+    ],
+  },
+  {
+    n: 2,
+    title: 'Definitions',
+    blocks: [
+      { type: 'list', items: [
+        '“Platform” — the website and web application through which members of a Community coordinate shared trips.',
+        '“Member” / “you” — a person who has registered an account and joined a Community.',
+        '“Community” — a closed group (for example, a church or organisation) created by an Admin and identified by a unique Community Code.',
+        '“Community Code” — the unique code that grants access to a specific Community.',
+        '“Admin” — a person authorised by a Community to create and manage that Community on the Platform.',
+        '“Host” — a Member who offers a trip and may carry other Members.',
+        '“Rider” — a Member who requests to join a Host’s trip.',
+        '“Trip” — a journey to a shared destination posted by a Host.',
+      ] },
+      { type: 'p', text: 'A Member may act as both a Host and a Rider at different times.' },
+    ],
+  },
+  {
+    n: 3,
+    title: 'Eligibility',
+    blocks: [
+      { type: 'p', text: 'To use the Platform you must:' },
+      { type: 'list', items: [
+        'be at least 18 years of age;',
+        'be a genuine member of a Community and hold a valid Community Code issued by that Community;',
+        'provide accurate, current, and complete information when registering; and',
+        'have the legal capacity to enter into these Terms.',
+      ] },
+      { type: 'p', text: 'We may suspend or terminate accounts that do not meet these requirements.' },
+    ],
+  },
+  {
+    n: 4,
+    title: 'Nature of the service — important',
+    blocks: [
+      { type: 'callout', text: 'The Platform is a coordination tool, not a transport provider. We do not provide transportation services, operate vehicles, employ or engage drivers, or act as a taxi, ride-hailing, or e-hailing operator. Our sole role is to provide technology that enables Members of the same Community to find one another and arrange shared trips voluntarily.' },
+      { type: 'p', text: 'Rides are free. The Platform does not charge Riders for rides, does not process payments for rides, and does not take any commission, fare, or fee on any trip. Trips arranged through the Platform are a non-commercial, community lift-sharing arrangement between Members. Hosts must not demand or charge a fare as a condition of a ride.' },
+      { type: 'p', text: 'We do not guarantee that any Trip will be available, that any request will be accepted, that any Host or Rider will arrive, or that any Trip will take place as arranged. All arrangements are made between Members at their own discretion and risk.' },
+    ],
+  },
+  {
+    n: 5,
+    title: 'Accounts and community codes',
+    blocks: [
+      { type: 'p', text: 'You are responsible for maintaining the confidentiality of your account and your Community Code. You agree:' },
+      { type: 'list', items: [
+        'not to share your Community Code with anyone who is not a genuine member of your Community;',
+        'not to use a Community Code you are not authorised to use;',
+        'to notify us promptly of any unauthorised use of your account or Code; and',
+        'that you are responsible for all activity carried out under your account.',
+      ] },
+      { type: 'p', text: 'Community Codes are the means by which Communities remain closed and trusted. Misuse of a Code — including distributing it outside the Community — may result in suspension of your account and may compromise the safety of other Members.' },
+    ],
+  },
+  {
+    n: 6,
+    title: 'Member conduct',
+    blocks: [
+      { type: 'p', text: 'When using the Platform you agree to:' },
+      { type: 'list', items: [
+        'provide truthful and accurate information about yourself, your vehicle, your trip, and your location;',
+        'treat other Members with respect and behave lawfully and safely at all times;',
+        'use the Platform only for genuine, non-commercial trip coordination within your Community;',
+        'honour arrangements you make, and communicate promptly if you cannot;',
+        'not use the Platform to harass, endanger, defraud, or harm any other person;',
+        'not impersonate any person or misrepresent your affiliation with a Community; and',
+        'not use the Platform for any commercial transport operation or to charge fares.',
+      ] },
+    ],
+  },
+  {
+    n: 7,
+    title: 'Hosts’ responsibilities',
+    blocks: [
+      { type: 'p', text: 'If you offer a Trip as a Host, you are solely responsible for ensuring that:' },
+      { type: 'list', items: [
+        'you hold a valid driver’s licence and are legally permitted to drive;',
+        'your vehicle is roadworthy, properly registered, and maintained;',
+        'you hold valid and adequate motor insurance appropriate to your use of the vehicle, and you understand that ordinary private motor insurance may not cover the carrying of passengers — you are responsible for confirming your own coverage;',
+        'you drive safely and comply with all applicable traffic and transport laws; and',
+        'you do not charge or accept a fare for the ride.',
+      ] },
+      { type: 'p', text: 'Where you choose to fulfil a Trip using a third-party hired vehicle (for example, a ride-hailing service), you remain responsible for the arrangement, and you acknowledge that the third-party provider and its driver are outside our control.' },
+    ],
+  },
+  {
+    n: 8,
+    title: 'Riders’ responsibilities',
+    blocks: [
+      { type: 'p', text: 'If you join a Trip as a Rider, you agree to:' },
+      { type: 'list', items: [
+        'provide accurate location and contact information;',
+        'be present at the agreed pickup point at the agreed time, and communicate promptly if your plans change;',
+        'behave respectfully and safely during the Trip; and',
+        'exercise your own judgement about whether to accept or continue any ride.',
+      ] },
+    ],
+  },
+  {
+    n: 9,
+    title: 'Trips, requests, and cancellations',
+    blocks: [
+      { type: 'p', text: 'Hosts post Trips and may approve or decline requests at their discretion. Available seats are limited and may be filled by other Riders. The Platform does not guarantee a match, a seat, or a completed journey. Either party may cancel an arrangement; we encourage Members to communicate cancellations promptly and courteously, but we are not responsible for cancellations, no-shows, or delays.' },
+    ],
+  },
+  {
+    n: 10,
+    title: 'Safety and assumption of risk',
+    blocks: [
+      { type: 'callout', text: 'You use the Platform and participate in Trips at your own risk. We do not supervise, accompany, or control any Trip. We do not verify the identity, character, driving ability, vehicle condition, or insurance status of any Member. Information shown on the Platform — including a Member’s name, photo, or number of completed rides — is generated by Members and the system for convenience only and is not a verification, endorsement, or guarantee of any person’s reliability or safety.' },
+      { type: 'p', text: 'You are responsible for taking sensible precautions, exercising your own judgement, and complying with the law. If you experience or witness unsafe or inappropriate behaviour, you should use the Platform’s reporting tools and, where appropriate, contact the relevant authorities.' },
+    ],
+  },
+  {
+    n: 11,
+    title: 'No vetting or endorsement',
+    blocks: [
+      { type: 'p', text: 'We do not conduct background checks, identity verification beyond Community membership, driving-record checks, or vehicle inspections. Membership of a Community indicates that a Member holds a valid Community Code; it is not a warranty of trustworthiness. Any reliance you place on another Member is at your own risk.' },
+    ],
+  },
+  {
+    n: 12,
+    title: 'Privacy and data protection',
+    blocks: [
+      { type: 'p', text: 'We collect and process personal data, including your name, contact details, and location information, in order to operate the Platform. Our handling of personal data is described in our Privacy Policy, which forms part of these Terms and is intended to comply with the Nigeria Data Protection Act, 2023. By using the Platform you consent to the collection and processing of your data as described in that policy.' },
+    ],
+  },
+  {
+    n: 13,
+    title: 'Intellectual property',
+    blocks: [
+      { type: 'p', text: 'All rights in the Platform, including its software, design, branding, and content (excluding content you submit), belong to Convoy or its licensors. You may not copy, modify, distribute, or create derivative works from the Platform without our written permission. You retain ownership of information you submit, and grant us a licence to use it as necessary to operate the Platform.' },
+    ],
+  },
+  {
+    n: 14,
+    title: 'Third-party services',
+    blocks: [
+      { type: 'p', text: 'The Platform may rely on or link to third-party services (for example, mapping providers or hired-ride services). We do not control and are not responsible for third-party services, and their use is subject to their own terms.' },
+    ],
+  },
+  {
+    n: 15,
+    title: 'Disclaimers',
+    blocks: [
+      { type: 'p', text: 'To the fullest extent permitted by law, the Platform is provided “as is” and “as available”, without warranties of any kind, whether express or implied, including any warranty of merchantability, fitness for a particular purpose, reliability, availability, or that the Platform will be uninterrupted or error-free. As an MVP, the Platform may contain bugs, incomplete features, or inaccuracies.' },
+    ],
+  },
+  {
+    n: 16,
+    title: 'Limitation of liability',
+    blocks: [
+      { type: 'p', text: 'To the fullest extent permitted by law, Convoy, its directors, employees, and agents will not be liable for any loss, injury, death, damage, or claim arising out of or in connection with:' },
+      { type: 'list', items: [
+        'any Trip, including the conduct of any Host or Rider, any accident, or any act or omission of any Member;',
+        'any failure to obtain a match, a seat, or a completed journey;',
+        'any reliance on information provided by a Member or displayed on the Platform; or',
+        'any interruption, error, or unavailability of the Platform.',
+      ] },
+      { type: 'p', text: 'Nothing in these Terms excludes or limits liability that cannot lawfully be excluded or limited.' },
+    ],
+  },
+  {
+    n: 17,
+    title: 'Indemnification',
+    blocks: [
+      { type: 'p', text: 'You agree to indemnify and hold harmless Convoy and its directors, employees, and agents from any claim, loss, liability, or expense (including reasonable legal fees) arising from your use of the Platform, your participation in any Trip, your breach of these Terms, or your violation of any law or the rights of any person.' },
+    ],
+  },
+  {
+    n: 18,
+    title: 'Suspension and termination',
+    blocks: [
+      { type: 'p', text: 'We may suspend or terminate your access to the Platform, or remove you from a Community, at any time and without notice, including where we believe you have breached these Terms, misused a Community Code, or posed a risk to other Members. You may stop using the Platform and close your account at any time.' },
+    ],
+  },
+  {
+    n: 19,
+    title: 'Changes to these terms',
+    blocks: [
+      { type: 'p', text: 'We may update these Terms from time to time. Where changes are material, we will take reasonable steps to notify Members. Your continued use of the Platform after changes take effect constitutes acceptance of the revised Terms.' },
+    ],
+  },
+  {
+    n: 20,
+    title: 'Governing law and disputes',
+    blocks: [
+      { type: 'p', text: 'These Terms are governed by the laws of the Federal Republic of Nigeria. Any dispute arising from these Terms or your use of the Platform shall be subject to the jurisdiction of the courts of Lagos State. The parties agree to attempt to resolve disputes amicably before commencing any legal proceedings.' },
+    ],
+  },
+  {
+    n: 21,
+    title: 'Contact',
+    blocks: [
+      { type: 'p', text: 'For questions about these Terms, contact us at support@convoy.app.' },
+    ],
+  },
+]
+
+function BlockView({ block }: { block: Block }) {
+  if (block.type === 'p') {
+    return <p className="text-[15px] text-gray-700 leading-relaxed mb-4">{block.text}</p>
+  }
+  if (block.type === 'callout') {
+    return (
+      <div className="border-l-4 border-black bg-gray-50 rounded-r-xl px-4 py-3 mb-4">
+        <p className="text-[15px] text-black font-medium leading-relaxed">{block.text}</p>
+      </div>
+    )
+  }
+  return (
+    <ul className="mb-4 space-y-2">
+      {block.items.map((item, i) => (
+        <li key={i} className="flex gap-3 text-[15px] text-gray-700 leading-relaxed">
+          <span className="mt-2 w-1.5 h-1.5 rounded-full bg-gray-400 shrink-0" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export default function TermsOfUsePage() {
+  return (
+    <div className="min-h-screen flex flex-col bg-white">
+      <Navbar showAuth="login" />
+
+      {/* Sub-header */}
+      <div className="border-b border-gray-200 bg-white">
+        <div className="max-w-3xl mx-auto px-5 md:px-8 py-3">
+          <span className="text-sm font-semibold text-black">Legal</span>
+        </div>
+      </div>
+
+      <main className="flex-1">
+        <div className="max-w-3xl mx-auto px-5 md:px-8 py-12 md:py-16">
+          {/* Title */}
+          <h1 className="text-3xl md:text-4xl font-bold text-black mb-3">Terms of Use</h1>
+          <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-400 mb-10">
+            <span>Effective date: 3rd of July, 2026</span>
+            <span>Last updated: 4th of July, 2026</span>
+          </div>
+
+          {/* Sections */}
+          <div className="space-y-10">
+            {SECTIONS.map(section => (
+              <section key={section.n} id={`section-${section.n}`} className="scroll-mt-20">
+                <h2 className="text-lg font-bold text-black mb-3">
+                  {section.n}. {section.title}
+                </h2>
+                {section.blocks.map((block, i) => (
+                  <BlockView key={i} block={block} />
+                ))}
+              </section>
+            ))}
+          </div>
+
+          {/* Closing */}
+          <div className="mt-12 pt-8 border-t border-gray-100">
+            <p className="text-sm text-gray-500 italic leading-relaxed">
+              By using Convoy, you acknowledge that you have read and understood these Terms of Use
+              and agree to be bound by them.
+            </p>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  )
+}
