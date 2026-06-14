@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import AppNav from '@/components/AppNav'
-import HopeNationBadge from '@/components/HopeNationBadge'
+import CommunityLogo from '@/components/CommunityLogo'
 import { getTripDetail, getTripRequests, resolveRequest, ridesLabel, type MyTripRow, type RequestRow } from '@/lib/trips'
 import ReportModal from '@/components/ReportModal'
 
@@ -70,7 +70,7 @@ export default function JoinRequestsPage() {
             {/* Trip summary card */}
             <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-4 animate-fade-up" style={{ animationDelay: '80ms' }}>
               <div className="flex items-center gap-3 mb-4">
-                <HopeNationBadge className="w-12 h-12" />
+                <CommunityLogo src={trip.community_logo} name={trip.community_name} className="w-12 h-12" />
                 <div className="min-w-0">
                   <p className="text-base font-bold text-black leading-snug truncate">{trip.community_name}</p>
                   {trip.area && <p className="text-sm text-gray-400">{trip.area}</p>}

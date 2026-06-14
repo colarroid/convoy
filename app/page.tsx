@@ -8,9 +8,11 @@ import AppNav from '@/components/AppNav'
 import MobileHero from '@/components/MobileHero'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
+import { useSuspended } from '@/lib/useSuspended'
 
 export default function LandingPage() {
   const [loggedIn, setLoggedIn] = useState(false)
+  const { suspended } = useSuspended()
 
   useEffect(() => {
     setLoggedIn(!!getUser())
@@ -26,7 +28,7 @@ export default function LandingPage() {
 
       {/* Mobile hero — intent cards */}
       <section className="md:hidden flex-1 bg-white">
-        <MobileHero offerHref={offerHref} findHref={findHref} />
+        <MobileHero offerHref={offerHref} findHref={findHref} offerDisabled={suspended} />
       </section>
 
       {/* Desktop hero — contained, single viewport, no scroll */}
@@ -45,12 +47,21 @@ export default function LandingPage() {
               Convoy connects people in your community heading to the same place at the same time, so you ride together. The destination is the point, not the fare.
             </p>
             <div className="flex flex-row gap-3">
-              <Link
-                href={offerHref}
-                className="px-6 py-3 bg-black text-white rounded-full font-medium text-sm hover:bg-gray-800 transition-all active:scale-[0.97]"
-              >
-                Offer a ride
-              </Link>
+              {suspended ? (
+                <span
+                  className="px-6 py-3 bg-gray-100 text-gray-400 rounded-full font-medium text-sm cursor-not-allowed"
+                  title="Your account is suspended"
+                >
+                  Offer a ride
+                </span>
+              ) : (
+                <Link
+                  href={offerHref}
+                  className="px-6 py-3 bg-black text-white rounded-full font-medium text-sm hover:bg-gray-800 transition-all active:scale-[0.97]"
+                >
+                  Offer a ride
+                </Link>
+              )}
               <Link
                 href={findHref}
                 className="px-6 py-3 border border-black text-black rounded-full font-medium text-sm hover:bg-black hover:text-white transition-all active:scale-[0.97]"

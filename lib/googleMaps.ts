@@ -31,7 +31,9 @@ export async function geocodeAddress(address: string): Promise<{ lat: number; ln
     const g = await loadGoogleMaps()
     const geocoder = new g.maps.Geocoder()
     return await new Promise((resolve) => {
-      geocoder.geocode({ address, componentRestrictions: { country: 'ng' } }, (res: any[] | null, status: string) => {
+      // No country restriction: addresses come from Places (already fully
+      // qualified incl. country), and we launch in multiple countries.
+      geocoder.geocode({ address }, (res: any[] | null, status: string) => {
         const loc = res?.[0]?.geometry?.location
         if (status === 'OK' && loc) resolve({ lat: loc.lat(), lng: loc.lng() })
         else resolve(null)

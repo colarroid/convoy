@@ -4,6 +4,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { loadGoogleMaps } from '@/lib/googleMaps'
+import { PLACES_COUNTRIES } from '@/lib/countries'
 
 export interface PlaceCoords { lat: number; lng: number }
 
@@ -11,7 +12,8 @@ interface AddressAutocompleteProps {
   value: string
   onChange: (text: string, coords?: PlaceCoords) => void
   placeholder?: string
-  country?: string
+  /** ISO country code(s) to bias suggestions to. Defaults to all launch countries. */
+  country?: string | string[]
   autoFocus?: boolean
   leftAdornment?: React.ReactNode
   rightAdornment?: React.ReactNode
@@ -23,7 +25,7 @@ interface Prediction { placeId: string; main: string; secondary: string }
 
 export default function AddressAutocomplete({
   value, onChange, placeholder = 'Search a place or landmark',
-  country = 'ng', autoFocus, leftAdornment, rightAdornment,
+  country = PLACES_COUNTRIES, autoFocus, leftAdornment, rightAdornment,
   wrapperClassName = 'flex items-center gap-3 px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus-within:ring-2 focus-within:ring-black focus-within:border-transparent focus-within:bg-white transition-all',
 }: AddressAutocompleteProps) {
   const [predictions, setPredictions] = useState<Prediction[]>([])

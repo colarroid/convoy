@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import AppNav from '@/components/AppNav'
+import CommunityLogo from '@/components/CommunityLogo'
 import { getTripDetail, getTripRequests, cancelTrip, formatTripDate, ridesLabel, isPast, type MyTripRow, type RequestRow } from '@/lib/trips'
 
 export default function MyTripDetailsPage() {
@@ -66,10 +67,15 @@ export default function MyTripDetailsPage() {
       <AppNav />
 
       <main className="flex-1 w-full max-w-xl mx-auto px-5 md:px-8 pt-8 pb-12">
-        <div className="animate-fade-up">
-          <p className="text-sm text-gray-400 mb-1">Trip details</p>
-          <h1 className="text-3xl font-bold text-black leading-tight mb-1">{trip.community_name}</h1>
-          {trip.area && <p className="text-sm text-gray-400 mb-7">{trip.area}</p>}
+        <div className="animate-fade-up mb-7">
+          <p className="text-sm text-gray-400 mb-3">Trip details</p>
+          <div className="flex items-center gap-3">
+            <CommunityLogo src={trip.community_logo} name={trip.community_name} className="w-12 h-12" />
+            <div className="min-w-0">
+              <h1 className="text-2xl font-bold text-black leading-tight truncate">{trip.community_name}</h1>
+              {trip.area && <p className="text-sm text-gray-400">{trip.area}</p>}
+            </div>
+          </div>
         </div>
 
         {/* Trip card */}

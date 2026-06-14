@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import AppNav from '@/components/AppNav'
-import HopeNationBadge from '@/components/HopeNationBadge'
+import CommunityLogo from '@/components/CommunityLogo'
 import {
   getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, withdrawRequest, formatTripDate, isPast,
   type MyTripRow, type JoinedTripRow,
@@ -108,7 +108,7 @@ export default function MyTripsPage() {
                       <div key={trip.id} className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden animate-fade-up" style={{ animationDelay: `${i * 70}ms` }}>
                         <div className="px-4 pt-4 pb-3 flex items-center justify-between gap-3">
                           <div className="flex items-center gap-3 min-w-0">
-                            <HopeNationBadge className="w-12 h-12" />
+                            <CommunityLogo src={trip.community_logo} name={trip.community_name} className="w-12 h-12" />
                             <div className="min-w-0">
                               <p className="text-base font-bold text-black leading-snug truncate">{trip.community_name}</p>
                               {trip.area && <p className="text-sm text-gray-400">{trip.area}</p>}

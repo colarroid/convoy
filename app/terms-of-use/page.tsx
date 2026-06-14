@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Terms of Use — Convoy',
-  description: 'The terms governing your access to and use of Convoy, a community carpooling coordination service.',
+  description: 'The terms governing your access to and use of Convoy, a community carpooling coordination service operating in Nigeria and Canada.',
 }
 
 type Block =
@@ -23,7 +23,7 @@ const SECTIONS: Section[] = [
     n: 1,
     title: 'Introduction and acceptance',
     blocks: [
-      { type: 'p', text: 'Welcome to Convoy (the “Platform”), a community carpooling coordination service operated by Convoy (“we”, “us”, or “our”), a company registered (or to be registered) in Nigeria.' },
+      { type: 'p', text: 'Welcome to Convoy (the “Platform”), a community carpooling coordination service operated by Convoy (“we”, “us”, or “our”). Convoy operates in Nigeria and Canada, and these Terms apply to all users in both countries.' },
       { type: 'p', text: 'These Terms of Use (“Terms”) govern your access to and use of the Platform, including our website and any associated web application. By creating an account, entering a community code, or otherwise using the Platform, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree, you must not use the Platform.' },
       { type: 'p', text: 'The Platform is currently offered as a pilot (MVP) and is provided on an “as is” and “as available” basis. Features may change, be limited, or be withdrawn during this period.' },
     ],
@@ -33,16 +33,15 @@ const SECTIONS: Section[] = [
     title: 'Definitions',
     blocks: [
       { type: 'list', items: [
-        '“Platform” — the website and web application through which members of a Community coordinate shared trips.',
-        '“Member” / “you” — a person who has registered an account and joined a Community.',
-        '“Community” — a closed group (for example, a church or organisation) created by an Admin and identified by a unique Community Code.',
-        '“Community Code” — the unique code that grants access to a specific Community.',
-        '“Admin” — a person authorised by a Community to create and manage that Community on the Platform.',
-        '“Host” — a Member who offers a trip and may carry other Members.',
-        '“Rider” — a Member who requests to join a Host’s trip.',
-        '“Trip” — a journey to a shared destination posted by a Host.',
+        '“Platform” — the Convoy website and web application through which Users coordinate shared trips within communities they have access to.',
+        '“User” / “you” — a person who has registered a Convoy account.',
+        '“Community” — a closed group (for example, a church or organisation) identified by a unique Community Code. Communities are created and managed outside the Platform, on a separate administrative system; the Platform reads communities and validates codes but does not create them.',
+        '“Community Code” — a code that grants access to a specific Community. Holding a valid code is an access pass, not fixed membership: a User may hold access to more than one Community by entering more than one code.',
+        '“Host” — a User who offers a trip and may carry other Users.',
+        '“Rider” — a User who requests to join a Host’s trip.',
+        '“Trip” — a journey to a shared destination posted by a Host within a Community.',
       ] },
-      { type: 'p', text: 'A Member may act as both a Host and a Rider at different times.' },
+      { type: 'p', text: 'There are no fixed account roles. The same User may act as a Host on one trip and a Rider on another; “Host” and “Rider” describe a User’s role on a particular trip, not a type of account.' },
     ],
   },
   {
@@ -51,8 +50,8 @@ const SECTIONS: Section[] = [
     blocks: [
       { type: 'p', text: 'To use the Platform you must:' },
       { type: 'list', items: [
-        'be at least 18 years of age;',
-        'be a genuine member of a Community and hold a valid Community Code issued by that Community;',
+        'be at least 18 years of age, or the age of majority in your province or jurisdiction if it is higher;',
+        'hold a valid Community Code granting access to at least one Community;',
         'provide accurate, current, and complete information when registering; and',
         'have the legal capacity to enter into these Terms.',
       ] },
@@ -63,33 +62,33 @@ const SECTIONS: Section[] = [
     n: 4,
     title: 'Nature of the service — important',
     blocks: [
-      { type: 'callout', text: 'The Platform is a coordination tool, not a transport provider. We do not provide transportation services, operate vehicles, employ or engage drivers, or act as a taxi, ride-hailing, or e-hailing operator. Our sole role is to provide technology that enables Members of the same Community to find one another and arrange shared trips voluntarily.' },
-      { type: 'p', text: 'Rides are free. The Platform does not charge Riders for rides, does not process payments for rides, and does not take any commission, fare, or fee on any trip. Trips arranged through the Platform are a non-commercial, community lift-sharing arrangement between Members. Hosts must not demand or charge a fare as a condition of a ride.' },
-      { type: 'p', text: 'We do not guarantee that any Trip will be available, that any request will be accepted, that any Host or Rider will arrive, or that any Trip will take place as arranged. All arrangements are made between Members at their own discretion and risk.' },
+      { type: 'callout', text: 'The Platform is a coordination tool, not a transport provider. We do not provide transportation services, operate vehicles, employ or engage drivers, or act as a taxi, ride-hailing, or e-hailing operator. Our sole role is to provide technology that enables Users of the same Community to find one another and arrange shared trips voluntarily.' },
+      { type: 'p', text: 'Rides are free. The Platform does not charge Riders for rides, does not process payments for rides, and does not take any commission, fare, or fee on any trip. Trips arranged through the Platform are a non-commercial, community lift-sharing arrangement between Users. Hosts must not demand or charge a fare as a condition of a ride.' },
+      { type: 'p', text: 'We do not guarantee that any Trip will be available, that any request will be accepted, that any Host or Rider will arrive, or that any Trip will take place as arranged. All arrangements are made between Users at their own discretion and risk.' },
     ],
   },
   {
     n: 5,
     title: 'Accounts and community codes',
     blocks: [
-      { type: 'p', text: 'You are responsible for maintaining the confidentiality of your account and your Community Code. You agree:' },
+      { type: 'p', text: 'You are responsible for maintaining the confidentiality of your account and any Community Code you hold. A Community Code grants access to a Community, and you may hold access to more than one Community. You agree:' },
       { type: 'list', items: [
-        'not to share your Community Code with anyone who is not a genuine member of your Community;',
+        'not to share a Community Code with anyone who is not a genuine member of that Community;',
         'not to use a Community Code you are not authorised to use;',
-        'to notify us promptly of any unauthorised use of your account or Code; and',
+        'to notify us promptly of any unauthorised use of your account or a Code; and',
         'that you are responsible for all activity carried out under your account.',
       ] },
-      { type: 'p', text: 'Community Codes are the means by which Communities remain closed and trusted. Misuse of a Code — including distributing it outside the Community — may result in suspension of your account and may compromise the safety of other Members.' },
+      { type: 'p', text: 'Community Codes are the means by which Communities remain closed and trusted. Misuse of a Code — including distributing it outside the Community — may result in suspension of your account and may compromise the safety of other Users.' },
     ],
   },
   {
     n: 6,
-    title: 'Member conduct',
+    title: 'User conduct',
     blocks: [
       { type: 'p', text: 'When using the Platform you agree to:' },
       { type: 'list', items: [
         'provide truthful and accurate information about yourself, your vehicle, your trip, and your location;',
-        'treat other Members with respect and behave lawfully and safely at all times;',
+        'treat other Users with respect and behave lawfully and safely at all times;',
         'use the Platform only for genuine, non-commercial trip coordination within your Community;',
         'honour arrangements you make, and communicate promptly if you cannot;',
         'not use the Platform to harass, endanger, defraud, or harm any other person;',
@@ -130,14 +129,14 @@ const SECTIONS: Section[] = [
     n: 9,
     title: 'Trips, requests, and cancellations',
     blocks: [
-      { type: 'p', text: 'Hosts post Trips and may approve or decline requests at their discretion. Available seats are limited and may be filled by other Riders. The Platform does not guarantee a match, a seat, or a completed journey. Either party may cancel an arrangement; we encourage Members to communicate cancellations promptly and courteously, but we are not responsible for cancellations, no-shows, or delays.' },
+      { type: 'p', text: 'Hosts post Trips and may approve or decline requests at their discretion. Available seats are limited and may be filled by other Riders. The Platform does not guarantee a match, a seat, or a completed journey. Either party may cancel an arrangement; we encourage Users to communicate cancellations promptly and courteously, but we are not responsible for cancellations, no-shows, or delays.' },
     ],
   },
   {
     n: 10,
     title: 'Safety and assumption of risk',
     blocks: [
-      { type: 'callout', text: 'You use the Platform and participate in Trips at your own risk. We do not supervise, accompany, or control any Trip. We do not verify the identity, character, driving ability, vehicle condition, or insurance status of any Member. Information shown on the Platform — including a Member’s name, photo, or number of completed rides — is generated by Members and the system for convenience only and is not a verification, endorsement, or guarantee of any person’s reliability or safety.' },
+      { type: 'callout', text: 'You use the Platform and participate in Trips at your own risk. We do not supervise, accompany, or control any Trip. We do not verify the identity, character, driving ability, vehicle condition, or insurance status of any User. Information shown on the Platform — including a User’s name, photo, or number of completed rides — is generated by Users and the system for convenience only and is not a verification, endorsement, or guarantee of any person’s reliability or safety.' },
       { type: 'p', text: 'You are responsible for taking sensible precautions, exercising your own judgement, and complying with the law. If you experience or witness unsafe or inappropriate behaviour, you should use the Platform’s reporting tools and, where appropriate, contact the relevant authorities.' },
     ],
   },
@@ -145,14 +144,14 @@ const SECTIONS: Section[] = [
     n: 11,
     title: 'No vetting or endorsement',
     blocks: [
-      { type: 'p', text: 'We do not conduct background checks, identity verification beyond Community membership, driving-record checks, or vehicle inspections. Membership of a Community indicates that a Member holds a valid Community Code; it is not a warranty of trustworthiness. Any reliance you place on another Member is at your own risk.' },
+      { type: 'p', text: 'We do not conduct background checks, identity verification beyond validating a Community Code, driving-record checks, or vehicle inspections. Holding a valid Community Code indicates only that a User has access to a Community; it is not a warranty of trustworthiness. Any reliance you place on another User is at your own risk.' },
     ],
   },
   {
     n: 12,
     title: 'Privacy and data protection',
     blocks: [
-      { type: 'p', text: 'We collect and process personal data, including your name, contact details, and location information, in order to operate the Platform. Our handling of personal data is described in our Privacy Policy, which forms part of these Terms and is intended to comply with the Nigeria Data Protection Act, 2023. By using the Platform you consent to the collection and processing of your data as described in that policy.' },
+      { type: 'p', text: 'We collect and process personal data, including your name, contact details, and location information, in order to operate the Platform. Our handling of personal data is described in our Privacy Policy, which forms part of these Terms and is intended to comply with the Nigeria Data Protection Act, 2023 (for users in Nigeria) and Canada’s PIPEDA and applicable provincial privacy laws (for users in Canada). By using the Platform you consent to the collection and processing of your data as described in that policy.' },
     ],
   },
   {
@@ -182,9 +181,9 @@ const SECTIONS: Section[] = [
     blocks: [
       { type: 'p', text: 'To the fullest extent permitted by law, Convoy, its directors, employees, and agents will not be liable for any loss, injury, death, damage, or claim arising out of or in connection with:' },
       { type: 'list', items: [
-        'any Trip, including the conduct of any Host or Rider, any accident, or any act or omission of any Member;',
+        'any Trip, including the conduct of any Host or Rider, any accident, or any act or omission of any User;',
         'any failure to obtain a match, a seat, or a completed journey;',
-        'any reliance on information provided by a Member or displayed on the Platform; or',
+        'any reliance on information provided by a User or displayed on the Platform; or',
         'any interruption, error, or unavailability of the Platform.',
       ] },
       { type: 'p', text: 'Nothing in these Terms excludes or limits liability that cannot lawfully be excluded or limited.' },
@@ -201,21 +200,26 @@ const SECTIONS: Section[] = [
     n: 18,
     title: 'Suspension and termination',
     blocks: [
-      { type: 'p', text: 'We may suspend or terminate your access to the Platform, or remove you from a Community, at any time and without notice, including where we believe you have breached these Terms, misused a Community Code, or posed a risk to other Members. You may stop using the Platform and close your account at any time.' },
+      { type: 'p', text: 'We may suspend or terminate your access to the Platform, or remove you from a Community, at any time and without notice, including where we believe you have breached these Terms, misused a Community Code, or posed a risk to other Users. You may stop using the Platform and close your account at any time.' },
     ],
   },
   {
     n: 19,
     title: 'Changes to these terms',
     blocks: [
-      { type: 'p', text: 'We may update these Terms from time to time. Where changes are material, we will take reasonable steps to notify Members. Your continued use of the Platform after changes take effect constitutes acceptance of the revised Terms.' },
+      { type: 'p', text: 'We may update these Terms from time to time. Where changes are material, we will take reasonable steps to notify Users. Your continued use of the Platform after changes take effect constitutes acceptance of the revised Terms.' },
     ],
   },
   {
     n: 20,
     title: 'Governing law and disputes',
     blocks: [
-      { type: 'p', text: 'These Terms are governed by the laws of the Federal Republic of Nigeria. Any dispute arising from these Terms or your use of the Platform shall be subject to the jurisdiction of the courts of Lagos State. The parties agree to attempt to resolve disputes amicably before commencing any legal proceedings.' },
+      { type: 'p', text: 'The law that governs these Terms, and the place where disputes are resolved, depend on where you are located:' },
+      { type: 'list', items: [
+        'If you are in Nigeria, these Terms are governed by the laws of the Federal Republic of Nigeria, and disputes are subject to the jurisdiction of the courts of Lagos State.',
+        'If you are in Canada, these Terms are governed by the laws of the province or territory in which you reside and the federal laws of Canada applicable there, and disputes are subject to the jurisdiction of the courts of that province or territory.',
+      ] },
+      { type: 'p', text: 'In each case, the parties agree to attempt to resolve disputes amicably before commencing any legal proceedings. Nothing in this section deprives you of the protection of mandatory consumer-protection laws that apply where you live.' },
     ],
   },
   {

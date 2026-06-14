@@ -4,6 +4,7 @@ import { useRouter, useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import FindFlowShell from '@/components/FindFlowShell'
 import { getFindDraft } from '@/lib/findStore'
+import { useSuspended } from '@/lib/useSuspended'
 import { getCommunityTrips, requestToJoin, withdrawRequest, formatTripDate, ridesLabel, type RideRow } from '@/lib/trips'
 import ReportModal from '@/components/ReportModal'
 
@@ -18,6 +19,7 @@ export default function RideDetailPage() {
   const [requesting, setRequesting] = useState(false)
   const [error, setError] = useState('')
   const [showReport, setShowReport] = useState(false)
+  const { suspended } = useSuspended()
 
   useEffect(() => {
     if (!draft.communityCode) { setLoading(false); return }
@@ -100,6 +102,13 @@ export default function RideDetailPage() {
               >
                 {requesting ? 'Cancelling…' : 'Cancel request'}
               </button>
+            ) : suspended ? (
+              <span
+                className="flex-[2] py-3.5 rounded-xl text-sm font-medium bg-gray-100 text-gray-400 text-center cursor-not-allowed"
+                title="Your account is suspended"
+              >
+                Account suspended
+              </span>
             ) : (
               <button
                 onClick={handleRequest}

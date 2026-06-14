@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Convoy',
-  description: 'How Convoy collects, uses, shares, and protects your personal data, in line with the Nigeria Data Protection Act, 2023.',
+  description: 'How Convoy collects, uses, shares, and protects your personal data across Nigeria (NDPA) and Canada (PIPEDA and applicable provincial laws).',
 }
 
 type Block =
@@ -24,16 +24,20 @@ const SECTIONS: Section[] = [
     n: 1,
     title: 'Introduction',
     blocks: [
-      { type: 'p', text: 'This Privacy Policy explains how Convoy (“we”, “us”, or “our”) collects, uses, shares, and protects your personal data when you use Convoy (the “Platform”), a community carpooling coordination service.' },
-      { type: 'p', text: 'We are the data controller responsible for your personal data. We are committed to handling it in accordance with the Nigeria Data Protection Act, 2023 and the directions of the Nigeria Data Protection Commission (the “NDPC”). This Policy forms part of our Terms of Use.' },
-      { type: 'p', text: 'By using the Platform, you acknowledge the practices described in this Policy. Where we rely on your consent, you may withdraw it at any time as described below.' },
+      { type: 'p', text: 'This Privacy Policy explains how Convoy (“we”, “us”, or “our”) collects, uses, shares, and protects your personal data when you use Convoy (the “Platform”), a community carpooling coordination service. Convoy operates in Nigeria and Canada, and this Policy applies to users in both countries.' },
+      { type: 'p', text: 'We are the data controller (in Canada, the organisation responsible for personal information) and we handle your personal data in accordance with the privacy laws that apply to you:' },
+      { type: 'list', items: [
+        'Nigeria — the Nigeria Data Protection Act, 2023 (the “NDPA”), overseen by the Nigeria Data Protection Commission (the “NDPC”).',
+        'Canada — the Personal Information Protection and Electronic Documents Act (“PIPEDA”) and any applicable provincial privacy laws (including Quebec’s Law 25), overseen by the Office of the Privacy Commissioner of Canada (the “OPC”) and provincial regulators. (Canadian federal privacy law is undergoing reform; we will update this Policy as the law changes.)',
+      ] },
+      { type: 'p', text: 'This Policy forms part of our Terms of Use. By using the Platform, you acknowledge the practices described in this Policy. Where we rely on your consent, you may withdraw it at any time as described below.' },
     ],
   },
   {
     n: 2,
     title: 'Information we collect',
     blocks: [
-      { type: 'def', label: 'Account and profile data.', text: 'Your name, email address, phone number, password, profile photo, and the Community you belong to (identified by your Community Code).' },
+      { type: 'def', label: 'Account and profile data.', text: 'Your name, email address, phone number, password, profile photo, and the communities you have access to (each entered via a Community Code; you may hold more than one).' },
       { type: 'def', label: 'Location data.', text: 'The starting location you provide, pickup or meeting points you set, and any saved locations. Location data is central to matching you with relevant trips, and we treat it with particular care (see Section 6).' },
       { type: 'def', label: 'Trip data.', text: 'Trips you post as a Host or join as a Rider, including dates, times, pickup points, seats, your record of completed rides, and requests you send or receive.' },
       { type: 'def', label: 'Vehicle data (Hosts).', text: 'Where you offer a trip, the vehicle type, model, and colour you provide so Riders can identify the ride.' },
@@ -48,9 +52,9 @@ const SECTIONS: Section[] = [
     blocks: [
       { type: 'p', text: 'We use your personal data to:' },
       { type: 'list', items: [
-        'create and manage your account and verify your Community membership;',
+        'create and manage your account and validate the Community Codes you enter (communities themselves are created and managed on a separate administrative system; the Platform only reads them and checks codes);',
         'match Hosts and Riders by showing trips relevant to your location and destination;',
-        'enable Members to coordinate trips, including sharing the limited information necessary for a Host and a matched Rider to find one another;',
+        'enable Users to coordinate trips, including sharing the limited information necessary for a Host and a matched Rider to find one another;',
         'send service communications such as requests, approvals, confirmations, and reminders;',
         'maintain safety, investigate reports, and prevent misuse or fraud;',
         'recognise returning devices to personalise your experience;',
@@ -63,10 +67,10 @@ const SECTIONS: Section[] = [
     n: 4,
     title: 'Lawful bases for processing',
     blocks: [
-      { type: 'p', text: 'We process your personal data on the following bases under the NDPA:' },
+      { type: 'p', text: 'We process your personal data on the bases permitted by the laws that apply to you. Under the NDPA these are set out below; Canadian law (PIPEDA and applicable provincial law) is built primarily around knowledge and consent for the collection, use, and disclosure of personal information, supported by the requirement that purposes be ones a reasonable person would consider appropriate. The bases we rely on are:' },
       { type: 'list', items: [
         'Performance of a service — to provide the matching and coordination functions you request.',
-        'Consent — for example, for non-essential cookies or optional features; you may withdraw consent at any time.',
+        'Consent — for example, for non-essential cookies, location data, or optional features; you may withdraw consent at any time. In Canada, consent is our primary basis, and for sensitive information (such as precise location) we seek clear, express consent.',
         'Legitimate interests — to keep the Platform safe, prevent abuse, and improve the service, balanced against your rights.',
         'Legal obligation — where we are required to process or disclose data by law.',
       ] },
@@ -76,8 +80,8 @@ const SECTIONS: Section[] = [
     n: 5,
     title: 'How we share your information',
     blocks: [
-      { type: 'def', label: 'With other Members.', text: 'When you and another Member are matched, we share the information necessary to make the trip work — for example, a Host’s name, photo, vehicle details, pickup point, and completed-rides count are shown to a matched Rider, and a Rider’s name, completed-rides count, and pickup point are shown to the Host. Only share information through the Platform that you are comfortable other Members seeing.' },
-      { type: 'def', label: 'With Community Admins.', text: 'Admins may see demand information about their Community in aggregate and at an area level (for example, how many Members in a given area need rides) to support transport planning. We do not provide Admins with individual location tracking of Members.' },
+      { type: 'def', label: 'With other Users.', text: 'When you and another User are matched, we share the information necessary to make the trip work — for example, a Host’s name, photo, vehicle details, pickup point, and completed-rides count are shown to a matched Rider, and a Rider’s name, completed-rides count, and pickup point are shown to the Host. Only share information through the Platform that you are comfortable other Users seeing.' },
+      { type: 'def', label: 'With Community Admins.', text: 'Admins may see demand information about their Community in aggregate and at an area level (for example, how many Users in a given area need rides) to support transport planning. We do not provide Admins with individual location tracking of Users.' },
       { type: 'def', label: 'With service providers.', text: 'We use trusted third parties to host the Platform, deliver notifications, and provide mapping. These providers process data only on our instructions and under appropriate safeguards.' },
       { type: 'def', label: 'For legal reasons.', text: 'We may disclose data where required by law, regulation, legal process, or to protect the rights, safety, or property of any person.' },
       { type: 'callout', text: 'We do not sell your personal data, and we do not share it with advertisers.' },
@@ -90,7 +94,7 @@ const SECTIONS: Section[] = [
       { type: 'p', text: 'Because location is sensitive, we limit how it is used and shared:' },
       { type: 'list', items: [
         'We use your location to match you with relevant trips and to enable a pickup.',
-        'Members see pickup and meeting points, not your home address. A Host’s starting location is not exposed to Riders.',
+        'Users see pickup and meeting points, not your home address. A Host’s starting location is not exposed to Riders.',
         'Admins receive only aggregated, area-level demand data, never precise individual location histories.',
       ] },
       { type: 'p', text: 'You can choose how much location detail you provide, though limiting it may reduce the quality of matches.' },
@@ -121,7 +125,7 @@ const SECTIONS: Section[] = [
     n: 10,
     title: 'Your rights',
     blocks: [
-      { type: 'p', text: 'Under the NDPA, you have the right to:' },
+      { type: 'p', text: 'Whether you are in Nigeria or Canada, you have substantially similar rights over your personal data. You have the right to:' },
       { type: 'list', items: [
         'access the personal data we hold about you;',
         'request correction of inaccurate or incomplete data;',
@@ -129,9 +133,9 @@ const SECTIONS: Section[] = [
         'object to or request restriction of certain processing;',
         'request portability of data you have provided;',
         'withdraw consent where processing is based on consent; and',
-        'lodge a complaint with the Nigeria Data Protection Commission.',
+        'lodge a complaint with the relevant regulator — the Nigeria Data Protection Commission (NDPC) if you are in Nigeria, or the Office of the Privacy Commissioner of Canada (OPC) (or your provincial privacy regulator) if you are in Canada.',
       ] },
-      { type: 'p', text: 'To exercise any of these rights, contact us at privacy@convoy.app. We will respond within the period required by law. You will not have to pay a fee in most cases.' },
+      { type: 'p', text: 'To exercise any of these rights, contact us at privacy@convoy.app. We will respond within the period required by the law that applies to you. You will not have to pay a fee in most cases.' },
     ],
   },
   {
@@ -145,7 +149,7 @@ const SECTIONS: Section[] = [
     n: 12,
     title: 'Cross-border transfers',
     blocks: [
-      { type: 'p', text: 'Where we use service providers located outside Nigeria, we take steps to ensure your data is protected to a standard consistent with the NDPA before any transfer takes place.' },
+      { type: 'p', text: 'Because Convoy operates in both Nigeria and Canada and uses service providers that may be located in other countries, your personal data may be transferred across borders — including between Nigeria and Canada, and to providers elsewhere. Where this happens, we take steps to ensure your data receives protection consistent with the NDPA (for Nigerian users) and PIPEDA and applicable provincial law (for Canadian users) before any transfer takes place, including appropriate contractual safeguards with the parties receiving the data. By using the Platform you understand that your data may be processed outside your country of residence.' },
     ],
   },
   {
@@ -160,7 +164,7 @@ const SECTIONS: Section[] = [
     title: 'Contact us',
     blocks: [
       { type: 'p', text: 'For questions about this Policy or to exercise your rights, contact us at privacy@convoy.app.' },
-      { type: 'p', text: 'You may also contact the Nigeria Data Protection Commission if you have concerns about how your data is handled.' },
+      { type: 'p', text: 'You may also contact the relevant privacy regulator if you have concerns about how your data is handled — the Nigeria Data Protection Commission (NDPC) in Nigeria, or the Office of the Privacy Commissioner of Canada (OPC) or your provincial privacy regulator in Canada.' },
     ],
   },
 ]

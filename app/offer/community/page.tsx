@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import OfferFlowShell from '@/components/OfferFlowShell'
+import CommunityLogo from '@/components/CommunityLogo'
 import { getCommunityByCode } from '@/lib/trips'
 import { saveDraft } from '@/lib/offerStore'
 
@@ -12,7 +13,7 @@ interface Community {
   name: string
   address: string | null
   area: string | null
-  banner_color: string | null
+  logo_url: string | null
 }
 
 export default function OfferCommunityPage() {
@@ -97,14 +98,10 @@ export default function OfferCommunityPage() {
       {noMatch && <p className="text-xs text-red-500 mt-2 px-1">Code not recognised. Check with your community admin.</p>}
 
       {match && (
-        <div className="mt-5 rounded-2xl border border-gray-200 overflow-hidden shadow-sm animate-fade-up">
-          <div className="h-36 flex flex-col items-center justify-center" style={{ backgroundColor: match.banner_color ?? '#111111' }}>
-            <p className="text-white text-xs font-semibold tracking-[0.2em] opacity-70">HOPE</p>
-            <p className="text-2xl font-black tracking-tight" style={{ color: '#c0392b' }}>NATION</p>
-            <div className="h-0.5 w-12 mt-1" style={{ backgroundColor: '#c0392b' }} />
-          </div>
-          <div className="px-4 py-4 bg-white">
-            <p className="font-bold text-black">{match.name}</p>
+        <div className="mt-5 rounded-2xl border border-gray-200 bg-white p-4 flex items-center gap-4 shadow-sm animate-fade-up">
+          <CommunityLogo src={match.logo_url} name={match.name} className="w-16 h-16" />
+          <div className="min-w-0">
+            <p className="font-bold text-black leading-snug">{match.name}</p>
             {match.address && (
               <p className="text-xs text-gray-500 mt-1 flex items-start gap-1.5">
                 <svg className="w-3.5 h-3.5 text-gray-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

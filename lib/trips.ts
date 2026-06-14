@@ -75,7 +75,11 @@ export async function createTrip(draft: OfferDraft): Promise<string> {
     .select('id')
     .single()
 
-  if (error) throw error
+  if (error) {
+    // RLS blocks suspended members from inserting a trip (see migration 0016).
+    if (error.code === '42501') throw new Error('Your account is suspended. Please contact your community admin.')
+    throw error
+  }
   return data.id as string
 }
 
@@ -85,6 +89,7 @@ export interface MyTripRow {
   id: string
   community_name: string
   area: string | null
+  community_logo: string | null
   depart_date: string   // YYYY-MM-DD
   depart_time: string
   departs_at: string | null
@@ -106,6 +111,7 @@ export interface JoinedTripRow {
   host_phone: string | null
   community_name: string
   area: string | null
+  community_logo: string | null
   depart_date: string
   depart_time: string
   departs_at: string | null
@@ -188,6 +194,7 @@ export interface RideRow {
   host_rides: number
   community_name: string
   area: string | null
+  community_logo: string | null
   depart_date: string
   depart_time: string
   pickup_point: string

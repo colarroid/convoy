@@ -16,8 +16,10 @@ export default function PhoneField({
   localPhone,
   onCountryChange,
   onLocalChange,
-  placeholder = '8012345678',
+  placeholder,
 }: PhoneFieldProps) {
+  // Default the example number to the selected country (e.g. CA → 4161234567).
+  placeholder = placeholder ?? country.example
   const [open, setOpen] = useState(false)
 
   return (

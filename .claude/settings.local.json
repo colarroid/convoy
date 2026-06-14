@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Bash(npm install *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(cd \"C:\\\\Users\\\\HP\\\\Desktop\\\\convoy-admin\" && npm install 2>&1 | tail -n 8)",
+      "Bash(npx next *)",
+      "Bash(npx --prefix \"C:/Users/HP/Desktop/convoy-admin\" tsc -p \"C:/Users/HP/Desktop/convoy-admin/tsconfig.json\" --noEmit)",
+      "Bash(rm \"C:/Users/HP/Desktop/convoy-admin/components/AddressField.tsx\"; npx --prefix \"C:/Users/HP/Desktop/convoy-admin\" tsc -p \"C:/Users/HP/Desktop/convoy-admin/tsconfig.json\" --noEmit 2>&1 | head -30)",
+      "Bash(npx --prefix \"C:/Users/HP/Desktop/convoy\" tsc -p \"C:/Users/HP/Desktop/convoy/tsconfig.json\" --noEmit)"
     ]
   }
 }

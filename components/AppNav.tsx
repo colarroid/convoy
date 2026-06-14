@@ -7,6 +7,7 @@ import { getUser, getInitials, getDisplayName } from '@/lib/userStore'
 import { signOut } from '@/lib/auth'
 import { getUnreadCount } from '@/lib/notifications'
 import { supabase } from '@/lib/supabase'
+import SuspendedBanner from '@/components/SuspendedBanner'
 
 const LINKS = [
   { href: '/',         label: 'Home' },
@@ -80,6 +81,8 @@ export default function AppNav() {
   )
 
   return (
+    <>
+    <SuspendedBanner />
     <header className="sticky top-0 z-50 bg-black">
       <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between h-14 md:h-16">
 
@@ -204,5 +207,6 @@ export default function AppNav() {
         </>
       )}
     </header>
+    </>
   )
 }

@@ -14,11 +14,13 @@ function getGreeting() {
 interface MobileHeroProps {
   offerHref?: string
   findHref?: string
+  offerDisabled?: boolean
 }
 
 export default function MobileHero({
   offerHref = '/login?next=/offer/community',
   findHref = '/login?next=/find/community',
+  offerDisabled = false,
 }: MobileHeroProps) {
   const greeting = getGreeting()
 
@@ -53,12 +55,18 @@ export default function MobileHero({
             <p className="text-sm text-gray-500 leading-relaxed mb-4">
               Share your departure time and bring others from church along your route.
             </p>
-            <Link
-              href={offerHref}
-              className="inline-flex items-center px-5 py-2.5 bg-black text-white rounded-xl text-sm font-medium hover:bg-gray-800 active:scale-[0.97] transition-all"
-            >
-              Get started
-            </Link>
+            {offerDisabled ? (
+              <span className="inline-flex items-center px-5 py-2.5 bg-gray-100 text-gray-400 rounded-xl text-sm font-medium cursor-not-allowed">
+                Suspended
+              </span>
+            ) : (
+              <Link
+                href={offerHref}
+                className="inline-flex items-center px-5 py-2.5 bg-black text-white rounded-xl text-sm font-medium hover:bg-gray-800 active:scale-[0.97] transition-all"
+              >
+                Get started
+              </Link>
+            )}
           </div>
         </div>
 
