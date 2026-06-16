@@ -10,7 +10,8 @@
       "Bash(npx --prefix \"C:/Users/HP/Desktop/convoy\" tsc -p \"C:/Users/HP/Desktop/convoy/tsconfig.json\" --noEmit)",
       "Bash(git add *)",
       "Bash(git commit -q -m 'Add Google sign-in flow and broadcast-targeting migration *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git commit -q -m 'Add security-hardening migrations \\(0018-0020\\) *)"
     ]
   }
 }
