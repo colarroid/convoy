@@ -35,7 +35,7 @@ const SECTIONS: Section[] = [
       { type: 'list', items: [
         '“Platform” — the Convoy website and web application through which Users coordinate shared trips within communities they have access to.',
         '“User” / “you” — a person who has registered a Convoy account.',
-        '“Community” — a closed group (for example, a church or organisation) identified by a unique Community Code. Communities are created and managed outside the Platform, on a separate administrative system; the Platform reads communities and validates codes but does not create them.',
+        '“Community” — a closed group (for example, an organisation, club, workplace, or neighbourhood) identified by a unique Community Code. Communities are created and managed outside the Platform, on a separate administrative system; the Platform reads communities and validates codes but does not create them.',
         '“Community Code” — a code that grants access to a specific Community. Holding a valid code is an access pass, not fixed membership: a User may hold access to more than one Community by entering more than one code.',
         '“Host” — a User who offers a trip and may carry other Users.',
         '“Rider” — a User who requests to join a Host’s trip.',
