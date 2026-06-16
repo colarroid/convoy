@@ -7,7 +7,10 @@
       "Bash(npx next *)",
       "Bash(npx --prefix \"C:/Users/HP/Desktop/convoy-admin\" tsc -p \"C:/Users/HP/Desktop/convoy-admin/tsconfig.json\" --noEmit)",
       "Bash(rm \"C:/Users/HP/Desktop/convoy-admin/components/AddressField.tsx\"; npx --prefix \"C:/Users/HP/Desktop/convoy-admin\" tsc -p \"C:/Users/HP/Desktop/convoy-admin/tsconfig.json\" --noEmit 2>&1 | head -30)",
-      "Bash(npx --prefix \"C:/Users/HP/Desktop/convoy\" tsc -p \"C:/Users/HP/Desktop/convoy/tsconfig.json\" --noEmit)"
+      "Bash(npx --prefix \"C:/Users/HP/Desktop/convoy\" tsc -p \"C:/Users/HP/Desktop/convoy/tsconfig.json\" --noEmit)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'Add Google sign-in flow and broadcast-targeting migration *)",
+      "Bash(git push *)"
     ]
   }
 }

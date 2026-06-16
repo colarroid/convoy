@@ -33,6 +33,19 @@ export async function syncProfileToCache() {
   return profile
 }
 
+/**
+ * Start Google OAuth. Google returns the user to /onboarding/google, which
+ * completes their profile (phone + selfie) if needed, or sends them home.
+ */
+export async function signInWithGoogle() {
+  const redirectTo = `${window.location.origin}/onboarding/google`
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo },
+  })
+  if (error) throw error
+}
+
 export async function signOut() {
   const { unlinkOneSignal } = await import('./onesignalClient')
   unlinkOneSignal()
