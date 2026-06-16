@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import CommunitySwitcher from '@/components/CommunitySwitcher'
 
 function getGreeting() {
   const hour = new Date().getHours()
@@ -36,6 +37,9 @@ export default function MobileHero({
           Get there, together.
         </h1>
       </div>
+
+      {/* Returning users: held communities (renders nothing if none / logged out) */}
+      <CommunitySwitcher />
 
       {/* Intent cards */}
       <div className="flex flex-col gap-4">

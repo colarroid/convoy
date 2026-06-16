@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import OfferFlowShell from '@/components/OfferFlowShell'
 import CommunityLogo from '@/components/CommunityLogo'
 import { getCommunityByCode } from '@/lib/trips'
+import { getMyCommunities, joinCommunityByCode, type HeldCommunity } from '@/lib/communities'
 import { saveDraft } from '@/lib/offerStore'
 
 interface Community {
@@ -22,6 +23,12 @@ export default function OfferCommunityPage() {
   const [match, setMatch] = useState<Community | null>(null)
   const [checking, setChecking] = useState(false)
   const [noMatch, setNoMatch] = useState(false)
+  const [held, setHeld] = useState<HeldCommunity[]>([])
+
+  // Communities the user already holds — pick instead of retyping the code.
+  useEffect(() => {
+    getMyCommunities().then(setHeld).catch(() => {})
+  }, [])
 
   useEffect(() => {
     const trimmed = code.trim()
@@ -44,10 +51,24 @@ export default function OfferCommunityPage() {
     return () => clearTimeout(t)
   }, [code])
 
-  const handleContinue = () => {
-    if (!match) return
-    saveDraft({ communityCode: match.code, communityName: match.name, communityAddress: match.address ?? undefined })
+  const goToOffer = (c: { code: string; name: string; address?: string | null }) => {
+    saveDraft({ communityCode: c.code, communityName: c.name, communityAddress: c.address ?? undefined })
     router.push('/offer/pickup')
+  }
+
+  const handleContinue = async () => {
+    if (!match) return
+    try { await joinCommunityByCode(match.code) } catch { /* remembering is best-effort */ }
+    goToOffer(match)
+  }
+
+  const selectHeld = async (c: HeldCommunity) => {
+    try {
+      const comm = await joinCommunityByCode(c.code)   // refresh membership + get full row
+      goToOffer(comm ?? { code: c.code, name: c.name })
+    } catch {
+      goToOffer({ code: c.code, name: c.name })
+    }
   }
 
   return (
@@ -66,6 +87,32 @@ export default function OfferCommunityPage() {
         </button>
       }
     >
+      {held.length > 0 && (
+        <div className="mb-5">
+          <p className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-2.5 px-1">Your communities</p>
+          <div className="flex flex-col gap-2">
+            {held.map(c => (
+              <button
+                key={c.community_id}
+                type="button"
+                onClick={() => selectHeld(c)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-2xl border border-gray-200 bg-white hover:border-black active:scale-[0.99] transition-all text-left"
+              >
+                <CommunityLogo src={c.logo_url} name={c.name} className="w-10 h-10" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-bold text-black truncate">{c.name}</p>
+                  {c.area && <p className="text-xs text-gray-400 truncate">{c.area}</p>}
+                </div>
+                <svg className="w-4 h-4 text-gray-300 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-gray-400 mt-3 px-1">Or enter a new code</p>
+        </div>
+      )}
+
       <div className={`flex items-center gap-3 px-4 py-3.5 rounded-full border-2 bg-white transition-all
         ${match ? 'border-black' : noMatch ? 'border-red-400' : 'border-gray-200 focus-within:border-black'}`}
       >
