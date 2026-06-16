@@ -24,6 +24,24 @@ Deno.serve(async (req: Request) => {
       return new Response('ignored', { status: 200 })
     }
 
+    // Respect the recipient's push preference. The in-app notification row still
+    // exists; we only skip the OneSignal push if they turned it off. Fail-open:
+    // if the lookup fails or has no row, we send (default is on).
+    const SB_URL = Deno.env.get('SUPABASE_URL')
+    const SB_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+    if (SB_URL && SB_KEY) {
+      try {
+        const sres = await fetch(
+          `${SB_URL}/rest/v1/user_settings?user_id=eq.${record.user_id}&select=push_notifications`,
+          { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } },
+        )
+        const rows = await sres.json()
+        if (Array.isArray(rows) && rows[0]?.push_notifications === false) {
+          return new Response('push disabled by user', { status: 200 })
+        }
+      } catch { /* fail-open: proceed to send */ }
+    }
+
     const res = await fetch('https://api.onesignal.com/notifications', {
       method: 'POST',
       headers: {

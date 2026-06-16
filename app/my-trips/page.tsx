@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import AppNav from '@/components/AppNav'
 import CommunityLogo from '@/components/CommunityLogo'
+import AddToCalendar from '@/components/AddToCalendar'
+import { tripStart } from '@/lib/calendar'
 import {
   getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, withdrawRequest, formatTripDate, isPast,
   type MyTripRow, type JoinedTripRow,
@@ -117,9 +119,18 @@ export default function MyTripsPage() {
                           <StatusBadge status={status} past={past} />
                         </div>
 
-                        <div className="px-4 py-3.5 border-t border-gray-100">
-                          <p className="text-xs text-gray-400 mb-0.5">Date &amp; time</p>
-                          <p className="text-sm font-bold text-black">{formatTripDate(trip.depart_date)} · {trip.depart_time}</p>
+                        <div className="px-4 py-3.5 border-t border-gray-100 flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-xs text-gray-400 mb-0.5">Date &amp; time</p>
+                            <p className="text-sm font-bold text-black">{formatTripDate(trip.depart_date)} · {trip.depart_time}</p>
+                          </div>
+                          {status === 'open' && !past && (() => {
+                            const start = tripStart(trip.departs_at, trip.depart_date, trip.depart_time)
+                            return start ? (
+                              <AddToCalendar uid={`${trip.id}@convoy`} title={`Ride to ${trip.community_name}`}
+                                location={trip.pickup_point} description={`You're driving. Pickup: ${trip.pickup_point}`} start={start} />
+                            ) : null
+                          })()}
                         </div>
                         <div className="px-4 py-3.5 border-t border-gray-100">
                           <p className="text-xs text-gray-400 mb-0.5">Pickup point</p>
@@ -185,9 +196,18 @@ export default function MyTripsPage() {
                           <StatusBadge status={trip.status} past={past} />
                         </div>
 
-                        <div className="px-4 py-3.5 border-t border-gray-100">
-                          <p className="text-xs text-gray-400 mb-0.5">Date &amp; time</p>
-                          <p className="text-sm font-bold text-black">{formatTripDate(trip.depart_date)} · {trip.depart_time}</p>
+                        <div className="px-4 py-3.5 border-t border-gray-100 flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-xs text-gray-400 mb-0.5">Date &amp; time</p>
+                            <p className="text-sm font-bold text-black">{formatTripDate(trip.depart_date)} · {trip.depart_time}</p>
+                          </div>
+                          {trip.status === 'open' && !past && (() => {
+                            const start = tripStart(trip.departs_at, trip.depart_date, trip.depart_time)
+                            return start ? (
+                              <AddToCalendar uid={`${trip.trip_id}@convoy`} title={`Ride to ${trip.community_name}`}
+                                location={trip.pickup_point} description={`Host: ${trip.host_name ?? 'Member'}. Pickup: ${trip.pickup_point}`} start={start} />
+                            ) : null
+                          })()}
                         </div>
                         <div className="px-4 py-3.5 border-t border-gray-100">
                           <p className="text-xs text-gray-400 mb-0.5">Pickup point</p>

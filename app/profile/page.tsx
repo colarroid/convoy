@@ -11,30 +11,7 @@ import { supabase } from '@/lib/supabase'
 import { uploadProfilePhoto } from '@/lib/cloudinary'
 import { signOut } from '@/lib/auth'
 import { getRideHistory, getRidesCompleted, formatTripDate, ridesLabel, type RideHistoryRow } from '@/lib/trips'
-
-const SETTINGS_KEY = 'convoy_settings'
-
-interface Settings {
-  pushNotifications: boolean
-  emailUpdates: boolean
-  rideReminders: boolean
-}
-
-const DEFAULT_SETTINGS: Settings = {
-  pushNotifications: true,
-  emailUpdates: true,
-  rideReminders: true,
-}
-
-function loadSettings(): Settings {
-  if (typeof window === 'undefined') return DEFAULT_SETTINGS
-  try {
-    const raw = localStorage.getItem(SETTINGS_KEY)
-    return raw ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) } : DEFAULT_SETTINGS
-  } catch {
-    return DEFAULT_SETTINGS
-  }
-}
+import { getMySettings, updateMySetting, DEFAULT_SETTINGS, type Settings } from '@/lib/settings'
 
 /* ── Toggle switch ── */
 function Toggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void }) {
@@ -189,7 +166,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const u = getUser()
     setUser(u)
-    setSettings(loadSettings())
+    getMySettings().then(setSettings).catch(() => {})
     if (u) seedForm(u)
 
     getRidesCompleted().then(setRidesCompleted).catch(() => {})
@@ -200,9 +177,9 @@ export default function ProfilePage() {
   }, [])
 
   const updateSetting = (key: keyof Settings, value: boolean) => {
-    const next = { ...settings, [key]: value }
-    setSettings(next)
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(next))
+    const prev = settings
+    setSettings({ ...settings, [key]: value })   // optimistic
+    updateMySetting(key, value).catch(() => setSettings(prev))   // revert on failure
   }
 
   const handlePhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
