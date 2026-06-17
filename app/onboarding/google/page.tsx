@@ -39,6 +39,7 @@ export default function GoogleOnboardingPage() {
       if (handled.current) return
       handled.current = true
       setUser(u)
+      await syncProfileToCache()   // populate the local cache from the session right away
 
       const { data: profile } = await supabase
         .from('profiles')
@@ -46,24 +47,24 @@ export default function GoogleOnboardingPage() {
         .eq('id', u.id)
         .maybeSingle()
 
-      // Returning, fully set-up user → straight in.
-      if (profile?.phone && profile?.photo_url) {
-        await syncProfileToCache()
-        router.replace('/')
+      const hasName = !!profile?.first_name?.trim()
+      const hasPhone = !!profile?.phone
+
+      // New or incomplete Google user → collect name (prefilled) + phone.
+      if (!hasName || !hasPhone) {
+        const g = googleName(u)
+        setFirstName(profile?.first_name || g.first)
+        setLastName(profile?.last_name || g.last)
+        setStage('form')
         return
       }
-      // Has phone but no selfie → finish the compulsory photo step.
-      if (profile?.phone && !profile?.photo_url) {
-        await syncProfileToCache()
+      // Profile complete but no selfie → compulsory photo step.
+      if (!profile?.photo_url) {
         router.replace('/onboarding/photo')
         return
       }
-
-      // New Google user → collect name (prefilled) + phone.
-      const g = googleName(u)
-      setFirstName(profile?.first_name || g.first)
-      setLastName(profile?.last_name || g.last)
-      setStage('form')
+      // Fully set up → straight in.
+      router.replace('/')
     }
 
     let done = false

@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { getUser, savePhoto } from '@/lib/userStore'
+import { getUser } from '@/lib/userStore'
 import { supabase } from '@/lib/supabase'
+import { syncProfileToCache } from '@/lib/auth'
 import { uploadProfilePhoto } from '@/lib/cloudinary'
 import Navbar from '@/components/Navbar'
 
@@ -176,12 +177,15 @@ export default function OnboardingPhotoPage() {
     try {
       // Upload the cropped selfie to Cloudinary and store the hosted URL.
       const url = await uploadProfilePhoto(cropped)
-      savePhoto(url)
 
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
         await supabase.from('profiles').update({ photo_url: url }).eq('id', user.id)
       }
+      // Refresh the local cache from the session (name/email/phone/photo + the
+      // onboarded flag) so the app recognises the user as signed in — important
+      // for Google sign-ups that never touched the email-signup cache path.
+      await syncProfileToCache()
       localStorage.setItem('convoy_onboarded', '1')
       router.push('/')
     } catch (e) {
