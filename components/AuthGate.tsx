@@ -30,13 +30,17 @@ export default function AuthGate() {
     let active = true
 
     const check = async () => {
+      // Onboarding routes (/onboarding/google, /onboarding/photo, …) run their
+      // own multi-step flow — never gate or redirect away from them.
+      const inOnboarding = pathname.startsWith('/onboarding')
+
       const { data: { session } } = await supabase.auth.getSession()
       if (!active) return
       const user = session?.user
 
       // ── Not signed in ──
       if (!user) {
-        if (!PUBLIC_ROUTES.has(pathname) && pathname !== ONBOARDING) {
+        if (!PUBLIC_ROUTES.has(pathname) && !inOnboarding) {
           router.replace('/login')
         }
         return
@@ -44,6 +48,8 @@ export default function AuthGate() {
 
       // Associate this device's push subscription with the user.
       linkOneSignal(user.id)
+
+      if (inOnboarding) return   // let the onboarding pages decide where to go
 
       // ── Signed in: onboarded already? (never reverts once true) ──
       if (localStorage.getItem(ONBOARDED_KEY) === '1') return
@@ -57,7 +63,7 @@ export default function AuthGate() {
 
       if (profile?.photo_url) {
         localStorage.setItem(ONBOARDED_KEY, '1')
-      } else if (pathname !== ONBOARDING) {
+      } else {
         router.replace(ONBOARDING)
       }
     }
