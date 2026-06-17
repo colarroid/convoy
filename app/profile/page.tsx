@@ -157,11 +157,14 @@ export default function ProfilePage() {
       if (updErr) { setPwSaving(false); setPwError(updErr.message); return }
 
       // Security alert through the usual pipeline (bell + push + email).
-      await supabase.rpc('notify_self', {
-        p_title: 'Password changed',
-        p_body: 'Your Veesaa password was just changed. If this wasn’t you, reset it immediately and contact support@veesaa.co.',
-        p_url: '/profile',
-      }).catch(() => {})
+      // Best-effort: never let a notification hiccup undo the password change.
+      try {
+        await supabase.rpc('notify_self', {
+          p_title: 'Password changed',
+          p_body: 'Your Veesaa password was just changed. If this wasn’t you, reset it immediately and contact support@veesaa.co.',
+          p_url: '/profile',
+        })
+      } catch { /* non-blocking */ }
 
       setPwSaving(false)
       closePwModal()
