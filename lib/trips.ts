@@ -179,6 +179,12 @@ export async function withdrawRequest(tripId: string): Promise<void> {
   if (error) throw error
 }
 
+/** Host records why a past trip didn't happen (optional note, to improve the platform). */
+export async function recordTripFeedback(tripId: string, reason: string): Promise<void> {
+  const { error } = await supabase.rpc('record_trip_feedback', { p_trip: tripId, p_reason: reason })
+  if (error) throw error
+}
+
 /** Whether a trip's departure time has passed. */
 export function isPast(departsAt: string | null): boolean {
   return !!departsAt && new Date(departsAt).getTime() < Date.now()

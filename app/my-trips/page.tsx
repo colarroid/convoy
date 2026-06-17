@@ -7,7 +7,7 @@ import CommunityLogo from '@/components/CommunityLogo'
 import AddToCalendar from '@/components/AddToCalendar'
 import { tripStart } from '@/lib/calendar'
 import {
-  getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, withdrawRequest, formatTripDate, isPast,
+  getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, withdrawRequest, recordTripFeedback, formatTripDate, isPast,
   type MyTripRow, type JoinedTripRow,
 } from '@/lib/trips'
 
@@ -29,6 +29,8 @@ export default function MyTripsPage() {
   const [busy, setBusy] = useState<string | null>(null)
   const [leftJoined, setLeftJoined] = useState<string[]>([])
   const [leaving, setLeaving] = useState<string | null>(null)
+  const [feedbackFor, setFeedbackFor] = useState<string | null>(null)
+  const [feedbackText, setFeedbackText] = useState('')
 
   useEffect(() => {
     Promise.all([getMyTrips(), getMyJoinedTrips()])
@@ -43,6 +45,18 @@ export default function MyTripsPage() {
       if (action === 'complete') await completeTrip(id)
       else await cancelTrip(id)
       setResolved(prev => ({ ...prev, [id]: action === 'complete' ? 'completed' : 'cancelled' }))
+    } catch { /* keep prompt for retry */ } finally { setBusy(null) }
+  }
+
+  // "Didn't happen" → record the optional note, then cancel the ride.
+  const handleDidntHappen = async (id: string) => {
+    setBusy(id)
+    try {
+      try { await recordTripFeedback(id, feedbackText) } catch { /* feedback is best-effort */ }
+      await cancelTrip(id)
+      setResolved(prev => ({ ...prev, [id]: 'cancelled' }))
+      setFeedbackFor(null)
+      setFeedbackText('')
     } catch { /* keep prompt for retry */ } finally { setBusy(null) }
   }
 
@@ -140,17 +154,43 @@ export default function MyTripsPage() {
 
                         {needsConfirm ? (
                           <div className="px-4 pb-4 pt-3 border-t border-gray-100">
-                            <p className="text-sm font-semibold text-black mb-2.5">Did this trip happen?</p>
-                            <div className="flex gap-3">
-                              <button onClick={() => handleComplete(trip.id, 'cancel')} disabled={busy === trip.id}
-                                className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-200 active:scale-[0.98] transition-all disabled:opacity-50">
-                                Didn&apos;t happen
-                              </button>
-                              <button onClick={() => handleComplete(trip.id, 'complete')} disabled={busy === trip.id}
-                                className="flex-[2] py-3 bg-black text-white rounded-xl text-sm font-semibold hover:bg-gray-800 active:scale-[0.98] transition-all disabled:opacity-50">
-                                {busy === trip.id ? '…' : 'Yes, it happened'}
-                              </button>
-                            </div>
+                            {feedbackFor === trip.id ? (
+                              <>
+                                <p className="text-sm font-semibold text-black mb-1">What happened?</p>
+                                <p className="text-xs text-gray-400 mb-2.5">Optional — a quick note helps us improve Veesaa.</p>
+                                <textarea
+                                  value={feedbackText}
+                                  onChange={e => setFeedbackText(e.target.value)}
+                                  rows={3}
+                                  placeholder="e.g. No one showed up, plans changed, I had to cancel…"
+                                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:bg-white transition-all resize-none mb-3"
+                                />
+                                <div className="flex gap-3">
+                                  <button onClick={() => { setFeedbackFor(null); setFeedbackText('') }} disabled={busy === trip.id}
+                                    className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-200 active:scale-[0.98] transition-all disabled:opacity-50">
+                                    Back
+                                  </button>
+                                  <button onClick={() => handleDidntHappen(trip.id)} disabled={busy === trip.id}
+                                    className="flex-[2] py-3 bg-black text-white rounded-xl text-sm font-semibold hover:bg-gray-800 active:scale-[0.98] transition-all disabled:opacity-50">
+                                    {busy === trip.id ? '…' : 'Cancel ride'}
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <p className="text-sm font-semibold text-black mb-2.5">Did this trip happen?</p>
+                                <div className="flex gap-3">
+                                  <button onClick={() => { setFeedbackFor(trip.id); setFeedbackText('') }} disabled={busy === trip.id}
+                                    className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold hover:bg-gray-200 active:scale-[0.98] transition-all disabled:opacity-50">
+                                    Didn&apos;t happen
+                                  </button>
+                                  <button onClick={() => handleComplete(trip.id, 'complete')} disabled={busy === trip.id}
+                                    className="flex-[2] py-3 bg-black text-white rounded-xl text-sm font-semibold hover:bg-gray-800 active:scale-[0.98] transition-all disabled:opacity-50">
+                                    {busy === trip.id ? '…' : 'Yes, it happened'}
+                                  </button>
+                                </div>
+                              </>
+                            )}
                           </div>
                         ) : (
                           <div className="px-4 pb-4 pt-3 flex gap-3">
