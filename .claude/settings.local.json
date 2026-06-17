@@ -13,7 +13,8 @@
       "Bash(git push *)",
       "Bash(git commit -q -m 'Add security-hardening migrations \\(0018-0020\\) *)",
       "Bash(git commit -q -m 'Remember community codes \\(community_members shortcut + switcher\\) *)",
-      "Bash(git commit -q -m 'Make notification settings real + add-to-calendar reminders *)"
+      "Bash(git commit -q -m 'Make notification settings real + add-to-calendar reminders *)",
+      "Bash(git commit -q -m 'Signup: detect existing email and prompt to log in *)"
     ]
   }
 }

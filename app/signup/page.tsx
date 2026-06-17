@@ -22,6 +22,7 @@ export default function SignupPage() {
   const [countryCode, setCountryCode] = useState(COUNTRY_CODES[0])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [emailExists, setEmailExists] = useState(false)
   const [localPhone, setLocalPhone] = useState('')
   const [form, setForm] = useState({
     firstName: '',
@@ -48,6 +49,7 @@ export default function SignupPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
+    setEmailExists(false)
 
     const { data, error: signUpError } = await supabase.auth.signUp({
       email: form.email,
@@ -66,6 +68,15 @@ export default function SignupPage() {
     if (signUpError) {
       setLoading(false)
       setError(signUpError.message)
+      return
+    }
+
+    // Supabase hides "email already registered" to prevent enumeration — it
+    // returns a user with no identities instead of an error. Detect and guide.
+    if (data.user && (data.user.identities?.length ?? 0) === 0) {
+      setLoading(false)
+      setEmailExists(true)
+      setError('An account with this email already exists.')
       return
     }
 
@@ -200,7 +211,17 @@ export default function SignupPage() {
               ) : 'Continue'}
             </button>
 
-            {error && <p className="text-sm text-red-500 text-center">{error}</p>}
+            {error && (
+              <p className="text-sm text-red-500 text-center">
+                {error}
+                {emailExists && (
+                  <>
+                    {' '}
+                    <Link href="/login" className="font-semibold underline hover:text-red-600">Log in instead</Link>
+                  </>
+                )}
+              </p>
+            )}
           </form>
 
           <div className="flex items-center gap-3 my-5">
