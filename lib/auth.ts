@@ -51,7 +51,12 @@ export async function signOut() {
   unlinkOneSignal()
   await supabase.auth.signOut()
   if (typeof window !== 'undefined') {
+    // Clear every per-user cache so the next person on this browser/tab can't
+    // see the previous account's data (e.g. the "recent" starting location).
     localStorage.removeItem('convoy_user')
     localStorage.removeItem('convoy_onboarded')
+    localStorage.removeItem('convoy_settings')
+    sessionStorage.removeItem('convoy_find_draft')
+    sessionStorage.removeItem('convoy_offer_draft')
   }
 }
