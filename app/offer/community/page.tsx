@@ -123,7 +123,7 @@ export default function OfferCommunityPage() {
           type="text"
           value={code}
           onChange={(e) => setCode(e.target.value.toUpperCase())}
-          placeholder="e.g. THNC-SABO"
+          placeholder="e.g. ABCD-1234"
           autoFocus
           className="flex-1 bg-transparent text-sm text-black placeholder-gray-400 focus:outline-none font-medium tracking-wide"
         />
