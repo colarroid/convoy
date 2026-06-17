@@ -59,7 +59,7 @@ export default function InstallPrompt() {
         <div className="w-9 h-9 rounded-xl bg-white text-black flex items-center justify-center font-bold text-sm shrink-0">C</div>
 
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold leading-tight">Install Convoy</p>
+          <p className="text-sm font-semibold leading-tight">Install Veesaa</p>
           <p className="text-xs text-gray-300 leading-snug mt-0.5">
             {isIosSafari
               ? 'Tap the Share icon, then “Add to Home Screen”.'

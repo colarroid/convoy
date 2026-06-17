@@ -3,8 +3,8 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — Convoy',
-  description: 'How Convoy collects, uses, shares, and protects your personal data across Nigeria (NDPA) and Canada (PIPEDA and applicable provincial laws).',
+  title: 'Privacy Policy — Veesaa',
+  description: 'How Veesaa collects, uses, shares, and protects your personal data across Nigeria (NDPA) and Canada (PIPEDA and applicable provincial laws).',
 }
 
 type Block =
@@ -24,7 +24,7 @@ const SECTIONS: Section[] = [
     n: 1,
     title: 'Introduction',
     blocks: [
-      { type: 'p', text: 'This Privacy Policy explains how Convoy (“we”, “us”, or “our”) collects, uses, shares, and protects your personal data when you use Convoy (the “Platform”), a community carpooling coordination service. Convoy operates in Nigeria and Canada, and this Policy applies to users in both countries.' },
+      { type: 'p', text: 'This Privacy Policy explains how Veesaa (“we”, “us”, or “our”) collects, uses, shares, and protects your personal data when you use Veesaa (the “Platform”), a community carpooling coordination service. Veesaa operates in Nigeria and Canada, and this Policy applies to users in both countries.' },
       { type: 'p', text: 'We are the data controller (in Canada, the organisation responsible for personal information) and we handle your personal data in accordance with the privacy laws that apply to you:' },
       { type: 'list', items: [
         'Nigeria — the Nigeria Data Protection Act, 2023 (the “NDPA”), overseen by the Nigeria Data Protection Commission (the “NDPC”).',
@@ -135,7 +135,7 @@ const SECTIONS: Section[] = [
         'withdraw consent where processing is based on consent; and',
         'lodge a complaint with the relevant regulator — the Nigeria Data Protection Commission (NDPC) if you are in Nigeria, or the Office of the Privacy Commissioner of Canada (OPC) (or your provincial privacy regulator) if you are in Canada.',
       ] },
-      { type: 'p', text: 'To exercise any of these rights, contact us at privacy@convoy.app. We will respond within the period required by the law that applies to you. You will not have to pay a fee in most cases.' },
+      { type: 'p', text: 'To exercise any of these rights, contact us at privacy@veesaa.co. We will respond within the period required by the law that applies to you. You will not have to pay a fee in most cases.' },
     ],
   },
   {
@@ -149,7 +149,7 @@ const SECTIONS: Section[] = [
     n: 12,
     title: 'Cross-border transfers',
     blocks: [
-      { type: 'p', text: 'Because Convoy operates in both Nigeria and Canada and uses service providers that may be located in other countries, your personal data may be transferred across borders — including between Nigeria and Canada, and to providers elsewhere. Where this happens, we take steps to ensure your data receives protection consistent with the NDPA (for Nigerian users) and PIPEDA and applicable provincial law (for Canadian users) before any transfer takes place, including appropriate contractual safeguards with the parties receiving the data. By using the Platform you understand that your data may be processed outside your country of residence.' },
+      { type: 'p', text: 'Because Veesaa operates in both Nigeria and Canada and uses service providers that may be located in other countries, your personal data may be transferred across borders — including between Nigeria and Canada, and to providers elsewhere. Where this happens, we take steps to ensure your data receives protection consistent with the NDPA (for Nigerian users) and PIPEDA and applicable provincial law (for Canadian users) before any transfer takes place, including appropriate contractual safeguards with the parties receiving the data. By using the Platform you understand that your data may be processed outside your country of residence.' },
     ],
   },
   {
@@ -163,7 +163,7 @@ const SECTIONS: Section[] = [
     n: 14,
     title: 'Contact us',
     blocks: [
-      { type: 'p', text: 'For questions about this Policy or to exercise your rights, contact us at privacy@convoy.app.' },
+      { type: 'p', text: 'For questions about this Policy or to exercise your rights, contact us at privacy@veesaa.co.' },
       { type: 'p', text: 'You may also contact the relevant privacy regulator if you have concerns about how your data is handled — the Nigeria Data Protection Commission (NDPC) in Nigeria, or the Office of the Privacy Commissioner of Canada (OPC) or your provincial privacy regulator in Canada.' },
     ],
   },
@@ -237,7 +237,7 @@ export default function PrivacyPolicyPage() {
           {/* Closing */}
           <div className="mt-12 pt-8 border-t border-gray-100">
             <p className="text-sm text-gray-500 italic leading-relaxed">
-              By using Convoy, you acknowledge that you have read and understood this Privacy Policy.
+              By using Veesaa, you acknowledge that you have read and understood this Privacy Policy.
             </p>
           </div>
         </div>

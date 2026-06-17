@@ -43,7 +43,7 @@ export function buildTripICS(opts: {
   return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Convoy//Ride//EN',
+    'PRODID:-//Veesaa//Ride//EN',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',

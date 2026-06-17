@@ -3,8 +3,8 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Terms of Use — Convoy',
-  description: 'The terms governing your access to and use of Convoy, a community carpooling coordination service operating in Nigeria and Canada.',
+  title: 'Terms of Use — Veesaa',
+  description: 'The terms governing your access to and use of Veesaa, a community carpooling coordination service operating in Nigeria and Canada.',
 }
 
 type Block =
@@ -23,7 +23,7 @@ const SECTIONS: Section[] = [
     n: 1,
     title: 'Introduction and acceptance',
     blocks: [
-      { type: 'p', text: 'Welcome to Convoy (the “Platform”), a community carpooling coordination service operated by Convoy (“we”, “us”, or “our”). Convoy operates in Nigeria and Canada, and these Terms apply to all users in both countries.' },
+      { type: 'p', text: 'Welcome to Veesaa (the “Platform”), a community carpooling coordination service operated by Veesaa (“we”, “us”, or “our”). Veesaa operates in Nigeria and Canada, and these Terms apply to all users in both countries.' },
       { type: 'p', text: 'These Terms of Use (“Terms”) govern your access to and use of the Platform, including our website and any associated web application. By creating an account, entering a community code, or otherwise using the Platform, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree, you must not use the Platform.' },
       { type: 'p', text: 'The Platform is currently offered as a pilot (MVP) and is provided on an “as is” and “as available” basis. Features may change, be limited, or be withdrawn during this period.' },
     ],
@@ -33,8 +33,8 @@ const SECTIONS: Section[] = [
     title: 'Definitions',
     blocks: [
       { type: 'list', items: [
-        '“Platform” — the Convoy website and web application through which Users coordinate shared trips within communities they have access to.',
-        '“User” / “you” — a person who has registered a Convoy account.',
+        '“Platform” — the Veesaa website and web application through which Users coordinate shared trips within communities they have access to.',
+        '“User” / “you” — a person who has registered a Veesaa account.',
         '“Community” — a closed group (for example, an organisation, club, workplace, or neighbourhood) identified by a unique Community Code. Communities are created and managed outside the Platform, on a separate administrative system; the Platform reads communities and validates codes but does not create them.',
         '“Community Code” — a code that grants access to a specific Community. Holding a valid code is an access pass, not fixed membership: a User may hold access to more than one Community by entering more than one code.',
         '“Host” — a User who offers a trip and may carry other Users.',
@@ -158,7 +158,7 @@ const SECTIONS: Section[] = [
     n: 13,
     title: 'Intellectual property',
     blocks: [
-      { type: 'p', text: 'All rights in the Platform, including its software, design, branding, and content (excluding content you submit), belong to Convoy or its licensors. You may not copy, modify, distribute, or create derivative works from the Platform without our written permission. You retain ownership of information you submit, and grant us a licence to use it as necessary to operate the Platform.' },
+      { type: 'p', text: 'All rights in the Platform, including its software, design, branding, and content (excluding content you submit), belong to Veesaa or its licensors. You may not copy, modify, distribute, or create derivative works from the Platform without our written permission. You retain ownership of information you submit, and grant us a licence to use it as necessary to operate the Platform.' },
     ],
   },
   {
@@ -179,7 +179,7 @@ const SECTIONS: Section[] = [
     n: 16,
     title: 'Limitation of liability',
     blocks: [
-      { type: 'p', text: 'To the fullest extent permitted by law, Convoy, its directors, employees, and agents will not be liable for any loss, injury, death, damage, or claim arising out of or in connection with:' },
+      { type: 'p', text: 'To the fullest extent permitted by law, Veesaa, its directors, employees, and agents will not be liable for any loss, injury, death, damage, or claim arising out of or in connection with:' },
       { type: 'list', items: [
         'any Trip, including the conduct of any Host or Rider, any accident, or any act or omission of any User;',
         'any failure to obtain a match, a seat, or a completed journey;',
@@ -193,7 +193,7 @@ const SECTIONS: Section[] = [
     n: 17,
     title: 'Indemnification',
     blocks: [
-      { type: 'p', text: 'You agree to indemnify and hold harmless Convoy and its directors, employees, and agents from any claim, loss, liability, or expense (including reasonable legal fees) arising from your use of the Platform, your participation in any Trip, your breach of these Terms, or your violation of any law or the rights of any person.' },
+      { type: 'p', text: 'You agree to indemnify and hold harmless Veesaa and its directors, employees, and agents from any claim, loss, liability, or expense (including reasonable legal fees) arising from your use of the Platform, your participation in any Trip, your breach of these Terms, or your violation of any law or the rights of any person.' },
     ],
   },
   {
@@ -226,7 +226,7 @@ const SECTIONS: Section[] = [
     n: 21,
     title: 'Contact',
     blocks: [
-      { type: 'p', text: 'For questions about these Terms, contact us at support@convoy.app.' },
+      { type: 'p', text: 'For questions about these Terms, contact us at support@veesaa.co.' },
     ],
   },
 ]
@@ -292,7 +292,7 @@ export default function TermsOfUsePage() {
           {/* Closing */}
           <div className="mt-12 pt-8 border-t border-gray-100">
             <p className="text-sm text-gray-500 italic leading-relaxed">
-              By using Convoy, you acknowledge that you have read and understood these Terms of Use
+              By using Veesaa, you acknowledge that you have read and understood these Terms of Use
               and agree to be bound by them.
             </p>
           </div>

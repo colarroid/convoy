@@ -89,7 +89,7 @@ export default function AppNav() {
         {/* Logo + links grouped on the left */}
         <div className="flex items-center" style={{ gap: '60px' }}>
           <Link href="/" className="text-lg font-semibold text-white tracking-tight">
-            Convoy
+            Veesaa
           </Link>
           <nav className="hidden md:flex items-center gap-1">
             {LINKS.map(l => (

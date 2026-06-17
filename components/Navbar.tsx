@@ -17,7 +17,7 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
         {/* Logo + nav links grouped on the left */}
         <div className="flex items-center" style={{ gap: '60px' }}>
           <Link href="/" className="text-lg font-semibold tracking-tight text-white">
-            Convoy
+            Veesaa
           </Link>
 
           {/* Desktop nav links — landing page only */}

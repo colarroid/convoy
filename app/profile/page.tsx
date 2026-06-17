@@ -461,7 +461,7 @@ export default function ProfilePage() {
           />
         </div>
 
-        <p className="text-xs text-gray-400 text-center mt-8">Convoy · v0.1.0</p>
+        <p className="text-xs text-gray-400 text-center mt-8">Veesaa · v0.1.0</p>
       </main>
 
       {/* ── Change password modal ── */}

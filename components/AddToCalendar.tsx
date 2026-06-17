@@ -15,7 +15,7 @@ interface AddToCalendarProps {
 export default function AddToCalendar({ uid, title, start, description, location, className }: AddToCalendarProps) {
   const handle = () => {
     const ics = buildTripICS({ uid, title, start, description, location })
-    downloadICS('convoy-ride.ics', ics)
+    downloadICS('veesaa-ride.ics', ics)
   }
 
   return (

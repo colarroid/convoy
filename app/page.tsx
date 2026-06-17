@@ -44,7 +44,7 @@ export default function LandingPage() {
               Get there,<br />together.
             </h1>
             <p className="text-gray-500 text-lg leading-relaxed mb-8 max-w-md">
-              Convoy connects people in your community heading to the same place at the same time, so you ride together. The destination is the point, not the fare.
+              Veesaa connects people in your community heading to the same place at the same time, so you ride together. The destination is the point, not the fare.
             </p>
             <div className="flex flex-row gap-3">
               {suspended ? (

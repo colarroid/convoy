@@ -19,7 +19,7 @@ export default function Footer({ id, mobileSpacer = false }: FooterProps) {
       className={`border-t border-gray-100 bg-white mt-auto ${mobileSpacer ? 'mb-16 md:mb-0' : ''}`}
     >
       <div className="max-w-6xl mx-auto px-5 md:px-8 py-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <p className="text-xs text-gray-400">© {new Date().getFullYear()} Convoy</p>
+        <p className="text-xs text-gray-400">© {new Date().getFullYear()} Veesaa</p>
 
         <div className="flex items-center gap-6 flex-wrap">
           {LINKS.map(l => (

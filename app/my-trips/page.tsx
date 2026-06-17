@@ -127,7 +127,7 @@ export default function MyTripsPage() {
                           {status === 'open' && !past && (() => {
                             const start = tripStart(trip.departs_at, trip.depart_date, trip.depart_time)
                             return start ? (
-                              <AddToCalendar uid={`${trip.id}@convoy`} title={`Ride to ${trip.community_name}`}
+                              <AddToCalendar uid={`${trip.id}@veesaa.co`} title={`Ride to ${trip.community_name}`}
                                 location={trip.pickup_point} description={`You're driving. Pickup: ${trip.pickup_point}`} start={start} />
                             ) : null
                           })()}
@@ -204,7 +204,7 @@ export default function MyTripsPage() {
                           {trip.status === 'open' && !past && (() => {
                             const start = tripStart(trip.departs_at, trip.depart_date, trip.depart_time)
                             return start ? (
-                              <AddToCalendar uid={`${trip.trip_id}@convoy`} title={`Ride to ${trip.community_name}`}
+                              <AddToCalendar uid={`${trip.trip_id}@veesaa.co`} title={`Ride to ${trip.community_name}`}
                                 location={trip.pickup_point} description={`Host: ${trip.host_name ?? 'Member'}. Pickup: ${trip.pickup_point}`} start={start} />
                             ) : null
                           })()}

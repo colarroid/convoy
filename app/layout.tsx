@@ -23,13 +23,13 @@ const sans = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'Convoy — Community lift-sharing',
-  description: 'Convoy connects people in your community heading to the same place at the same time, so you ride together. Free. Trusted. Community-first.',
+  title: 'Veesaa — Community lift-sharing',
+  description: 'Veesaa connects people in your community heading to the same place at the same time, so you ride together. Free. Trusted. Community-first.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Convoy',
+    title: 'Veesaa',
   },
 }
 

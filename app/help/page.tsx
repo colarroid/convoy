@@ -57,10 +57,10 @@ const TOPICS = [
     icon: '🔒',
     title: 'Safety & trust',
     links: [
-      'Is Convoy safe to use?',
+      'Is Veesaa safe to use?',
       'Who can see my personal information?',
       'Why do I only share a pickup point, not my address?',
-      'How does Convoy build trust without ratings?',
+      'How does Veesaa build trust without ratings?',
       'How do I report a concern?',
     ],
   },
@@ -68,8 +68,8 @@ const TOPICS = [
     icon: '💳',
     title: 'Is it really free?',
     links: [
-      'Is Convoy really free?',
-      'Does Convoy take a cut from rides?',
+      'Is Veesaa really free?',
+      'Does Veesaa take a cut from rides?',
       'Can a host charge for a ride?',
       'Are there any hidden fees?',
     ],
@@ -216,7 +216,7 @@ export default function HelpPage() {
             </p>
           </div>
           <Link
-            href="mailto:support@convoy.app"
+            href="mailto:support@veesaa.co"
             className="shrink-0 px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition-colors"
           >
             Contact support
