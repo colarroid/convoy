@@ -37,7 +37,7 @@ const SECTIONS: Section[] = [
     n: 2,
     title: 'Information we collect',
     blocks: [
-      { type: 'def', label: 'Account and profile data.', text: 'Your name, email address, phone number, password, profile photo, and the communities you have access to (each entered via a Community Code; you may hold more than one).' },
+      { type: 'def', label: 'Account and profile data.', text: 'Your name, date of birth (used to confirm you meet the minimum age of 18), email address, phone number, password, profile photo, and the communities you have access to (each entered via a Community Code; you may hold more than one).' },
       { type: 'def', label: 'Location data.', text: 'The starting location you provide, pickup or meeting points you set, and any saved locations. Location data is central to matching you with relevant trips, and we treat it with particular care (see Section 6).' },
       { type: 'def', label: 'Trip data.', text: 'Trips you post as a Host or join as a Rider, including dates, times, pickup points, seats, your record of completed rides, and requests you send or receive.' },
       { type: 'def', label: 'Vehicle data (Hosts).', text: 'Where you offer a trip, the vehicle type, model, and colour you provide so Riders can identify the ride.' },

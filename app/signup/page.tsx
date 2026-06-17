@@ -5,7 +5,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import PhoneField from '@/components/PhoneField'
+import DateOfBirthField from '@/components/DateOfBirthField'
 import { COUNTRY_CODES } from '@/lib/countries'
+import { isAdult } from '@/lib/age'
 import { saveUser } from '@/lib/userStore'
 import { supabase } from '@/lib/supabase'
 import { signInWithGoogle } from '@/lib/auth'
@@ -24,6 +26,7 @@ export default function SignupPage() {
   const [error, setError] = useState('')
   const [emailExists, setEmailExists] = useState(false)
   const [localPhone, setLocalPhone] = useState('')
+  const [dob, setDob] = useState('')
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -47,6 +50,8 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!dob) { setError('Please enter your date of birth.'); return }
+    if (!isAdult(dob)) { setError('You must be 18 or older to use Veesaa.'); return }
     setLoading(true)
     setError('')
     setEmailExists(false)
@@ -61,6 +66,7 @@ export default function SignupPage() {
           first_name: form.firstName,
           last_name: form.lastName,
           phone: fullPhone,
+          date_of_birth: dob,
         },
       },
     })
@@ -143,6 +149,11 @@ export default function SignupPage() {
               onCountryChange={(c) => { setCountryCode(c); setLocalPhone('') }}
               onLocalChange={setLocalPhone}
             />
+
+            <div>
+              <label className="block text-xs text-gray-500 mb-1.5 px-1">Date of birth — you must be 18 or older</label>
+              <DateOfBirthField value={dob} onChange={setDob} />
+            </div>
 
             <div>
               <div className={`relative flex items-center rounded-xl border-2 bg-gray-50 transition-all

@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation'
 import type { User } from '@supabase/supabase-js'
 import Navbar from '@/components/Navbar'
 import PhoneField from '@/components/PhoneField'
+import DateOfBirthField from '@/components/DateOfBirthField'
 import { COUNTRY_CODES } from '@/lib/countries'
+import { isAdult } from '@/lib/age'
 import { supabase } from '@/lib/supabase'
 import { syncProfileToCache } from '@/lib/auth'
 import { saveUser } from '@/lib/userStore'
@@ -29,6 +31,7 @@ export default function GoogleOnboardingPage() {
   const [lastName, setLastName] = useState('')
   const [countryCode, setCountryCode] = useState(COUNTRY_CODES[0])
   const [localPhone, setLocalPhone] = useState('')
+  const [dob, setDob] = useState('')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const handled = useRef(false)
@@ -43,15 +46,16 @@ export default function GoogleOnboardingPage() {
 
       const { data: profile } = await supabase
         .from('profiles')
-        .select('first_name, last_name, phone, photo_url')
+        .select('first_name, last_name, phone, photo_url, date_of_birth')
         .eq('id', u.id)
         .maybeSingle()
 
       const hasName = !!profile?.first_name?.trim()
       const hasPhone = !!profile?.phone
+      const hasDob = !!profile?.date_of_birth
 
-      // New or incomplete Google user → collect name (prefilled) + phone.
-      if (!hasName || !hasPhone) {
+      // New or incomplete Google user → collect name (prefilled) + phone + DOB.
+      if (!hasName || !hasPhone || !hasDob) {
         const g = googleName(u)
         setFirstName(profile?.first_name || g.first)
         setLastName(profile?.last_name || g.last)
@@ -84,6 +88,8 @@ export default function GoogleOnboardingPage() {
     if (!user) return
     if (!firstName.trim() || !lastName.trim()) { setError('Please enter your name.'); return }
     if (localPhone.trim().length < 6) { setError('Please enter a valid phone number.'); return }
+    if (!dob) { setError('Please enter your date of birth.'); return }
+    if (!isAdult(dob)) { setError('You must be 18 or older to use Veesaa.'); return }
 
     setSaving(true)
     setError('')
@@ -94,6 +100,7 @@ export default function GoogleOnboardingPage() {
         first_name: firstName.trim(),
         last_name: lastName.trim(),
         phone: fullPhone,
+        date_of_birth: dob,
       })
       if (upErr) throw upErr
 
@@ -134,7 +141,7 @@ export default function GoogleOnboardingPage() {
           {stage === 'form' && (
             <>
               <h1 className="text-2xl md:text-3xl font-bold text-black mb-2">Almost there</h1>
-              <p className="text-sm text-gray-500 mb-8">Confirm your name and add a phone number so hosts and riders can reach you.</p>
+              <p className="text-sm text-gray-500 mb-8">Confirm your name, add a phone number so hosts and riders can reach you, and your date of birth.</p>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <div className="grid grid-cols-2 gap-3">
@@ -150,6 +157,11 @@ export default function GoogleOnboardingPage() {
                   onCountryChange={(c) => { setCountryCode(c); setLocalPhone('') }}
                   onLocalChange={setLocalPhone}
                 />
+
+                <div>
+                  <label className="block text-xs text-gray-500 mb-1.5 px-1">Date of birth — you must be 18 or older</label>
+                  <DateOfBirthField value={dob} onChange={setDob} />
+                </div>
 
                 {error && <p className="text-sm text-red-500">{error}</p>}
 
