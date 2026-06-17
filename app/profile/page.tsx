@@ -143,12 +143,34 @@ export default function ProfilePage() {
     if (pw.next === pw.current) { setPwError('New password must be different from the current one.'); return }
     setPwError('')
     setPwSaving(true)
-    // TODO: verify current + set new password on the backend
-    await new Promise(r => setTimeout(r, 800))
-    setPwSaving(false)
-    closePwModal()
-    setPwSaved(true)
-    setTimeout(() => setPwSaved(false), 2500)
+    try {
+      const { data: { user: authUser } } = await supabase.auth.getUser()
+      const email = authUser?.email
+      if (!email) { setPwSaving(false); setPwError('Could not verify your account. Please sign in again.'); return }
+
+      // Verify the current password by re-authenticating.
+      const { error: signInErr } = await supabase.auth.signInWithPassword({ email, password: pw.current })
+      if (signInErr) { setPwSaving(false); setPwError('Your current password is incorrect.'); return }
+
+      // Set the new password.
+      const { error: updErr } = await supabase.auth.updateUser({ password: pw.next })
+      if (updErr) { setPwSaving(false); setPwError(updErr.message); return }
+
+      // Security alert through the usual pipeline (bell + push + email).
+      await supabase.rpc('notify_self', {
+        p_title: 'Password changed',
+        p_body: 'Your Veesaa password was just changed. If this wasn’t you, reset it immediately and contact support@veesaa.co.',
+        p_url: '/profile',
+      }).catch(() => {})
+
+      setPwSaving(false)
+      closePwModal()
+      setPwSaved(true)
+      setTimeout(() => setPwSaved(false), 2500)
+    } catch (e) {
+      setPwSaving(false)
+      setPwError(e instanceof Error ? e.message : 'Could not change your password. Please try again.')
+    }
   }
 
   const [ridesCompleted, setRidesCompleted] = useState(0)
