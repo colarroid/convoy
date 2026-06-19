@@ -9,10 +9,10 @@ function LiveRow({ flag, name }: { flag: string; name: string }) {
         <span className="text-xl">{flag}</span>
         <span className="font-semibold text-white">{name}</span>
       </span>
-      <span className="flex items-center gap-2 text-sm font-medium text-green-400">
+      <span className="flex items-center gap-2 text-sm font-medium text-blue-400">
         <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60 animate-ping" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+          <span className="absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-60 animate-ping" />
+          <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-400" />
         </span>
         Live
       </span>
@@ -26,29 +26,19 @@ const STEPS = [
   { title: 'Travel together, free', desc: 'No fares, no commission. Ever.' },
 ]
 
-/** Connected, dashed-line capability cards (right column) with hover effects. */
-function ConnectedCards() {
+/** Simple capability cards (right column) with a subtle hover lift. */
+function CapabilityCards() {
   return (
-    <div className="relative py-2">
-      {/* broken connector line through the cards */}
-      <div
-        aria-hidden
-        className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px border-l-2 border-dashed border-white/15"
-      />
-      <div className="relative flex flex-col gap-9">
-        {STEPS.map((s, i) => (
-          <div key={i} className="group relative">
-            {/* node on the line */}
-            <div className="absolute left-1/2 -translate-x-1/2 -top-4 z-20 w-8 h-8 rounded-full bg-neutral-800 ring-1 ring-white/10 flex items-center justify-center text-xs font-bold text-white transition-all duration-300 group-hover:bg-green-500 group-hover:text-black group-hover:ring-green-400 group-hover:scale-110">
-              {i + 1}
-            </div>
-            <div className="relative rounded-2xl bg-neutral-900 ring-1 ring-white/10 px-6 pt-8 pb-5 text-center shadow-xl transition-all duration-300 group-hover:-translate-y-1.5 group-hover:ring-green-500/40 group-hover:shadow-[0_16px_50px_-12px_rgba(34,197,94,0.35)]">
-              <p className="font-bold text-white">{s.title}</p>
-              <p className="text-sm text-gray-400 mt-1.5 leading-relaxed">{s.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="flex flex-col gap-4">
+      {STEPS.map((s, i) => (
+        <div
+          key={i}
+          className="rounded-2xl bg-neutral-900 ring-1 ring-white/10 px-6 py-5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:ring-blue-500/40 hover:shadow-[0_16px_50px_-12px_rgba(59,130,246,0.35)]"
+        >
+          <p className="font-bold text-white">{s.title}</p>
+          <p className="text-sm text-gray-400 mt-1.5 leading-relaxed">{s.desc}</p>
+        </div>
+      ))}
     </div>
   )
 }
@@ -66,11 +56,11 @@ export default function AvailabilitySection() {
   }
 
   const inputCls =
-    'px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-transparent transition-all'
+    'px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all'
 
   return (
     <section className="relative bg-neutral-950 text-white py-24 md:py-32 px-5 md:px-8 overflow-hidden">
-      <div className="pointer-events-none absolute -top-24 right-[-10%] w-[42rem] h-[42rem] rounded-full bg-green-500/10 blur-[120px]" />
+      <div className="pointer-events-none absolute -top-24 right-[-10%] w-[42rem] h-[42rem] rounded-full bg-blue-500/10 blur-[120px]" />
 
       <div className="relative max-w-5xl mx-auto grid md:grid-cols-2 gap-14 md:gap-24 items-center">
         {/* Availability + waitlist */}
@@ -89,7 +79,7 @@ export default function AvailabilitySection() {
           <p className="text-sm text-gray-500 mb-4 leading-relaxed">Not live near you yet? Tell us where, and we&apos;ll reach out when Veesaa lands in your community.</p>
 
           {submitted ? (
-            <div className="flex items-center gap-2 text-sm text-green-400 bg-green-500/10 ring-1 ring-green-500/20 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-2 text-sm text-blue-400 bg-blue-500/10 ring-1 ring-blue-500/20 rounded-xl px-4 py-3">
               <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
               You&apos;re on the list. We&apos;ll be in touch.
             </div>
@@ -106,8 +96,8 @@ export default function AvailabilitySection() {
           )}
         </div>
 
-        {/* Connected capability cards */}
-        <ConnectedCards />
+        {/* Capability cards */}
+        <CapabilityCards />
       </div>
     </section>
   )
