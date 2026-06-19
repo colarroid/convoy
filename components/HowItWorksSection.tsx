@@ -9,9 +9,9 @@ export default function HowItWorksSection() {
   const [open, setOpen] = useState(false)
 
   return (
-    <section className="bg-gray-50 py-28 md:py-44 px-5 md:px-8">
-      <div className="max-w-5xl mx-auto rounded-3xl bg-white shadow-[0_30px_80px_-40px_rgba(0,0,0,0.25)] ring-1 ring-gray-100 px-7 py-16 md:px-16 md:py-28">
-        <div className="grid md:grid-cols-[1.4fr_1fr] gap-12 md:gap-16 items-center min-h-[22rem] md:min-h-[28rem]">
+    <section className="bg-gray-50 py-20 md:py-28 px-5 md:px-8">
+      <div className="max-w-5xl mx-auto rounded-3xl bg-white shadow-[0_30px_80px_-40px_rgba(0,0,0,0.25)] ring-1 ring-gray-100 px-7 py-10 md:px-14 md:py-16 min-h-[24rem] md:min-h-[34rem] flex flex-col justify-center">
+        <div className="grid md:grid-cols-[1.4fr_1fr] gap-10 md:gap-12 items-center">
           {/* Left: headline + play */}
           <div>
             <h2 className="text-3xl md:text-5xl font-bold text-black tracking-tight leading-[1.1]">
