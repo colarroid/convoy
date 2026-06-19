@@ -78,7 +78,7 @@ export default function RideDetailPage() {
     )
   }
 
-  const vehicleLabel = [ride.color, ride.vehicle].filter(Boolean).join(' ') || ride.vehicle || '—'
+  const vehicleLabel = [ride.color, ride.vehicle].filter(Boolean).join(' ') || ride.vehicle || '-'
   const alreadyRequested = ride.already_requested
 
   return (

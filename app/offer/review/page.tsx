@@ -8,7 +8,7 @@ import { getUser, getDisplayName, getInitials } from '@/lib/userStore'
 import { createTrip, getRidesCompleted, ridesLabel } from '@/lib/trips'
 
 function formatDate(iso: string) {
-  if (!iso) return '—'
+  if (!iso) return '-'
   const [y, m, d] = iso.split('-')
   const date = new Date(Number(y), Number(m) - 1, Number(d))
   return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -108,10 +108,10 @@ export default function OfferReviewPage() {
           </div>
         </div>
         <div className="px-4 divide-y divide-gray-100">
-          <ReviewRow label="Destination" value={draft.communityName ?? '—'} editHref="/offer/community" />
-          <ReviewRow label="Date & time" value={`${formatDate(draft.date ?? '')} · ${draft.time ?? '—'}`} editHref="/offer/datetime" />
-          <ReviewRow label="Pickup point" value={draft.pickupPlace ?? '—'} sub={draft.pickupNote || undefined} editHref="/offer/pickup" />
-          <ReviewRow label="Ride details" value={vehicleDesc || '—'} editHref="/offer/vehicle" />
+          <ReviewRow label="Destination" value={draft.communityName ?? '-'} editHref="/offer/community" />
+          <ReviewRow label="Date & time" value={`${formatDate(draft.date ?? '')} · ${draft.time ?? '-'}`} editHref="/offer/datetime" />
+          <ReviewRow label="Pickup point" value={draft.pickupPlace ?? '-'} sub={draft.pickupNote || undefined} editHref="/offer/pickup" />
+          <ReviewRow label="Ride details" value={vehicleDesc || '-'} editHref="/offer/vehicle" />
           <div className="py-3.5">
             <p className="text-xs text-gray-400 mb-0.5">Seats</p>
             <p className="text-sm font-bold text-black">{draft.seats ?? 1} of {draft.seats ?? 1} open</p>
@@ -124,7 +124,7 @@ export default function OfferReviewPage() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
         </svg>
         <p className="text-xs text-gray-500 leading-relaxed">
-          Your potential guests only ever see the address shared as pickup point — not your home address.
+          Your potential guests only ever see the address shared as pickup point, not your home address.
         </p>
       </div>
     </OfferFlowShell>

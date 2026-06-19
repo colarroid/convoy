@@ -68,7 +68,7 @@ export default function OfferPickupPage() {
       <textarea
         value={note}
         onChange={(e) => setNote(e.target.value)}
-        placeholder="Additional note (optional) — e.g. wait by the filling station"
+        placeholder="Additional note (optional), e.g. wait by the filling station"
         rows={3}
         className="w-full mt-3 px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 text-sm text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:bg-white resize-none transition-all"
       />

@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Terms of Use — Veesaa',
+  title: 'Veesaa Terms of Use',
   description: 'The terms governing your access to and use of Veesaa, a community carpooling coordination service operating in Nigeria and Canada.',
 }
 
@@ -33,13 +33,13 @@ const SECTIONS: Section[] = [
     title: 'Definitions',
     blocks: [
       { type: 'list', items: [
-        '“Platform” — the Veesaa website and web application through which Users coordinate shared trips within communities they have access to.',
-        '“User” / “you” — a person who has registered a Veesaa account.',
-        '“Community” — a closed group (for example, an organisation, club, workplace, or neighbourhood) identified by a unique Community Code. Communities are created and managed outside the Platform, on a separate administrative system; the Platform reads communities and validates codes but does not create them.',
-        '“Community Code” — a code that grants access to a specific Community. Holding a valid code is an access pass, not fixed membership: a User may hold access to more than one Community by entering more than one code.',
-        '“Host” — a User who offers a trip and may carry other Users.',
-        '“Rider” — a User who requests to join a Host’s trip.',
-        '“Trip” — a journey to a shared destination posted by a Host within a Community.',
+        '“Platform” is the Veesaa website and web application through which Users coordinate shared trips within communities they have access to.',
+        '“User” / “you” is aperson who has registered a Veesaa account.',
+        '“Community” is aclosed group (for example, an organisation, club, workplace, or neighbourhood) identified by a unique Community Code. Communities are created and managed outside the Platform, on a separate administrative system; the Platform reads communities and validates codes but does not create them.',
+        '“Community Code” is acode that grants access to a specific Community. Holding a valid code is an access pass, not fixed membership: a User may hold access to more than one Community by entering more than one code.',
+        '“Host” is aUser who offers a trip and may carry other Users.',
+        '“Rider” is aUser who requests to join a Host’s trip.',
+        '“Trip” is ajourney to a shared destination posted by a Host within a Community.',
       ] },
       { type: 'p', text: 'There are no fixed account roles. The same User may act as a Host on one trip and a Rider on another; “Host” and “Rider” describe a User’s role on a particular trip, not a type of account.' },
     ],
@@ -60,7 +60,7 @@ const SECTIONS: Section[] = [
   },
   {
     n: 4,
-    title: 'Nature of the service — important',
+    title: 'Nature of the service (important)',
     blocks: [
       { type: 'callout', text: 'The Platform is a coordination tool, not a transport provider. We do not provide transportation services, operate vehicles, employ or engage drivers, or act as a taxi, ride-hailing, or e-hailing operator. Our sole role is to provide technology that enables Users of the same Community to find one another and arrange shared trips voluntarily.' },
       { type: 'p', text: 'Rides are free. The Platform does not charge Riders for rides, does not process payments for rides, and does not take any commission, fare, or fee on any trip. Trips arranged through the Platform are a non-commercial, community lift-sharing arrangement between Users. Hosts must not demand or charge a fare as a condition of a ride.' },
@@ -78,7 +78,7 @@ const SECTIONS: Section[] = [
         'to notify us promptly of any unauthorised use of your account or a Code; and',
         'that you are responsible for all activity carried out under your account.',
       ] },
-      { type: 'p', text: 'Community Codes are the means by which Communities remain closed and trusted. Misuse of a Code — including distributing it outside the Community — may result in suspension of your account and may compromise the safety of other Users.' },
+      { type: 'p', text: 'Community Codes are the means by which Communities remain closed and trusted. Misuse of a Code, including distributing it outside the Community, may result in suspension of your account and may compromise the safety of other Users.' },
     ],
   },
   {
@@ -105,7 +105,7 @@ const SECTIONS: Section[] = [
       { type: 'list', items: [
         'you hold a valid driver’s licence and are legally permitted to drive;',
         'your vehicle is roadworthy, properly registered, and maintained;',
-        'you hold valid and adequate motor insurance appropriate to your use of the vehicle, and you understand that ordinary private motor insurance may not cover the carrying of passengers — you are responsible for confirming your own coverage;',
+        'you hold valid and adequate motor insurance appropriate to your use of the vehicle, and you understand that ordinary private motor insurance may not cover the carrying of passengers, so you are responsible for confirming your own coverage;',
         'you drive safely and comply with all applicable traffic and transport laws; and',
         'you do not charge or accept a fare for the ride.',
       ] },
@@ -136,7 +136,7 @@ const SECTIONS: Section[] = [
     n: 10,
     title: 'Safety and assumption of risk',
     blocks: [
-      { type: 'callout', text: 'You use the Platform and participate in Trips at your own risk. We do not supervise, accompany, or control any Trip. We do not verify the identity, character, driving ability, vehicle condition, or insurance status of any User. Information shown on the Platform — including a User’s name, photo, or number of completed rides — is generated by Users and the system for convenience only and is not a verification, endorsement, or guarantee of any person’s reliability or safety.' },
+      { type: 'callout', text: 'You use the Platform and participate in Trips at your own risk. We do not supervise, accompany, or control any Trip. We do not verify the identity, character, driving ability, vehicle condition, or insurance status of any User. Information shown on the Platform, including a User’s name, photo, or number of completed rides, is generated by Users and the system for convenience only and is not a verification, endorsement, or guarantee of any person’s reliability or safety.' },
       { type: 'p', text: 'You are responsible for taking sensible precautions, exercising your own judgement, and complying with the law. If you experience or witness unsafe or inappropriate behaviour, you should use the Platform’s reporting tools and, where appropriate, contact the relevant authorities.' },
     ],
   },

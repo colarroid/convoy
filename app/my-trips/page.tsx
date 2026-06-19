@@ -157,7 +157,7 @@ export default function MyTripsPage() {
                             {feedbackFor === trip.id ? (
                               <>
                                 <p className="text-sm font-semibold text-black mb-1">What happened?</p>
-                                <p className="text-xs text-gray-400 mb-2.5">Optional — a quick note helps us improve Veesaa.</p>
+                                <p className="text-xs text-gray-400 mb-2.5">Optional. A quick note helps us improve Veesaa.</p>
                                 <textarea
                                   value={feedbackText}
                                   onChange={e => setFeedbackText(e.target.value)}

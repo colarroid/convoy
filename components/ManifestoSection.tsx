@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 const TEXT =
-  'Every day, people from the same community head to the same place at the same time — and travel separately. Veesaa connects them, so they go together. The destination is the point, not the fare. No charges. No strangers. Just your community, getting there together.'
+  'Every day, people living near each other head to the same gathering but travel separately. Veesaa connects them so they can get there together. Lift-sharing built around shared destinations and trusted communities.'
 const WORDS = TEXT.split(' ')
 
-/** Landing manifesto with a scroll-linked word reveal (dim → bright). */
+/** Landing manifesto with a scroll-linked word reveal (dim to bright). */
 export default function ManifestoSection() {
   const ref = useRef<HTMLDivElement>(null)
   const [progress, setProgress] = useState(0)
@@ -19,8 +19,8 @@ export default function ManifestoSection() {
       if (!el) return
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight
-      const start = vh * 0.85   // begins revealing as it enters
-      const end = vh * 0.30     // fully revealed once near the middle
+      const start = vh * 0.85
+      const end = vh * 0.30
       setProgress(Math.max(0, Math.min(1, (start - rect.top) / (start - end))))
     }
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
@@ -49,6 +49,10 @@ export default function ManifestoSection() {
               </span>
             )
           })}
+        </p>
+        <p className="mt-12 md:mt-16 text-4xl md:text-6xl font-extrabold tracking-tight">
+          No charges.{' '}
+          <span className="bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent">No strangers.</span>
         </p>
       </div>
     </section>

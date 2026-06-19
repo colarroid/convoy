@@ -29,7 +29,7 @@ function LoginForm() {
       setLoading(false)
       setError(
         signInError.message === 'Email not confirmed'
-          ? 'Please verify your email first — check your inbox for the code.'
+          ? 'Please verify your email first. Check your inbox for the code.'
           : 'Wrong email or password. Please try again.'
       )
       return

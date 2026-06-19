@@ -49,7 +49,7 @@ function ResetPasswordForm() {
 
     if (updateError) {
       setLoading(false)
-      setError(updateError.message || 'Could not reset password. The code may have expired — request a new one.')
+      setError(updateError.message || 'Could not reset password. The code may have expired, so request a new one.')
       return
     }
 

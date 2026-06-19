@@ -159,7 +159,7 @@ export default function GoogleOnboardingPage() {
                 />
 
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1.5 px-1">Date of birth — you must be 18 or older</label>
+                  <label className="block text-xs text-gray-500 mb-1.5 px-1">Date of birth (you must be 18 or older)</label>
                   <DateOfBirthField value={dob} onChange={setDob} />
                 </div>
 

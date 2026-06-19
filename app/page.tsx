@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar'
 import AppNav from '@/components/AppNav'
 import MobileHero from '@/components/MobileHero'
 import ManifestoSection from '@/components/ManifestoSection'
+import HowItWorksSection from '@/components/HowItWorksSection'
 import AvailabilitySection from '@/components/AvailabilitySection'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
@@ -28,12 +29,12 @@ export default function LandingPage() {
     <div className={`min-h-screen flex flex-col ${loggedIn ? 'md:h-screen md:overflow-hidden' : ''}`}>
       {loggedIn ? <AppNav /> : <Navbar showAuth="both" />}
 
-      {/* Mobile hero — intent cards */}
+      {/* Mobile hero:intent cards */}
       <section className={`md:hidden bg-white ${loggedIn ? 'flex-1' : ''}`}>
         <MobileHero offerHref={offerHref} findHref={findHref} offerDisabled={suspended} />
       </section>
 
-      {/* Desktop hero — fills the first viewport (logged in: single screen, no scroll) */}
+      {/* Desktop hero:fills the first viewport (logged in: single screen, no scroll) */}
       <section className={`hidden md:flex bg-white ${loggedIn ? 'flex-1 min-h-0' : 'min-h-[calc(100vh-4rem)] items-center'}`}>
         <div className="max-w-6xl mx-auto w-full px-8 flex items-center gap-12">
           {/* Text */}
@@ -79,7 +80,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          {/* Hero image — contained square on the right */}
+          {/* Hero image:contained square on the right */}
           <div className="flex-1 h-full flex items-center justify-end">
             <div className="relative h-[78%] max-h-[560px] aspect-square rounded-2xl overflow-hidden">
               <Image
@@ -95,10 +96,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Marketing sections — logged-out visitors only */}
+      {/* Marketing sections:logged-out visitors only */}
       {!loggedIn && (
         <>
           <ManifestoSection />
+          <HowItWorksSection />
           <AvailabilitySection />
         </>
       )}

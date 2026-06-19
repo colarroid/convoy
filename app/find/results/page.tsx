@@ -49,7 +49,7 @@ function RideCard({ ride, onSelect }: { ride: RideRow; onSelect: () => void }) {
           onClick={onSelect}
           className="w-full py-3 bg-gray-100 text-black rounded-xl text-sm font-semibold hover:bg-gray-200 active:scale-[0.98] transition-all"
         >
-          {ride.already_requested ? 'View — requested' : 'Trip details'}
+          {ride.already_requested ? 'View (requested)' : 'Trip details'}
         </button>
       </div>
     </div>
