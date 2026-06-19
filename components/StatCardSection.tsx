@@ -21,10 +21,10 @@ export default function StatCardSection({
   body = 'Veesaa connects people in your community heading to the same place at the same time, so you ride together. The destination is the point, not the fare.',
   ctaLabel = 'Launch demo',
   onCta,
-  statPrefix = '$',
-  statValue = '1.972',
-  statSuffix = 'T',
-  statCaption = 'In revenue lost',
+  statPrefix = '',
+  statValue = '12.4',
+  statSuffix = 'K',
+  statCaption = 'Miles shared on Veesaa',
 }: StatCardSectionProps) {
   return (
     <section className="bg-[#dadbeb] px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-24">
