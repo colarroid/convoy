@@ -37,7 +37,7 @@ export default function ManifestoSection() {
         if (n >= WORDS.length) { clearInterval(id); return n }
         return n + 1
       })
-    }, 110)
+    }, 220)
     return () => clearInterval(id)
   }, [started])
 
