@@ -18,7 +18,7 @@ interface StatCardSectionProps {
  */
 export default function StatCardSection({
   headline = '77% of carts are abandoned. Veesaa brings them back.',
-  body = 'Placeholder body copy. Replace with your own content describing the value in a sentence or two.',
+  body = 'Veesaa connects people in your community heading to the same place at the same time, so you ride together. The destination is the point, not the fare.',
   ctaLabel = 'Launch demo',
   onCta,
   statPrefix = '$',
@@ -36,7 +36,7 @@ export default function StatCardSection({
             <h2 className="text-[34px] font-extrabold leading-[1.05] tracking-tight text-[#0a0a23] sm:text-5xl md:text-[56px]">
               {headline}
             </h2>
-            <p className="mt-5 max-w-md text-base font-medium leading-relaxed text-[#3a3a52] sm:text-lg">
+            <p className="mt-5 max-w-md text-[0.95rem] font-medium leading-relaxed text-[#3a3a52]">
               {body}
             </p>
 
