@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar'
 import AppNav from '@/components/AppNav'
 import MobileHero from '@/components/MobileHero'
+import ManifestoSection from '@/components/ManifestoSection'
+import AvailabilitySection from '@/components/AvailabilitySection'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
 import { useSuspended } from '@/lib/useSuspended'
@@ -23,16 +25,16 @@ export default function LandingPage() {
   const findHref = loggedIn ? '/find/community' : '/login?next=/find/community'
 
   return (
-    <div className="min-h-screen md:h-screen md:overflow-hidden flex flex-col">
+    <div className={`min-h-screen flex flex-col ${loggedIn ? 'md:h-screen md:overflow-hidden' : ''}`}>
       {loggedIn ? <AppNav /> : <Navbar showAuth="both" />}
 
       {/* Mobile hero — intent cards */}
-      <section className="md:hidden flex-1 bg-white">
+      <section className={`md:hidden bg-white ${loggedIn ? 'flex-1' : ''}`}>
         <MobileHero offerHref={offerHref} findHref={findHref} offerDisabled={suspended} />
       </section>
 
-      {/* Desktop hero — contained, single viewport, no scroll */}
-      <section className="hidden md:flex flex-1 min-h-0 bg-white">
+      {/* Desktop hero — fills the first viewport (logged in: single screen, no scroll) */}
+      <section className={`hidden md:flex bg-white ${loggedIn ? 'flex-1 min-h-0' : 'min-h-[calc(100vh-4rem)] items-center'}`}>
         <div className="max-w-6xl mx-auto w-full px-8 flex items-center gap-12">
           {/* Text */}
           <div className="flex-1">
@@ -92,6 +94,14 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Marketing sections — logged-out visitors only */}
+      {!loggedIn && (
+        <>
+          <ManifestoSection />
+          <AvailabilitySection />
+        </>
+      )}
 
       {/* Footer */}
       <Footer id="contact" mobileSpacer />

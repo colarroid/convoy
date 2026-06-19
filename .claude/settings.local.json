@@ -15,7 +15,9 @@
       "Bash(git commit -q -m 'Remember community codes \\(community_members shortcut + switcher\\) *)",
       "Bash(git commit -q -m 'Make notification settings real + add-to-calendar reminders *)",
       "Bash(git commit -q -m 'Signup: detect existing email and prompt to log in *)",
-      "Bash(git commit -q -m 'Add date-of-birth field + 18+ age gate *)"
+      "Bash(git commit -q -m 'Add date-of-birth field + 18+ age gate *)",
+      "Read(//c/Users/HP/Desktop/**)",
+      "Bash(cp amira-hephzibah-final.html \"amira-hephzibah-final.backup.html\")"
     ]
   }
 }
