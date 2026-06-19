@@ -20,29 +20,6 @@ function LiveRow({ flag, name }: { flag: string; name: string }) {
   )
 }
 
-const STEPS = [
-  { title: 'Enter your community code', desc: 'Your access pass to a trusted circle.' },
-  { title: 'Offer or find a ride', desc: 'Match with people heading your way.' },
-  { title: 'Travel together, free', desc: 'No fares, no commission. Ever.' },
-]
-
-/** Simple capability cards (right column) with a subtle hover lift. */
-function CapabilityCards() {
-  return (
-    <div className="flex flex-col gap-4">
-      {STEPS.map((s, i) => (
-        <div
-          key={i}
-          className="rounded-2xl bg-neutral-900 ring-1 ring-white/10 px-6 py-5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:ring-blue-500/40 hover:shadow-[0_16px_50px_-12px_rgba(59,130,246,0.35)]"
-        >
-          <p className="font-bold text-white">{s.title}</p>
-          <p className="text-sm text-gray-400 mt-1.5 leading-relaxed">{s.desc}</p>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 /** "Where Veesaa is live" + a bring-it-to-your-community waitlist (visual only for now). */
 export default function AvailabilitySection() {
   const [community, setCommunity] = useState('')
@@ -96,8 +73,8 @@ export default function AvailabilitySection() {
           )}
         </div>
 
-        {/* Capability cards */}
-        <CapabilityCards />
+        {/* Right column intentionally left empty for now */}
+        <div aria-hidden />
       </div>
     </section>
   )
