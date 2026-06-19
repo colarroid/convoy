@@ -15,6 +15,25 @@ export async function getCommunityByCode(code: string) {
   return data && data.id ? data : null
 }
 
+/** Great-circle distance between two coordinates, in kilometres. */
+function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const R = 6371
+  const toRad = (d: number) => (d * Math.PI) / 180
+  const dLat = toRad(lat2 - lat1)
+  const dLng = toRad(lng2 - lng1)
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+}
+
+/** Total whole miles shared across all completed trips (public landing stat). */
+export async function getMilesShared(): Promise<number> {
+  const { data, error } = await supabase.rpc('total_miles_shared')
+  if (error || data == null) return 0
+  return Number(data) || 0
+}
+
 /** Combine "YYYY-MM-DD" + "h:mm AM/PM" into an ISO timestamp (local time). */
 function toDepartsAt(date?: string, time?: string): string | null {
   if (!date || !time) return null
@@ -52,6 +71,17 @@ export async function createTrip(draft: OfferDraft): Promise<string> {
     if (g) { pLat = g.lat; pLng = g.lng }
   }
 
+  // Distance covered: pickup -> the community's destination. Best-effort; if we
+  // can't resolve the destination coords we just leave it null.
+  let distanceKm: number | null = null
+  if (pLat != null && pLng != null) {
+    const destAddr = community.address || community.area
+    if (destAddr) {
+      const dest = await geocodeAddress(destAddr)
+      if (dest) distanceKm = haversineKm(pLat, pLng, dest.lat, dest.lng)
+    }
+  }
+
   const { data, error } = await supabase
     .from('trips')
     .insert({
@@ -64,6 +94,7 @@ export async function createTrip(draft: OfferDraft): Promise<string> {
       pickup_note: draft.pickupNote || null,
       pickup_lat: pLat,
       pickup_lng: pLng,
+      distance_km: distanceKm,
       vehicle: vehicle || null,
       color: draft.unknownVehicle ? null : (draft.color || null),
       color_hex: draft.unknownVehicle ? '#9CA3AF' : (COLOR_HEX[draft.color ?? ''] ?? '#9CA3AF'),

@@ -12,14 +12,26 @@ import StatCardSection from '@/components/StatCardSection'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
 import { useSuspended } from '@/lib/useSuspended'
+import { getMilesShared } from '@/lib/trips'
+
+/** Format whole miles into a compact value + suffix, e.g. 12384 -> {value:'12.4', suffix:'K'}. */
+function formatMiles(miles: number): { value: string; suffix: string } {
+  if (miles >= 1_000_000) return { value: (miles / 1_000_000).toFixed(1), suffix: 'M' }
+  if (miles >= 1_000) return { value: (miles / 1_000).toFixed(1), suffix: 'K' }
+  return { value: String(miles), suffix: '' }
+}
 
 export default function LandingPage() {
   const [loggedIn, setLoggedIn] = useState(false)
+  const [miles, setMiles] = useState(0)
   const { suspended } = useSuspended()
 
   useEffect(() => {
     setLoggedIn(!!getUser())
+    getMilesShared().then(setMiles).catch(() => {})
   }, [])
+
+  const milesStat = formatMiles(miles)
 
   // When signed in, the buttons skip the login gate
   const offerHref = loggedIn ? '/offer/community' : '/login?next=/offer/community'
@@ -100,7 +112,12 @@ export default function LandingPage() {
       {!loggedIn && (
         <>
           <ManifestoSection />
-          <StatCardSection />
+          <StatCardSection
+            statPrefix=""
+            statValue={milesStat.value}
+            statSuffix={milesStat.suffix}
+            statCaption="Miles shared on Veesaa"
+          />
           <AvailabilitySection />
         </>
       )}
