@@ -46,7 +46,7 @@ export default function LandingPage() {
             <h1 className="text-5xl lg:text-6xl font-bold text-black leading-tight tracking-tight mb-6">
               Get there,<br />together.
             </h1>
-            <p className="text-gray-500 text-lg leading-relaxed mb-8 max-w-md">
+            <p className="text-gray-500 text-[0.95rem] leading-relaxed mb-8 max-w-md">
               Veesaa connects people in your community heading to the same place at the same time, so you ride together. The destination is the point, not the fare.
             </p>
             <div className="flex flex-row gap-3">
