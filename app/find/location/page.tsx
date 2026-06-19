@@ -14,7 +14,7 @@ export default function FindLocationPage() {
   const [coords, setCoords] = useState<PlaceCoords | undefined>(undefined)
   const [finding, setFinding] = useState(false)
 
-  // The last location used (from a previous search) — offered as a quick tap.
+  // The last location used (from a previous search), offered as a quick tap.
   const recent = draft.startingPlace
     ? {
         place: draft.startingPlace,

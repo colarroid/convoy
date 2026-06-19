@@ -7,7 +7,7 @@ import { getMyCommunities, joinCommunityByCode, type HeldCommunity } from '@/lib
 import { saveDraft } from '@/lib/offerStore'
 import { saveFindDraft } from '@/lib/findStore'
 
-/** "Jump back in" — held communities a returning user can act on without retyping a code. */
+/** "Jump back in", held communities a returning user can act on without retyping a code. */
 export default function CommunitySwitcher() {
   const router = useRouter()
   const [held, setHeld] = useState<HeldCommunity[]>([])

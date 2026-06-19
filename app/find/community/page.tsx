@@ -25,7 +25,7 @@ export default function FindCommunityPage() {
   const [noMatch, setNoMatch] = useState(false)
   const [held, setHeld] = useState<HeldCommunity[]>([])
 
-  // Communities the user already holds — pick instead of retyping the code.
+  // Communities the user already holds, pick instead of retyping the code.
   useEffect(() => {
     getMyCommunities().then(setHeld).catch(() => {})
   }, [])

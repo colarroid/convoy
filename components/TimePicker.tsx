@@ -23,7 +23,7 @@ function fmt(hour: number, minute: number, period: 'AM' | 'PM') {
   return `${pad(hour)}:${pad(minute)} ${period}`
 }
 
-// Defined outside the component — fixes the hydration mismatch
+// Defined outside the component, fixes the hydration mismatch
 function Chevron({ dir, onClick }: { dir: 'up' | 'down'; onClick: () => void }) {
   const path = dir === 'up' ? 'M5 15l7-7 7 7' : 'M19 9l-7 7-7-7'
   return (

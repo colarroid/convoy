@@ -16,7 +16,7 @@ export default function InstallPrompt() {
     if (localStorage.getItem(DISMISS_KEY)) return
     // Already installed / running standalone?
     if (window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone) return
-    // Don't stack on top of the cookie notice — wait until it's dismissed.
+    // Don't stack on top of the cookie notice, wait until it's dismissed.
     if (!localStorage.getItem('convoy_cookie_notice_dismissed')) return
 
     const ua = navigator.userAgent

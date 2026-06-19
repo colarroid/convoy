@@ -6,7 +6,7 @@ import { submitReport, REPORT_CATEGORIES, type ReportCategory } from '@/lib/repo
 interface ReportModalProps {
   open: boolean
   onClose: () => void
-  /** Who/what is being reported (optional — omit for a general report). */
+  /** Who/what is being reported (optional, omit for a general report). */
   reportedUserId?: string
   reportedName?: string
   tripId?: string

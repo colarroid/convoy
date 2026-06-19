@@ -319,7 +319,7 @@ export default function ProfilePage() {
                 />
               </div>
 
-              {/* Email — not editable */}
+              {/* Email, not editable */}
               <div className="relative">
                 <input
                   value={user?.email ?? ''}
@@ -332,7 +332,7 @@ export default function ProfilePage() {
                 </svg>
               </div>
 
-              {/* Phone — consistent with signup */}
+              {/* Phone, consistent with signup */}
               <PhoneField
                 country={country}
                 localPhone={localPhone}

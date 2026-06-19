@@ -31,7 +31,7 @@ export default function AuthGate() {
 
     const check = async () => {
       // Onboarding routes (/onboarding/google, /onboarding/photo, …) run their
-      // own multi-step flow — never gate or redirect away from them.
+      // own multi-step flow, never gate or redirect away from them.
       const inOnboarding = pathname.startsWith('/onboarding')
 
       const { data: { session } } = await supabase.auth.getSession()

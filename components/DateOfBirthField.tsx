@@ -9,7 +9,7 @@ function daysInMonth(month: number, year: number) {
   return new Date(year || 2000, month, 0).getDate()
 }
 
-/** Day / Month / Year selects — reliable for birthdates, no native date-picker quirks.
+/** Day / Month / Year selects, reliable for birthdates, no native date-picker quirks.
     Emits an ISO "YYYY-MM-DD" string (or "" until all three are set). */
 export default function DateOfBirthField({ value, onChange }: { value: string; onChange: (iso: string) => void }) {
   const init = value ? value.split('-').map(Number) : [0, 0, 0]

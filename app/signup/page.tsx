@@ -77,7 +77,7 @@ export default function SignupPage() {
       return
     }
 
-    // Supabase hides "email already registered" to prevent enumeration — it
+    // Supabase hides "email already registered" to prevent enumeration, it
     // returns a user with no identities instead of an error. Detect and guide.
     if (data.user && (data.user.identities?.length ?? 0) === 0) {
       setLoading(false)

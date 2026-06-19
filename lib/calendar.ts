@@ -1,4 +1,4 @@
-// "Add to calendar" — generate an .ics with a built-in alarm so the user's own
+// "Add to calendar", generate an .ics with a built-in alarm so the user's own
 // calendar app fires the reminder (OS-native, doesn't depend on push/PWA install).
 
 function toICSDate(d: Date): string {

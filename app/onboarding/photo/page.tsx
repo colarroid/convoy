@@ -183,7 +183,7 @@ export default function OnboardingPhotoPage() {
         await supabase.from('profiles').update({ photo_url: url }).eq('id', user.id)
       }
       // Refresh the local cache from the session (name/email/phone/photo + the
-      // onboarded flag) so the app recognises the user as signed in — important
+      // onboarded flag) so the app recognises the user as signed in, important
       // for Google sign-ups that never touched the email-signup cache path.
       await syncProfileToCache()
       localStorage.setItem('convoy_onboarded', '1')
@@ -368,7 +368,7 @@ export default function OnboardingPhotoPage() {
 
           {/* Buttons */}
           <div className="w-full flex flex-col gap-3">
-            {/* Take selfie — getUserMedia */}
+            {/* Take selfie, getUserMedia */}
             <button
               type="button"
               onClick={startCamera}
@@ -381,7 +381,7 @@ export default function OnboardingPhotoPage() {
               Take a selfie
             </button>
 
-            {/* Choose from gallery — label triggers file input */}
+            {/* Choose from gallery, label triggers file input */}
             <label
               htmlFor="gallery-input"
               className="w-full flex items-center justify-center gap-2.5 py-3.5 rounded-xl border-2 border-gray-200 bg-white text-gray-700 text-sm font-semibold hover:border-gray-400 hover:bg-gray-50 active:scale-[0.98] transition-all cursor-pointer select-none"
@@ -392,7 +392,7 @@ export default function OnboardingPhotoPage() {
               Choose from gallery
             </label>
 
-            {/* Continue — only when cropped photo is ready */}
+            {/* Continue, only when cropped photo is ready */}
             {cropped && (
               <button
                 type="button"

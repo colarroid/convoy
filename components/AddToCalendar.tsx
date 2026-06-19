@@ -11,7 +11,7 @@ interface AddToCalendarProps {
   className?: string
 }
 
-/** Small "Add to calendar" button — downloads an .ics with a 30-min reminder alarm. */
+/** Small "Add to calendar" button, downloads an .ics with a 30-min reminder alarm. */
 export default function AddToCalendar({ uid, title, start, description, location, className }: AddToCalendarProps) {
   const handle = () => {
     const ics = buildTripICS({ uid, title, start, description, location })

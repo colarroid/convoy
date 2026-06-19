@@ -3,7 +3,7 @@ const PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
 
 /**
  * Upload an image (data URL or Blob) to Cloudinary via an unsigned preset and
- * return the hosted secure URL. No API secret is used client-side — the preset
+ * return the hosted secure URL. No API secret is used client-side, the preset
  * only permits uploads.
  */
 export async function uploadProfilePhoto(file: string | Blob): Promise<string> {

@@ -20,7 +20,7 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
             Veesaa
           </Link>
 
-          {/* Desktop nav links — landing page only */}
+          {/* Desktop nav links, landing page only */}
           {showAuth === 'both' && (
             <nav className="hidden md:flex items-center gap-1">
               <Link href="/#about"        className="nav-pill">About</Link>

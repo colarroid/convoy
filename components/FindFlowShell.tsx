@@ -70,7 +70,7 @@ export default function FindFlowShell({
 
         {/* ── Form panel ── */}
         <div className="flex-1 lg:w-[35%] flex flex-col min-h-0">
-          {/* Form content — scrolls on desktop, footer stays pinned */}
+          {/* Form content, scrolls on desktop, footer stays pinned */}
           <div className="flex-1 lg:min-h-0 lg:overflow-y-auto px-5 lg:px-8 pt-6 pb-6">
             {(context || title) && (
               <div className="mb-6">
@@ -82,7 +82,7 @@ export default function FindFlowShell({
             {children}
           </div>
 
-          {/* Footer — sticky at bottom of form panel on desktop, fixed on mobile */}
+          {/* Footer, sticky at bottom of form panel on desktop, fixed on mobile */}
           <div className="lg:static lg:border-t lg:border-gray-100 lg:px-8 lg:py-5
                           fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-5 py-4">
             {footer}

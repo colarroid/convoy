@@ -42,7 +42,7 @@ export default function PhoneField({
         type="tel"
         placeholder={placeholder}
         value={localPhone}
-        // Strip non-digits AND any leading zeros — the country code (e.g. +234)
+        // Strip non-digits AND any leading zeros, the country code (e.g. +234)
         // already covers the national prefix, so "0816…" → "816…".
         onChange={(e) => onLocalChange(e.target.value.replace(/\D/g, '').replace(/^0+/, ''))}
         autoComplete="tel-national"

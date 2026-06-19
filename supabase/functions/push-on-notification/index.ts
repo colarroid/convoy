@@ -1,18 +1,18 @@
-// Supabase Edge Function — fans a notification out to TWO channels whenever a
+// Supabase Edge Function, fans a notification out to TWO channels whenever a
 // row is inserted into `notifications`: a OneSignal push AND a Resend email.
 // Triggered by a Database Webhook (notifications INSERT).
 //
 // Each channel respects the recipient's preference (user_settings):
 //   push_notifications → the OneSignal push
 //   email_updates      → the Resend email
-// Both fail-open and are independent — one failing never blocks the other.
+// Both fail-open and are independent, one failing never blocks the other.
 //
 // Deploy:   supabase functions deploy push-on-notification --no-verify-jwt
 // Secrets:  supabase secrets set ONESIGNAL_APP_ID=... ONESIGNAL_REST_API_KEY=... RESEND_API_KEY=re_...
 // Webhook:  Database → Webhooks → on table `notifications`, event INSERT → this function.
 //
 // The row is created server-side by the trip RPCs, so the recipient + content
-// are trustworthy — the client never decides who gets notified.
+// are trustworthy, the client never decides who gets notified.
 
 // deno-lint-ignore-file no-explicit-any
 
