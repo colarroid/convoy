@@ -7,7 +7,6 @@ import Navbar from '@/components/Navbar'
 import AppNav from '@/components/AppNav'
 import MobileHero from '@/components/MobileHero'
 import ManifestoSection from '@/components/ManifestoSection'
-import HowItWorksSection from '@/components/HowItWorksSection'
 import AvailabilitySection from '@/components/AvailabilitySection'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
@@ -100,7 +99,6 @@ export default function LandingPage() {
       {!loggedIn && (
         <>
           <ManifestoSection />
-          <HowItWorksSection />
           <AvailabilitySection />
         </>
       )}
