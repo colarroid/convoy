@@ -8,6 +8,7 @@ import AppNav from '@/components/AppNav'
 import MobileHero from '@/components/MobileHero'
 import ManifestoSection from '@/components/ManifestoSection'
 import AvailabilitySection from '@/components/AvailabilitySection'
+import StatCardSection from '@/components/StatCardSection'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
 import { useSuspended } from '@/lib/useSuspended'
@@ -99,6 +100,7 @@ export default function LandingPage() {
       {!loggedIn && (
         <>
           <ManifestoSection />
+          <StatCardSection />
           <AvailabilitySection />
         </>
       )}
