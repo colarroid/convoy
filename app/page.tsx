@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar'
+import HeroMap from '@/components/HeroMap'
 import AppNav from '@/components/AppNav'
 import MobileHero from '@/components/MobileHero'
 import ManifestoSection from '@/components/ManifestoSection'
@@ -72,9 +72,12 @@ export default function LandingPage() {
               ) : (
                 <Link
                   href={offerHref}
-                  className="px-6 py-3 bg-black text-white rounded-full font-medium text-sm hover:bg-gray-800 transition-all active:scale-[0.97]"
+                  className="group inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full font-medium text-sm hover:bg-gray-800 transition-all active:scale-[0.97]"
                 >
                   Offer a ride
+                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
                 </Link>
               )}
               <Link
@@ -84,26 +87,31 @@ export default function LandingPage() {
                 Find a ride
               </Link>
             </div>
-            <p className="mt-5 text-xs text-gray-400 flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c0-1.657-1.343-3-3-3S6 9.343 6 11s1.343 3 3 3 3-1.343 3-3zm0 0c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3zm-9 8a9 9 0 1118 0H3z" />
-              </svg>
-              Closed to your community. No strangers, ever.
-            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium text-gray-500">
+              <span className="flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                Free to ride
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 4.97-3.6 8.6-8.25 9.75a.75.75 0 01-.34 0C7.6 20.6 4 16.97 4 12V6.3a.75.75 0 01.48-.7l7.5-2.8a.75.75 0 01.54 0l7.5 2.8a.75.75 0 01.48.7V12z" />
+                </svg>
+                Verified members
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V7.5a4.5 4.5 0 10-9 0v3m-1.5 0h12a1.5 1.5 0 011.5 1.5v6a1.5 1.5 0 01-1.5 1.5H6a1.5 1.5 0 01-1.5-1.5v-6A1.5 1.5 0 016 10.5z" />
+                </svg>
+                No strangers, ever
+              </span>
+            </div>
           </div>
 
-          {/* Hero image:contained square on the right */}
-          <div className="flex-1 h-full flex items-center justify-end">
-            <div className="relative h-[78%] max-h-[560px] aspect-square rounded-2xl overflow-hidden">
-              <Image
-                src="/assets/woman-daughter.png"
-                alt="A mother and daughter ready for a ride"
-                fill
-                className="object-cover"
-                priority
-                sizes="(min-width: 1024px) 36rem, 45vw"
-              />
-            </div>
+          {/* Hero illustration:animated convergence map */}
+          <div className="flex-1 flex items-center justify-end">
+            <HeroMap />
           </div>
         </div>
       </section>
