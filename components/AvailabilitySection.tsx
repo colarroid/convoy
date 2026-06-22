@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { joinWaitlist } from '@/lib/waitlist'
 
 function LiveRow({ flag, name }: { flag: string; name: string }) {
   return (
@@ -25,11 +26,22 @@ export default function AvailabilitySection() {
   const [community, setCommunity] = useState('')
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!email.trim()) return
-    setSubmitted(true)   // visual only, not stored yet
+    if (!email.trim() || busy) return
+    setBusy(true)
+    setError('')
+    try {
+      await joinWaitlist(community, email)
+      setSubmitted(true)
+    } catch {
+      setError('Something went wrong. Please check your email and try again.')
+    } finally {
+      setBusy(false)
+    }
   }
 
   const inputCls =
@@ -64,11 +76,12 @@ export default function AvailabilitySection() {
             <form onSubmit={onSubmit} className="flex flex-col gap-2.5">
               <input value={community} onChange={e => setCommunity(e.target.value)} placeholder="Your community or city" className={inputCls} />
               <div className="flex gap-2">
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@email.com" className={`flex-1 min-w-0 ${inputCls}`} />
-                <button type="submit" className="px-5 py-3 bg-white text-black rounded-xl text-sm font-semibold hover:bg-gray-100 active:scale-[0.98] transition-all shrink-0">
-                  Notify me
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@email.com" required className={`flex-1 min-w-0 ${inputCls}`} />
+                <button type="submit" disabled={busy} className="px-5 py-3 bg-white text-black rounded-xl text-sm font-semibold hover:bg-gray-100 active:scale-[0.98] transition-all shrink-0 disabled:opacity-60 disabled:cursor-not-allowed">
+                  {busy ? 'Adding…' : 'Notify me'}
                 </button>
               </div>
+              {error && <p className="text-sm text-red-400">{error}</p>}
             </form>
           )}
         </div>
