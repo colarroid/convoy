@@ -38,7 +38,7 @@ export default function StatCardSection({
           {/* Left: headline, body, CTA */}
           <div className="relative">
             {/* lightning glyph, top-right of the whole card on desktop */}
-            <h2 className="text-[34px] font-extrabold leading-[1.05] tracking-tight text-[#0a0a23] sm:text-5xl md:text-[56px]">
+            <h2 className="text-[28px] font-extrabold leading-[1.1] tracking-tight text-[#0a0a23] sm:text-4xl md:text-[44px]">
               {headline}
             </h2>
             <p className="mt-5 max-w-md text-[0.95rem] font-medium leading-relaxed text-[#3a3a52]">
