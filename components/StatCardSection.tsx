@@ -17,8 +17,8 @@ interface StatCardSectionProps {
  * two columns on desktop, stacked on mobile. Pass content via props.
  */
 export default function StatCardSection({
-  headline = '77% of carts are abandoned. Veesaa brings them back.',
-  body = 'Veesaa connects people in your community heading to the same place at the same time, so you ride together. The destination is the point, not the fare.',
+  headline = 'Some of the best conversations happen on the way there.',
+  body = "Every shared ride is more than a trip to a destination, it's an opportunity to break the ice, start a conversation, and bring people closer together.",
   ctaLabel = 'Launch demo',
   onCta,
   statPrefix = '',
