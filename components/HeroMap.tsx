@@ -12,15 +12,16 @@
  *   horizontal avenues y = 205 (88) / 379 (84)
  */
 
-const BLACK = 'M85 379 L85 205 L430 205'        // 140 St up, 88 Ave east to star
+// Square crop shows the central band (x ~ 125..625), so the route lives there.
+const BLACK = 'M600 379 L600 205 L430 205'      // 152 St up, 88 Ave west to star
 const BLUE_1 = 'M259 379 L259 205'              // 144 St up to junction
 const BLUE_2 = 'M430 379 L259 379 L259 205'     // 84 Ave west, 144 St up to junction
 const TRUNK = 'M259 205 L430 205'               // shared 88 Ave, junction to star
 
 export default function HeroMap() {
   return (
-    <div className="relative w-full max-w-[560px]">
-      <div className="relative aspect-[3/2] overflow-hidden rounded-[28px] ring-1 ring-black/5 shadow-[0_40px_90px_-50px_rgba(20,24,60,0.35)]">
+    <div className="relative w-full max-w-[640px]">
+      <div className="relative aspect-square overflow-hidden rounded-[28px] ring-1 ring-black/5 shadow-[0_40px_90px_-50px_rgba(20,24,60,0.35)]">
         {/* map background */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hero-map.svg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
@@ -37,7 +38,7 @@ export default function HeroMap() {
           <g className="hm-node hm-node-j"><circle cx="259" cy="205" r="7" fill="#fff" /><circle cx="259" cy="205" r="3.5" fill="#2563eb" /></g>
 
           {/* pickups */}
-          <g className="hm-node"><circle cx="85" cy="379" r="13" fill="#fff" /><circle cx="85" cy="379" r="5.5" fill="#0a0a23" /></g>
+          <g className="hm-node"><circle cx="600" cy="379" r="13" fill="#fff" /><circle cx="600" cy="379" r="5.5" fill="#0a0a23" /></g>
           <g className="hm-node hm-node-2"><circle cx="259" cy="379" r="13" fill="#fff" /><circle cx="259" cy="379" r="5.5" fill="#2563eb" /></g>
           <g className="hm-node hm-node-3"><circle cx="430" cy="379" r="13" fill="#fff" /><circle cx="430" cy="379" r="5.5" fill="#2563eb" /></g>
 
