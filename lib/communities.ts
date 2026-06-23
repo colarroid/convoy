@@ -34,3 +34,17 @@ export async function leaveCommunity(communityId: string) {
   const { error } = await supabase.rpc('leave_community', { p_community: communityId })
   if (error) throw error
 }
+
+/** A community for the public directory (no code exposed). */
+export interface PublicCommunity {
+  name: string
+  area: string | null
+  country: string // ISO-2
+}
+
+/** Public list of communities (name, area, country) for the Communities page. */
+export async function getPublicCommunities(): Promise<PublicCommunity[]> {
+  const { data, error } = await supabase.rpc('list_public_communities')
+  if (error || !data) return []
+  return data as PublicCommunity[]
+}

@@ -45,16 +45,16 @@ export default function LandingPage() {
   const findHref = loggedIn ? '/find/community' : '/login?next=/find/community'
 
   return (
-    <div className={`min-h-screen flex flex-col ${loggedIn ? 'md:h-screen md:overflow-hidden' : ''}`}>
+    <div className="min-h-screen flex flex-col">
       {loggedIn ? <AppNav /> : <Navbar showAuth="both" />}
 
       {/* Mobile hero:intent cards */}
-      <section className={`md:hidden bg-white ${loggedIn ? 'flex-1' : ''}`}>
+      <section className="md:hidden bg-white">
         <MobileHero offerHref={offerHref} findHref={findHref} offerDisabled={suspended} />
       </section>
 
-      {/* Desktop hero:fills the first viewport (logged in: single screen, no scroll) */}
-      <section className={`hidden md:flex bg-white ${loggedIn ? 'flex-1 min-h-0' : 'min-h-[calc(100vh-4rem)] items-center'}`}>
+      {/* Desktop hero:fills the first viewport */}
+      <section className="hidden md:flex bg-white min-h-[calc(100vh-4rem)] items-center">
         <div className="max-w-6xl mx-auto w-full px-8 flex items-center gap-12">
           {/* Text */}
           <div className="flex-1">
@@ -123,19 +123,15 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Marketing sections:logged-out visitors only */}
-      {!loggedIn && (
-        <>
-          <ManifestoSection />
-          <StatCardSection
-            statPrefix=""
-            statValue={milesStat.value}
-            statSuffix={milesStat.suffix}
-            statCaption="Miles shared on Veesaa"
-          />
-          <AvailabilitySection />
-        </>
-      )}
+      {/* Marketing sections */}
+      <ManifestoSection />
+      <StatCardSection
+        statPrefix=""
+        statValue={milesStat.value}
+        statSuffix={milesStat.suffix}
+        statCaption="Miles shared on Veesaa"
+      />
+      <AvailabilitySection />
 
       {/* Footer */}
       <Footer id="contact" mobileSpacer />
