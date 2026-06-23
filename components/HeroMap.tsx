@@ -8,18 +8,19 @@ import { HERO_BLACK_PATH, HERO_BLUE_PATHS, HERO_DEST } from '@/lib/heroRoute'
  * public/hero-map.svg (viewBox 0 110 448 560). The route, the car and the
  * destination are driven by a single requestAnimationFrame loop so the car
  * stays locked to the drawing tip. Loop: a car drives the black route from the
- * location to the destination (drawing it, blue feeders joining as it passes);
+ * location to the destination, pausing at each pickup while that rider's blue
+ * feeder draws in to meet it, then continuing;
  * on arrival the star appears and the line stays for a 7s hold; when the return
  * starts the forward line vanishes and a fresh line draws from the destination
  * back to the origin (blue feeders now linking from the line back to their dot)
  * while the star stays up; the return line vanishes on arrival, restarting.
  */
-const FORWARD = 4.5
+const FORWARD = 5.5
 const HOLD = 7
 const RETURN = 4.5
 const GAP = 0.6
 const LOOP = FORWARD + HOLD + RETURN + GAP
-const WIN = 0.13 // how quickly each blue feeder snaps in as the line passes it
+const WIN = 0.13 // how quickly each blue feeder snaps in as the return line passes it
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
 
@@ -82,14 +83,45 @@ export default function HeroMap() {
       for (const b of blues) b.el.style.opacity = v ? '1' : '0'
     }
 
-    // Draw the black line growing from the origin (forward). p = revealed fraction.
-    const drawForward = (p: number) => {
-      black.style.strokeDashoffset = `${blackLen * (1 - p)}`
-      for (const b of blues) {
-        // only start once the black line has reached this intersection
-        const bp = clamp((p - b.meet) / WIN, 0, 1)
-        b.el.style.strokeDashoffset = `${b.len * (1 - bp)}`
+    // Forward leg: the car drives, then pauses at each blue intersection while
+    // that rider's feeder draws in to meet it, then continues to the destination.
+    const PAUSE = 0.6
+    const sorted = blues.map((b, i) => ({ i, meet: b.meet })).sort((a, b) => a.meet - b.meet)
+    const driveTime = FORWARD - PAUSE * sorted.length
+    type Seg = { drive: boolean; from: number; to: number; blue: number; t0: number; t1: number }
+    const segs: Seg[] = []
+    {
+      let prev = 0, acc = 0
+      for (const s of sorted) {
+        const dur = (s.meet - prev) * driveTime
+        segs.push({ drive: true, from: prev, to: s.meet, blue: -1, t0: acc, t1: acc + dur }); acc += dur
+        segs.push({ drive: false, from: s.meet, to: s.meet, blue: s.i, t0: acc, t1: acc + PAUSE }); acc += PAUSE
+        prev = s.meet
       }
+      const dur = (1 - prev) * driveTime
+      segs.push({ drive: true, from: prev, to: 1, blue: -1, t0: acc, t1: acc + dur })
+    }
+
+    // Apply the forward timeline at time t (within the forward leg); returns the
+    // black progress so the car can be placed on the tip.
+    const drawForward = (t: number) => {
+      let p = 0
+      const bP = blues.map(() => 0)
+      for (const s of segs) {
+        if (t >= s.t1) { if (s.drive) p = s.to; else bP[s.blue] = 1; continue }
+        const local = (t - s.t0) / (s.t1 - s.t0)
+        if (s.drive) p = s.from + (s.to - s.from) * local
+        else { p = s.from; bP[s.blue] = clamp(local / 0.8, 0, 1) } // feeder draws in during the pause
+        break
+      }
+      black.style.strokeDashoffset = `${blackLen * (1 - p)}`
+      blues.forEach((b, i) => { b.el.style.strokeDashoffset = `${b.len * (1 - bP[i])}` })
+      return p
+    }
+
+    const drawFull = () => {
+      black.style.strokeDashoffset = '0'
+      for (const b of blues) b.el.style.strokeDashoffset = '0'
     }
 
     // Draw a fresh black line growing from the destination back toward the origin.
@@ -117,7 +149,7 @@ export default function HeroMap() {
 
     if (reduce) {
       showLines(true)
-      drawForward(1)
+      drawFull()
       car.style.opacity = '0'
       star.style.opacity = '1'
       return
@@ -130,17 +162,16 @@ export default function HeroMap() {
       const m = ((t - t0) / 1000) % LOOP
 
       if (m < FORWARD) {
-        // drive origin -> destination, drawing the line
-        const p = m / FORWARD
+        // drive origin -> destination, pausing at each pickup for its feeder
         showLines(true)
-        drawForward(p)
+        const p = drawForward(m)
         placeCar(p, false)
         car.style.opacity = p < 0.96 ? '1' : '0'   // arrive and vanish
         star.style.opacity = '0'
       } else if (m < FORWARD + HOLD) {
         // at the destination: the forward line stays, star shows and holds
         showLines(true)
-        drawForward(1)
+        drawFull()
         car.style.opacity = '0'
         star.style.opacity = '1'
       } else if (m < FORWARD + HOLD + RETURN) {
