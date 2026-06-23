@@ -8,7 +8,7 @@ import { linkOneSignal } from '@/lib/onesignalClient'
 // Routes anyone can see without a session.
 const PUBLIC_ROUTES = new Set([
   '/', '/login', '/signup', '/verify', '/forgot-password', '/reset-password',
-  '/help', '/terms-of-use', '/privacy',
+  '/help', '/terms-of-use', '/privacy', '/contact', '/communities',
 ])
 const ONBOARDING = '/onboarding/photo'
 const ONBOARDED_KEY = 'convoy_onboarded'
