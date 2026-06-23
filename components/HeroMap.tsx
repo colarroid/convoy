@@ -4,18 +4,18 @@
  * Illustrated city-map hero. The map, the route (black line to the starred
  * destination, blue feeders linking onto it) and the location markers are all
  * baked into public/hero-map.svg (cropped to a square viewBox 0 100 500 500).
- * Here we just frame it and lay the card UI on top. The destination star sits
- * at ~70.8% across, ~93% down in that viewBox.
+ * Here we just frame it and lay the card UI on top. With viewBox 0 110 448 560
+ * the destination star sits at ~79% across, ~81% down.
  */
 export default function HeroMap() {
   return (
-    <div className="relative w-full max-w-[600px]">
-      <div className="relative aspect-square overflow-hidden rounded-[28px] ring-1 ring-black/5 shadow-[0_40px_90px_-50px_rgba(20,24,60,0.35)]">
+    <div className="relative w-full max-w-[520px]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] ring-1 ring-black/5 shadow-[0_40px_90px_-50px_rgba(20,24,60,0.35)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hero-map.svg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
 
         {/* gentle pulse on the destination */}
-        <span className="hm-pulse pointer-events-none absolute block h-12 w-12 rounded-full" style={{ left: '70.8%', top: '93%' }} />
+        <span className="hm-pulse pointer-events-none absolute block h-12 w-12 rounded-full" style={{ left: '79%', top: '81.3%' }} />
 
         {/* top label */}
         <div className="absolute left-5 top-5 rounded-full bg-white/85 px-3 py-1 text-[11px] font-semibold tracking-[0.12em] text-[#5b6486] backdrop-blur">
