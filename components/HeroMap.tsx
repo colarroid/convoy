@@ -196,7 +196,8 @@ export default function HeroMap() {
   }, [])
 
   return (
-    <div className="relative w-full max-w-[520px]">
+    // Width is capped by height too, so the portrait card never taller than the screen.
+    <div className="relative ml-auto w-full max-w-[min(520px,calc((100vh-9rem)*0.8))]">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] ring-1 ring-black/5 shadow-[0_40px_90px_-50px_rgba(20,24,60,0.35)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hero-map.svg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />

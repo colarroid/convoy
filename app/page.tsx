@@ -53,16 +53,16 @@ export default function LandingPage() {
         <MobileHero offerHref={offerHref} findHref={findHref} offerDisabled={suspended} />
       </section>
 
-      {/* Desktop hero:fills the first viewport */}
-      <section className="hidden md:flex bg-white min-h-[calc(100vh-4rem)] items-stretch">
-        <div className="max-w-6xl mx-auto w-full px-8 grid grid-cols-2 gap-12 items-stretch py-16">
+      {/* Desktop hero:fits within one screen (nav + hero <= viewport) */}
+      <section className="hidden md:flex bg-white h-[calc(100vh-4rem)] overflow-hidden items-stretch">
+        <div className="max-w-6xl mx-auto w-full px-8 grid grid-cols-2 gap-12 items-stretch py-10">
           {/* Text: headline pinned top, supporting content pushed to the bottom */}
-          <div className="flex flex-col justify-between">
+          <div className="flex flex-col justify-between min-h-0">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gray-400 mb-7">
                 Community lift-sharing
               </p>
-              <h1 className="text-6xl lg:text-7xl font-bold text-black leading-[1.02] tracking-tight">
+              <h1 className="text-6xl lg:text-7xl font-semibold text-black leading-[1.02] tracking-tight">
                 Get there,<br />together.
               </h1>
             </div>
@@ -71,7 +71,7 @@ export default function LandingPage() {
               <p className="text-gray-500 text-[0.95rem] leading-relaxed mb-7">
                 Veesaa connects people in your community heading to the same place at the same time, so you ride together. The destination is the point, not the fare.
               </p>
-              <div className="flex flex-row gap-3 mb-6">
+              <div className="flex flex-row gap-3">
                 {suspended ? (
                   <span
                     className="px-7 py-3.5 bg-gray-100 text-gray-400 rounded-full font-medium text-sm cursor-not-allowed"
@@ -97,21 +97,11 @@ export default function LandingPage() {
                   Find a ride
                 </Link>
               </div>
-
-              {/* Trust pill */}
-              <div className="inline-flex items-center gap-2.5 rounded-full border border-gray-200 bg-white px-4 py-2.5 shadow-sm">
-                <svg className="w-4 h-4 text-green-600 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                </svg>
-                <span className="text-xs font-medium text-gray-600">
-                  Free to ride · Verified members · No strangers, ever
-                </span>
-              </div>
             </div>
           </div>
 
-          {/* Hero illustration:animated convergence map */}
-          <div className="flex items-center justify-end">
+          {/* Hero illustration:animated convergence map (sized to fit the screen) */}
+          <div className="flex items-center justify-end min-h-0">
             <HeroMap />
           </div>
         </div>
