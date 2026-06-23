@@ -7,7 +7,7 @@ import CommunityLogo from '@/components/CommunityLogo'
 import AddToCalendar from '@/components/AddToCalendar'
 import { tripStart } from '@/lib/calendar'
 import {
-  getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, withdrawRequest, recordTripFeedback, formatTripDate, isPast,
+  getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, withdrawRequest, recordTripFeedback, formatTripDate, isPast, isPastBy,
   type MyTripRow, type JoinedTripRow,
 } from '@/lib/trips'
 
@@ -82,7 +82,11 @@ export default function MyTripsPage() {
     )
   }
 
-  const nothing = hosting.length === 0 && joined.length === 0
+  // Guests can't confirm a ride, so it drops off their list 15 min after departure.
+  // (Hosts keep theirs until they confirm or mark it didn't happen.)
+  const visibleJoined = joined.filter(t => !leftJoined.includes(t.trip_id) && !isPastBy(t.departs_at, 15))
+
+  const nothing = hosting.length === 0 && visibleJoined.length === 0
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -215,11 +219,11 @@ export default function MyTripsPage() {
             )}
 
             {/* ── Joining ── */}
-            {joined.filter(t => !leftJoined.includes(t.trip_id)).length > 0 && (
+            {visibleJoined.length > 0 && (
               <>
                 <p className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-3 px-1">Rides you&apos;re joining</p>
                 <div className="flex flex-col gap-5">
-                  {joined.filter(t => !leftJoined.includes(t.trip_id)).map((trip, i) => {
+                  {visibleJoined.map((trip, i) => {
                     const past = isPast(trip.departs_at)
                     return (
                       <div key={trip.trip_id} className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden animate-fade-up" style={{ animationDelay: `${i * 70}ms` }}>

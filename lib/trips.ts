@@ -221,6 +221,11 @@ export function isPast(departsAt: string | null): boolean {
   return !!departsAt && new Date(departsAt).getTime() < Date.now()
 }
 
+/** Whether a trip's departure passed more than `minutes` ago. */
+export function isPastBy(departsAt: string | null, minutes: number): boolean {
+  return !!departsAt && new Date(departsAt).getTime() + minutes * 60_000 < Date.now()
+}
+
 // ── Find flow (rider-facing) ──
 
 export interface RideRow {
