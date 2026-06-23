@@ -9,9 +9,10 @@ import { HERO_BLACK_PATH, HERO_BLUE_PATHS, HERO_DEST } from '@/lib/heroRoute'
  * destination are driven by a single requestAnimationFrame loop so the car
  * stays locked to the drawing tip. Loop: a car drives the black route from the
  * location to the destination (drawing it, blue feeders joining as it passes);
- * on arrival the line vanishes and the star appears for a 7s hold; then a fresh
- * line draws from the destination back to the origin (reconnecting the blue
- * dots) and vanishes on arrival, restarting the loop.
+ * on arrival the star appears and the line stays for a 7s hold; when the return
+ * starts the forward line vanishes and a fresh line draws from the destination
+ * back to the origin (blue feeders now linking from the line back to their dot)
+ * while the star stays up; the return line vanishes on arrival, restarting.
  */
 const FORWARD = 4.5
 const HOLD = 7
@@ -87,13 +88,14 @@ export default function HeroMap() {
     }
 
     // Draw a fresh black line growing from the destination back toward the origin.
-    // q = return progress; the frontier reaches origin distance (1 - q).
+    // q = return progress; the frontier reaches origin distance (1 - q). The blue
+    // feeders draw the other way now: from the black line back to their dot.
     const drawReturn = (q: number) => {
       black.style.strokeDashoffset = `${-blackLen * (1 - q)}`
       const r = 1 - q
       for (const b of blues) {
         const bp = clamp((b.meet - r) / WIN + 1, 0, 1)
-        b.el.style.strokeDashoffset = `${b.len * (1 - bp)}`
+        b.el.style.strokeDashoffset = `${-b.len * (1 - bp)}`
       }
     }
 
@@ -130,18 +132,20 @@ export default function HeroMap() {
         car.style.opacity = p < 0.96 ? '1' : '0'   // arrive and vanish
         star.style.opacity = '0'
       } else if (m < FORWARD + HOLD) {
-        // at the destination: line gone, star shows and holds
-        showLines(false)
+        // at the destination: the forward line stays, star shows and holds
+        showLines(true)
+        drawForward(1)
         car.style.opacity = '0'
         star.style.opacity = '1'
       } else if (m < FORWARD + HOLD + RETURN) {
-        // a new line draws from the destination back to the origin
+        // the forward line vanishes and a fresh line draws back to the origin;
+        // the destination star stays up through the whole return
         const q = (m - FORWARD - HOLD) / RETURN
         showLines(true)
         drawReturn(q)
         placeCar(1 - q, true)
         car.style.opacity = q < 0.96 ? '1' : '0'   // reach origin and vanish
-        star.style.opacity = '0'
+        star.style.opacity = '1'
       } else {
         // brief reset before the loop restarts
         showLines(false)
