@@ -1,26 +1,115 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { HERO_BLACK_PATH, HERO_BLUE_PATHS, HERO_DEST } from '@/lib/heroRoute'
 
 /**
  * Illustrated city-map hero. The static map + location dots live in
- * public/hero-map.svg (viewBox 0 110 448 560). The routes, the moving car and
- * the destination are animated overlays so we can time them: a car drives the
- * black route from the location to the destination (drawing it as it goes),
- * each blue feeder draws to meet the black line at its intersection, and the
- * destination star only appears once the car arrives.
+ * public/hero-map.svg (viewBox 0 110 448 560). The route, the car and the
+ * destination are driven by a single requestAnimationFrame loop so the car
+ * stays locked to the drawing tip. Loop: a car drives the black route from the
+ * location to the destination (drawing it, with blue feeders joining as it
+ * passes), the star appears, a 7s hold, then the car drives back to the origin
+ * (un-drawing the route) and it all repeats.
  */
-const BLACK_DUR = 4.5     // slow + dramatic
-const BLACK_DELAY = 0.4
-const OLD_BLACK_DUR = 2.4 // the blue feeder timings were calibrated against this
-const RATIO = BLACK_DUR / OLD_BLACK_DUR
-const DEST_AT = BLACK_DELAY + BLACK_DUR
+const FORWARD = 4.5
+const HOLD = 7
+const REVERSE = 3.5
+const GAP = 0.9
+const LOOP = FORWARD + HOLD + REVERSE + GAP
+
+const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v))
 
 export default function HeroMap() {
-  const [animate, setAnimate] = useState(false)
+  const blackRef = useRef<SVGPathElement>(null)
+  const blueRefs = useRef<(SVGPathElement | null)[]>([])
+  const carRef = useRef<SVGGElement>(null)
+  const starRef = useRef<SVGGElement>(null)
+
   useEffect(() => {
-    setAnimate(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    const black = blackRef.current
+    const car = carRef.current
+    const star = starRef.current
+    if (!black || !car || !star) return
+
+    const blackLen = black.getTotalLength()
+    black.style.strokeDasharray = `${blackLen}`
+
+    // Per-blue: total length + the fraction along the black route where it joins.
+    const blues = HERO_BLUE_PATHS.map((_, i) => {
+      const el = blueRefs.current[i]!
+      const len = el.getTotalLength()
+      el.style.strokeDasharray = `${len}`
+      const end = el.getPointAtLength(len) // the connecting end touches the black line
+      let best = 0, bestD = Infinity
+      for (let s = 0; s <= 240; s++) {
+        const L = (s / 240) * blackLen
+        const p = black.getPointAtLength(L)
+        const d = (p.x - end.x) ** 2 + (p.y - end.y) ** 2
+        if (d < bestD) { bestD = d; best = L }
+      }
+      return { el, len, meet: best / blackLen }
+    })
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const setRoute = (p: number) => {
+      // p = fraction of the black route currently revealed (from the origin)
+      black.style.strokeDashoffset = `${blackLen * (1 - p)}`
+      for (const b of blues) {
+        const bp = clamp((p - (b.meet - 0.12)) / 0.12, 0, 1)
+        b.el.style.strokeDashoffset = `${b.len * (1 - bp)}`
+      }
+    }
+
+    const placeCar = (p: number, backward: boolean) => {
+      const l = clamp(blackLen * p, 0, blackLen)
+      const a = black.getPointAtLength(clamp(l - 0.6, 0, blackLen))
+      const b = black.getPointAtLength(clamp(l + 0.6, 0, blackLen))
+      const pt = black.getPointAtLength(l)
+      let ang = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI
+      if (backward) ang += 180
+      car.setAttribute('transform', `translate(${pt.x} ${pt.y}) rotate(${ang})`)
+    }
+
+    if (reduce) {
+      setRoute(1)
+      car.style.opacity = '0'
+      star.style.opacity = '1'
+      return
+    }
+
+    let raf = 0
+    let t0 = 0
+    const frame = (t: number) => {
+      if (!t0) t0 = t
+      const m = ((t - t0) / 1000) % LOOP
+
+      if (m < FORWARD) {
+        const p = m / FORWARD
+        setRoute(p)
+        placeCar(p, false)
+        car.style.opacity = p < 0.965 ? '1' : '0'   // arrive and vanish
+        star.style.opacity = '0'
+      } else if (m < FORWARD + HOLD) {
+        setRoute(1)
+        car.style.opacity = '0'
+        star.style.opacity = '1'                     // appears on arrival, holds 7s
+      } else if (m < FORWARD + HOLD + REVERSE) {
+        const p = 1 - (m - FORWARD - HOLD) / REVERSE
+        setRoute(p)
+        placeCar(p, true)                            // drive back to the origin
+        car.style.opacity = p > 0.03 ? '1' : '0'
+        star.style.opacity = '0'
+      } else {
+        setRoute(0)
+        car.style.opacity = '0'
+        star.style.opacity = '0'
+      }
+      raf = requestAnimationFrame(frame)
+    }
+    raf = requestAnimationFrame(frame)
+    return () => cancelAnimationFrame(raf)
   }, [])
 
   return (
@@ -29,65 +118,49 @@ export default function HeroMap() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hero-map.svg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
 
-        {/* animated routes + car + destination, aligned to the map viewBox */}
         <svg viewBox="0 110 448 560" className="absolute inset-0 h-full w-full" aria-hidden>
-          {/* blue feeders draw to meet the black route at their intersections */}
+          {/* blue feeders */}
           {HERO_BLUE_PATHS.map((b, i) => (
             <path
               key={i}
-              className="hm-line"
-              style={{ animationDuration: `${b.dur * RATIO}s`, animationDelay: `${BLACK_DELAY + (b.delay - 0.3) * RATIO}s` }}
+              ref={(el) => { blueRefs.current[i] = el }}
               d={b.d}
-              pathLength={1}
               fill="none"
               stroke="#2563eb"
               strokeWidth={4.5}
               strokeLinecap="round"
               strokeLinejoin="round"
+              style={{ strokeDasharray: 1, strokeDashoffset: 1 }}
             />
           ))}
 
-          {/* black route: location -> destination */}
+          {/* black route */}
           <path
-            id="hm-black"
-            className="hm-line"
-            style={{ animationDuration: `${BLACK_DUR}s`, animationDelay: `${BLACK_DELAY}s` }}
+            ref={blackRef}
             d={HERO_BLACK_PATH}
-            pathLength={1}
             fill="none"
             stroke="#112129"
             strokeWidth={4.5}
             strokeLinecap="round"
             strokeLinejoin="round"
+            style={{ strokeDasharray: 1, strokeDashoffset: 1 }}
           />
 
-          {/* car driving the black route, hidden until it starts and after it arrives */}
-          {animate && (
-            <g opacity={0}>
-              {/* top-down car, pointing east (rotate=auto orients it along travel) */}
-              <g>
-                <rect x={-9} y={-5} width={18} height={10} rx={3.5} fill="#112129" />
-                <rect x={1.5} y={-3.6} width={4.6} height={7.2} rx={1.4} fill="#9cc3ff" />
-                <rect x={-6.5} y={-3.6} width={3.6} height={7.2} rx={1.3} fill="#3b4a63" />
-              </g>
-              <animateMotion begin={`${BLACK_DELAY}s`} dur={`${BLACK_DUR}s`} rotate="auto" fill="freeze">
-                <mpath href="#hm-black" />
-              </animateMotion>
-              <set attributeName="opacity" to="1" begin={`${BLACK_DELAY}s`} />
-              <set attributeName="opacity" to="0" begin={`${DEST_AT}s`} />
-            </g>
-          )}
+          {/* car (top-down, drawn pointing east; the loop rotates it to the road) */}
+          <g ref={carRef} style={{ opacity: 0 }}>
+            <rect x={-9} y={-5} width={18} height={10} rx={3.5} fill="#112129" />
+            <rect x={1.5} y={-3.6} width={4.6} height={7.2} rx={1.4} fill="#9cc3ff" />
+            <rect x={-6.5} y={-3.6} width={3.6} height={7.2} rx={1.3} fill="#3b4a63" />
+          </g>
 
-          {/* destination star, revealed after the car arrives */}
-          <g className="hm-dest" style={{ animationDelay: `${DEST_AT}s` }}>
+          {/* destination star (+ ping ring) */}
+          <g ref={starRef} style={{ opacity: 0 }}>
+            <circle className="hm-ping" cx={HERO_DEST.x} cy={HERO_DEST.y} r={16} fill="#f90d3b" opacity={0.25} />
             <circle cx={HERO_DEST.x} cy={HERO_DEST.y} r={16} fill="#fff" />
             <circle cx={HERO_DEST.x} cy={HERO_DEST.y} r={12.5} fill="#f90d3b" />
             <path transform={`translate(${HERO_DEST.x} ${HERO_DEST.y})`} d="M0 -9 L2 -2.8 L8.6 -2.8 L3.3 1.1 L5.3 7.3 L0 3.4 L-5.3 7.3 L-3.3 1.1 L-8.6 -2.8 L-2 -2.8 Z" fill="#fff" />
           </g>
         </svg>
-
-        {/* gentle pulse on the destination, after it appears */}
-        <span className="hm-pulse pointer-events-none absolute block h-12 w-12 rounded-full" style={{ left: '79%', top: '81.3%', animationDelay: `${DEST_AT + 0.2}s` }} />
 
         {/* top label */}
         <div className="absolute left-5 top-5 rounded-full bg-white/85 px-3 py-1 text-[11px] font-semibold tracking-[0.12em] text-[#5b6486] backdrop-blur">
@@ -103,7 +176,7 @@ export default function HeroMap() {
           <span className="text-xs font-semibold text-[#0a0a23]">+2 neighbours going</span>
         </div>
 
-        {/* match card (bottom-left, kept clear of the destination star on the right) */}
+        {/* match card */}
         <div className="absolute bottom-4 left-4 flex max-w-[64%] items-center gap-3 rounded-2xl bg-white px-3.5 py-3 shadow-[0_20px_50px_-20px_rgba(20,24,60,0.45)]">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0a0a23] text-xs font-bold text-white">AO</span>
           <span className="min-w-0 flex-1">
@@ -115,40 +188,17 @@ export default function HeroMap() {
       </div>
 
       <style jsx>{`
-        .hm-line {
-          stroke-dasharray: 1;
-          stroke-dashoffset: 1;
-          animation: hm-draw 2s linear 0s forwards;
-        }
-        @keyframes hm-draw { to { stroke-dashoffset: 0; } }
-
-        .hm-dest {
+        .hm-ping {
           transform-box: fill-box;
           transform-origin: center;
-          opacity: 0;
-          animation: hm-pop 0.5s ease-out both;
+          animation: hm-ping 2.2s ease-out infinite;
         }
-        @keyframes hm-pop {
-          0% { opacity: 0; transform: scale(0.3); }
-          70% { opacity: 1; transform: scale(1.15); }
-          100% { opacity: 1; transform: scale(1); }
+        @keyframes hm-ping {
+          0% { transform: scale(0.7); opacity: 0.35; }
+          80%, 100% { transform: scale(1.9); opacity: 0; }
         }
-
-        .hm-pulse {
-          opacity: 0;
-          transform: translate(-50%, -50%);
-          background: rgba(249, 13, 59, 0.22);
-          animation: hm-pulse 2.4s ease-in-out infinite;
-        }
-        @keyframes hm-pulse {
-          0%, 100% { transform: translate(-50%, -50%) scale(0.7); opacity: 0.5; }
-          50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
-        }
-
         @media (prefers-reduced-motion: reduce) {
-          .hm-line { animation: none !important; stroke-dashoffset: 0; }
-          .hm-dest { animation: none; opacity: 1; }
-          .hm-pulse { animation: none; opacity: 0; }
+          .hm-ping { animation: none; opacity: 0; }
         }
       `}</style>
     </div>
