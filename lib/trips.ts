@@ -279,6 +279,7 @@ export interface RideHistoryRow {
   destination: string
   pickup_point: string
   depart_date: string
+  departs_at: string | null
   status: 'open' | 'completed' | 'cancelled'
 }
 

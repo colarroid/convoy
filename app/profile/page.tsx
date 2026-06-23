@@ -10,7 +10,7 @@ import { getUser, saveUser, savePhoto, getInitials, type ConvoyUser } from '@/li
 import { supabase } from '@/lib/supabase'
 import { uploadProfilePhoto } from '@/lib/cloudinary'
 import { signOut } from '@/lib/auth'
-import { getRideHistory, getRidesCompleted, formatTripDate, ridesLabel, type RideHistoryRow } from '@/lib/trips'
+import { getRideHistory, getRidesCompleted, formatTripDate, ridesLabel, isPast, isPastBy, type RideHistoryRow } from '@/lib/trips'
 import { getMySettings, updateMySetting, DEFAULT_SETTINGS, type Settings } from '@/lib/settings'
 
 /* ── Toggle switch ── */
@@ -382,12 +382,21 @@ export default function ProfilePage() {
               </div>
             ) : (
               history.map((ride, i) => {
-                const statusLabel = ride.status === 'completed' ? 'Completed' : ride.status === 'cancelled' ? 'Cancelled' : 'Upcoming'
-                const statusClass = ride.status === 'completed'
-                  ? 'bg-green-50 text-green-600'
-                  : ride.status === 'cancelled'
-                    ? 'bg-gray-100 text-gray-400'
-                    : 'bg-blue-50 text-blue-600'
+                // A joined ride is "done" for the guest 15 min after departure;
+                // a host's own past ride stays awaiting their confirmation.
+                const past = ride.role === 'joined' ? isPastBy(ride.departs_at, 15) : isPast(ride.departs_at)
+                const guestDone = past && ride.role === 'joined'
+                const statusLabel =
+                  ride.status === 'completed' ? 'Completed'
+                  : ride.status === 'cancelled' ? 'Cancelled'
+                  : guestDone ? 'Completed'
+                  : past ? 'Awaiting confirmation'
+                  : 'Upcoming'
+                const statusClass =
+                  ride.status === 'completed' || guestDone ? 'bg-green-50 text-green-600'
+                  : ride.status === 'cancelled' ? 'bg-gray-100 text-gray-400'
+                  : past ? 'bg-amber-50 text-amber-600'
+                  : 'bg-blue-50 text-blue-600'
                 return (
                   <div
                     key={`${ride.role}-${ride.trip_id}`}

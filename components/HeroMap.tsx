@@ -266,7 +266,7 @@ export default function HeroMap() {
             <span className="block text-sm font-bold text-[#0a0a23]">Amara O.</span>
             <span className="block truncate text-xs text-[#5b6486]">Driving to Riverside Hall</span>
           </span>
-          <span className="shrink-0 rounded-md bg-[#e6edff] px-2 py-1 text-[10px] font-bold tracking-wide text-[#2563eb]">3 seats</span>
+          <span className="shrink-0 rounded-md bg-[#e6edff] px-2 py-1 text-[10px] font-bold tracking-wide text-[#2563eb]">8.4 mi</span>
         </div>
       </div>
 
