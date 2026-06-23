@@ -59,7 +59,7 @@ export default function LandingPage() {
           {/* Text: headline pinned top, supporting content pushed to the bottom */}
           <div className="flex flex-col justify-between min-h-0">
             <div>
-              <p className="text-[11px] font-semibold uppercase text-gray-400 mb-7">
+              <p className="text-[11px] font-semibold uppercase text-black mb-3">
                 Community lift-sharing
               </p>
               <h1 className="text-6xl lg:text-7xl font-semibold text-black leading-[1.02] tracking-tight">
