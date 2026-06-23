@@ -107,10 +107,6 @@ export default function CommunitiesPage() {
                       <span className="block truncate text-sm font-semibold text-black">{c.name}</span>
                       {c.area && <span className="block truncate text-xs text-gray-500">{c.area}</span>}
                     </span>
-                    <span className="ml-auto flex items-center gap-1.5 text-[11px] font-medium text-blue-600">
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                      Active
-                    </span>
                   </div>
                 ))}
               </div>
