@@ -244,6 +244,10 @@ export default function ProfilePage() {
   const initials = getInitials(user)
   const fullName = user ? `${user.firstName} ${user.lastName}`.trim() : 'Your account'
 
+  // A joined ride the host marked as "didn't happen" (cancelled) drops off the
+  // guest's history; everything else stays as a record.
+  const visibleHistory = history.filter(r => !(r.role === 'joined' && r.status === 'cancelled'))
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <AppNav />
@@ -366,8 +370,8 @@ export default function ProfilePage() {
         <div className="mb-7">
           <div className="flex items-center justify-between mb-2 px-1">
             <p className="text-xs font-bold tracking-widest text-gray-400 uppercase">Ride history</p>
-            {!historyLoading && history.length > 0 && (
-              <span className="text-xs text-gray-400">{history.length} {history.length === 1 ? 'trip' : 'trips'}</span>
+            {!historyLoading && visibleHistory.length > 0 && (
+              <span className="text-xs text-gray-400">{visibleHistory.length} {visibleHistory.length === 1 ? 'trip' : 'trips'}</span>
             )}
           </div>
           <div className="rounded-2xl border border-gray-200 bg-white overflow-hidden divide-y divide-gray-100">
@@ -376,24 +380,22 @@ export default function ProfilePage() {
                 <div className="h-4 bg-gray-100 rounded w-2/3" />
                 <div className="h-4 bg-gray-100 rounded w-1/2" />
               </div>
-            ) : history.length === 0 ? (
+            ) : visibleHistory.length === 0 ? (
               <div className="px-6 py-8 text-center">
                 <p className="text-sm text-gray-400">No rides yet. Offer or join a ride and it&apos;ll show up here.</p>
               </div>
             ) : (
-              history.map((ride, i) => {
-                // A joined ride is "done" for the guest 15 min after departure;
-                // a host's own past ride stays awaiting their confirmation.
+              visibleHistory.map((ride, i) => {
+                // Past + still open = the host hasn't reviewed it yet. It flips to
+                // Completed when the host confirms (or drops off if marked cancelled).
                 const past = ride.role === 'joined' ? isPastBy(ride.departs_at, 15) : isPast(ride.departs_at)
-                const guestDone = past && ride.role === 'joined'
                 const statusLabel =
                   ride.status === 'completed' ? 'Completed'
                   : ride.status === 'cancelled' ? 'Cancelled'
-                  : guestDone ? 'Completed'
                   : past ? 'Awaiting confirmation'
                   : 'Upcoming'
                 const statusClass =
-                  ride.status === 'completed' || guestDone ? 'bg-green-50 text-green-600'
+                  ride.status === 'completed' ? 'bg-green-50 text-green-600'
                   : ride.status === 'cancelled' ? 'bg-gray-100 text-gray-400'
                   : past ? 'bg-amber-50 text-amber-600'
                   : 'bg-blue-50 text-blue-600'
