@@ -12,33 +12,33 @@ import StatCardSection from '@/components/StatCardSection'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
 import { useSuspended } from '@/lib/useSuspended'
-import { getMilesShared } from '@/lib/trips'
+import { getKmShared } from '@/lib/trips'
 
-// Show a 15K floor until real miles overtake it, then switch to the live figure.
-const MILES_FLOOR = 15_000
+// Show a 15K floor until real km overtake it, then switch to the live figure.
+const KM_FLOOR = 15_000
 
-/** Format whole miles into a compact value + suffix, e.g. 15000 -> {value:'15', suffix:'K'}. */
-function formatMiles(miles: number): { value: string; suffix: string } {
-  const compact = (n: number) => {
-    const v = miles / n
+/** Format a whole number into a compact value + suffix, e.g. 15000 -> {value:'15', suffix:'K'}. */
+function formatCompact(n: number): { value: string; suffix: string } {
+  const compact = (d: number) => {
+    const v = n / d
     return Number.isInteger(v) ? String(v) : v.toFixed(1)
   }
-  if (miles >= 1_000_000) return { value: compact(1_000_000), suffix: 'M' }
-  if (miles >= 1_000) return { value: compact(1_000), suffix: 'K' }
-  return { value: String(miles), suffix: '' }
+  if (n >= 1_000_000) return { value: compact(1_000_000), suffix: 'M' }
+  if (n >= 1_000) return { value: compact(1_000), suffix: 'K' }
+  return { value: String(n), suffix: '' }
 }
 
 export default function LandingPage() {
   const [loggedIn, setLoggedIn] = useState(false)
-  const [miles, setMiles] = useState(0)
+  const [km, setKm] = useState(0)
   const { suspended } = useSuspended()
 
   useEffect(() => {
     setLoggedIn(!!getUser())
-    getMilesShared().then(setMiles).catch(() => {})
+    getKmShared().then(setKm).catch(() => {})
   }, [])
 
-  const milesStat = formatMiles(Math.max(MILES_FLOOR, miles))
+  const kmStat = formatCompact(Math.max(KM_FLOOR, km))
 
   // When signed in, the buttons skip the login gate
   const offerHref = loggedIn ? '/offer/community' : '/login?next=/offer/community'
@@ -127,9 +127,9 @@ export default function LandingPage() {
       <ManifestoSection />
       <StatCardSection
         statPrefix=""
-        statValue={milesStat.value}
-        statSuffix={milesStat.suffix}
-        statCaption="Miles shared on Veesaa"
+        statValue={kmStat.value}
+        statSuffix={kmStat.suffix}
+        statCaption="Kilometres shared on Veesaa"
       />
       <AvailabilitySection />
 

@@ -27,9 +27,9 @@ function haversineKm(lat1: number, lng1: number, lat2: number, lng2: number): nu
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
-/** Total whole miles shared across all completed trips (public landing stat). */
-export async function getMilesShared(): Promise<number> {
-  const { data, error } = await supabase.rpc('total_miles_shared')
+/** Total whole kilometres shared across all completed trips (public landing stat). */
+export async function getKmShared(): Promise<number> {
+  const { data, error } = await supabase.rpc('total_km_shared')
   if (error || data == null) return 0
   return Number(data) || 0
 }

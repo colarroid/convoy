@@ -25,7 +25,7 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
             <nav className="hidden md:flex items-center gap-1">
               <Link href="/#about"        className="nav-pill">About</Link>
               <Link href="/#how-it-works" className="nav-pill">How it works</Link>
-              <Link href="/#contact"      className="nav-pill">Contact</Link>
+              <Link href="/contact"       className="nav-pill">Contact</Link>
             </nav>
           )}
         </div>
@@ -106,7 +106,7 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
             <>
               <Link href="/#about"        className="mobile-nav-link" onClick={() => setMenuOpen(false)}>About</Link>
               <Link href="/#how-it-works" className="mobile-nav-link" onClick={() => setMenuOpen(false)}>How it works</Link>
-              <Link href="/#contact"      className="mobile-nav-link" onClick={() => setMenuOpen(false)}>Contact</Link>
+              <Link href="/contact"       className="mobile-nav-link" onClick={() => setMenuOpen(false)}>Contact</Link>
             </>
           )}
 
