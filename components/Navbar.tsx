@@ -11,7 +11,7 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-100">
+    <header className="sticky top-0 z-50 bg-white border-b border-[#2727271a]">
       <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between h-14 md:h-16">
 
         {/* Logo + nav links grouped on the left */}

@@ -77,23 +77,23 @@ export default function AppNav() {
   const Avatar = (
     photo
       ? <img src={photo} alt="avatar" className="w-full h-full object-cover" />
-      : <div className="w-full h-full bg-white/20 flex items-center justify-center text-white text-xs font-semibold">{initials}</div>
+      : <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-600 text-xs font-semibold">{initials}</div>
   )
 
   return (
     <>
     <SuspendedBanner />
-    <header className="sticky top-0 z-50 bg-black">
+    <header className="sticky top-0 z-50 bg-white border-b border-[#2727271a]">
       <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between h-14 md:h-16">
 
         {/* Logo + links grouped on the left */}
         <div className="flex items-center" style={{ gap: '60px' }}>
-          <Link href="/" className="text-lg font-semibold text-white tracking-tight">
+          <Link href="/" className="text-lg font-semibold text-black tracking-tight">
             Veesaa
           </Link>
           <nav className="hidden md:flex items-center gap-1">
             {LINKS.map(l => (
-              <Link key={l.href} href={l.href} className="nav-pill">{l.label}</Link>
+              <Link key={l.href} href={l.href} className="nav-pill-light">{l.label}</Link>
             ))}
           </nav>
         </div>
@@ -104,14 +104,14 @@ export default function AppNav() {
           {/* ── Notifications bell ── */}
           <Link
             href="/notifications"
-            className="relative w-9 h-9 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors shrink-0"
+            className="relative w-9 h-9 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-colors shrink-0"
             aria-label="Notifications"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
             {unread > 0 && (
-              <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-black">
+              <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-white">
                 {unread > 9 ? '9+' : unread}
               </span>
             )}
@@ -121,7 +121,7 @@ export default function AppNav() {
           <div ref={avatarRef} className="hidden md:block relative">
             <button
               onClick={() => setAvatarOpen(o => !o)}
-              className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-white/20 hover:ring-white/50 transition-all shrink-0"
+              className="w-9 h-9 rounded-full overflow-hidden ring-2 ring-gray-200 hover:ring-gray-300 transition-all shrink-0"
               aria-label="Account menu"
             >
               {Avatar}
@@ -160,14 +160,14 @@ export default function AppNav() {
           {/* ── Mobile: avatar (link) + hamburger ── */}
           <Link
             href="/profile"
-            className="md:hidden w-8 h-8 rounded-full overflow-hidden ring-2 ring-white/20 transition-all shrink-0"
+            className="md:hidden w-8 h-8 rounded-full overflow-hidden ring-2 ring-gray-200 transition-all shrink-0"
           >
             {Avatar}
           </Link>
 
           <button
             onClick={() => setMobileOpen(o => !o)}
-            className="md:hidden p-1.5 text-white rounded-lg hover:bg-white/10 transition-colors"
+            className="md:hidden p-1.5 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label="Menu"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -189,16 +189,16 @@ export default function AppNav() {
             onClick={() => setMobileOpen(false)}
           />
           {/* Panel */}
-          <div className="md:hidden absolute left-0 right-0 top-14 z-50 bg-black border-t border-white/10 px-4 pb-4 pt-2
+          <div className="md:hidden absolute left-0 right-0 top-14 z-50 bg-white border-t border-[#2727271a] px-4 pb-4 pt-2
                           animate-in slide-in-from-top-2 fade-in duration-200">
             {LINKS.map(l => (
-              <Link key={l.href} href={l.href} className="mobile-nav-link block" onClick={() => setMobileOpen(false)}>{l.label}</Link>
+              <Link key={l.href} href={l.href} className="mobile-nav-link-light block" onClick={() => setMobileOpen(false)}>{l.label}</Link>
             ))}
-            <Link href="/profile" className="mobile-nav-link block" onClick={() => setMobileOpen(false)}>Profile</Link>
-            <div className="border-t border-white/10 mt-3 pt-3">
+            <Link href="/profile" className="mobile-nav-link-light block" onClick={() => setMobileOpen(false)}>Profile</Link>
+            <div className="border-t border-gray-100 mt-3 pt-3">
               <button
                 onClick={() => { setMobileOpen(false); handleSignOut() }}
-                className="block w-full text-left py-2.5 px-3 text-sm text-red-400 hover:text-red-300 hover:bg-white/5 rounded-xl transition-colors"
+                className="block w-full text-left py-2.5 px-3 text-sm text-red-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors"
               >
                 Sign out
               </button>
