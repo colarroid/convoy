@@ -6,17 +6,17 @@ const STEPS = [
   {
     n: '01',
     title: 'Offer or find a ride',
-    desc: "Post the seats you've got, or search for a ride to a shared destination: a service, a match-day, a campus run.",
+    desc: "Post the seats you've got, or search for a ride to a shared destination.",
   },
   {
     n: '02',
     title: 'Match inside your circle',
-    desc: 'Veesaa only connects you with verified members of your own community: your estate, parish or campus. No strangers, ever.',
+    desc: 'Get connected with verified members of your own community.',
   },
   {
     n: '03',
     title: 'Travel together',
-    desc: 'Meet at the pickup point and share the journey. Costs are split between neighbours, never marked up.',
+    desc: 'Meet at the pickup point and share the journey.',
   },
 ]
 
