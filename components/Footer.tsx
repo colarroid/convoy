@@ -7,30 +7,74 @@ interface FooterProps {
   mobileSpacer?: boolean
 }
 
-const LINKS = [
-  { href: '/privacy',       label: 'Privacy' },
-  { href: '/terms-of-use',  label: 'Terms of Use' },
+const COLUMNS = [
+  {
+    title: 'Product',
+    links: [
+      { href: '/#how-it-works', label: 'How it works' },
+      { href: '/#about', label: 'About' },
+      { href: '/#communities', label: 'Communities' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { href: '/help', label: 'Help' },
+      { href: '/#contact', label: 'Contact' },
+    ],
+  },
+]
+
+const LEGAL = [
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/terms-of-use', label: 'Terms of Use' },
 ]
 
 export default function Footer({ id, mobileSpacer = false }: FooterProps) {
   return (
     <footer
       id={id}
-      className={`border-t border-gray-100 bg-white mt-auto ${mobileSpacer ? 'mb-16 md:mb-0' : ''}`}
+      className={`bg-black text-white mt-auto ${mobileSpacer ? 'mb-16 md:mb-0' : ''}`}
     >
-      <div className="max-w-6xl mx-auto px-5 md:px-8 py-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <p className="text-xs text-gray-400">© {new Date().getFullYear()} Veesaa</p>
+      <div className="max-w-6xl mx-auto px-5 md:px-8 py-12 md:py-16">
+        <div className="flex flex-col gap-10 md:flex-row md:justify-between md:gap-8">
+          {/* Brand + tagline */}
+          <div className="max-w-sm">
+            <Link href="/" className="text-2xl font-bold tracking-tight text-white">Veesaa</Link>
+            <p className="mt-4 text-sm leading-relaxed text-white/50">
+              Community lift-sharing built around shared destinations and the people you already trust.
+            </p>
+          </div>
 
-        <div className="flex items-center gap-6 flex-wrap">
-          {LINKS.map(l => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-xs text-gray-400 hover:text-gray-700 transition-colors"
-            >
-              {l.label}
-            </Link>
-          ))}
+          {/* Link columns */}
+          <div className="flex gap-14 sm:gap-24">
+            {COLUMNS.map((col) => (
+              <nav key={col.title}>
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-white/40">{col.title}</p>
+                <ul className="space-y-3">
+                  {col.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="text-sm text-white/70 transition-colors hover:text-white">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom row */}
+        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between md:mt-14">
+          <p className="text-xs text-white/40">© {new Date().getFullYear()} Veesaa</p>
+          <div className="flex items-center gap-6">
+            {LEGAL.map((l) => (
+              <Link key={l.href} href={l.href} className="text-xs text-white/50 transition-colors hover:text-white">
+                {l.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
