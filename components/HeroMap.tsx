@@ -180,7 +180,7 @@ export default function HeroMap() {
 
         {/* top label */}
         <div className="absolute left-5 top-5 rounded-full bg-white/85 px-3 py-1 text-[11px] font-semibold tracking-[0.12em] text-[#5b6486] backdrop-blur">
-          RIVERSIDE · SUNDAY 8:40
+          RIVERSIDE · SATURDAY 2:00 PM
         </div>
 
         {/* neighbours pill */}
