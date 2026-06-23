@@ -33,7 +33,7 @@ export default function StatCardSection({
 
   return (
     <section className="bg-white px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-24">
-      <div className="mx-auto max-w-5xl rounded-[28px] bg-[#f6f7fb] px-7 py-9 shadow-[0_30px_80px_-40px_rgba(20,24,60,0.25)] sm:px-10 sm:py-12 md:px-16 md:py-16">
+      <div className="mx-auto max-w-5xl rounded-[28px] bg-[#f5f4f1] px-7 py-9 shadow-[0_30px_80px_-40px_rgba(20,24,60,0.25)] sm:px-10 sm:py-12 md:px-16 md:py-16">
         <div className="grid items-center gap-10 md:grid-cols-[1.5fr_1fr] md:gap-12">
           {/* Left: headline, body, CTA */}
           <div className="relative">
