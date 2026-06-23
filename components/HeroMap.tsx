@@ -197,9 +197,9 @@ export default function HeroMap() {
           <Avatar src="/avatars/amara.jpg" initials="AO" className="h-10 w-10 shrink-0 bg-[#0a0a23] text-xs font-bold text-white" />
           <span className="min-w-0 flex-1">
             <span className="block text-sm font-bold text-[#0a0a23]">Amara O.</span>
-            <span className="block truncate text-xs text-[#5b6486]">Driving to Riverside Hall · 3 seats</span>
+            <span className="block truncate text-xs text-[#5b6486]">Driving to Riverside Hall</span>
           </span>
-          <span className="rounded-md bg-[#e6edff] px-2 py-1 text-[10px] font-bold tracking-wide text-[#2563eb]">MATCH</span>
+          <span className="shrink-0 rounded-md bg-[#e6edff] px-2 py-1 text-[10px] font-bold tracking-wide text-[#2563eb]">3 seats</span>
         </div>
       </div>
 
