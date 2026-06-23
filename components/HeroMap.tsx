@@ -82,7 +82,8 @@ export default function HeroMap() {
     const drawForward = (p: number) => {
       black.style.strokeDashoffset = `${blackLen * (1 - p)}`
       for (const b of blues) {
-        const bp = clamp((p - (b.meet - WIN)) / WIN, 0, 1)
+        // only start once the black line has reached this intersection
+        const bp = clamp((p - b.meet) / WIN, 0, 1)
         b.el.style.strokeDashoffset = `${b.len * (1 - bp)}`
       }
     }
@@ -94,7 +95,8 @@ export default function HeroMap() {
       black.style.strokeDashoffset = `${-blackLen * (1 - q)}`
       const r = 1 - q
       for (const b of blues) {
-        const bp = clamp((b.meet - r) / WIN + 1, 0, 1)
+        // only start once the returning line has reached this intersection
+        const bp = clamp((b.meet - r) / WIN, 0, 1)
         b.el.style.strokeDashoffset = `${-b.len * (1 - bp)}`
       }
     }
