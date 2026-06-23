@@ -2,6 +2,24 @@
 
 import { useState } from 'react'
 
+const STEPS = [
+  {
+    n: '01',
+    title: 'Offer or find a ride',
+    desc: "Post the seats you've got, or search for a ride to a shared destination: a service, a match-day, a campus run.",
+  },
+  {
+    n: '02',
+    title: 'Match inside your circle',
+    desc: 'Veesaa only connects you with verified members of your own community: your estate, parish or campus. No strangers, ever.',
+  },
+  {
+    n: '03',
+    title: 'Travel together',
+    desc: 'Meet at the pickup point and share the journey. Costs are split between neighbours, never marked up.',
+  },
+]
+
 interface StatCardSectionProps {
   headline?: string
   body?: string
@@ -33,6 +51,17 @@ export default function StatCardSection({
 
   return (
     <section className="bg-white px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-24">
+      {/* How it works: three steps above the card */}
+      <div className="mx-auto mb-12 grid max-w-5xl gap-8 sm:grid-cols-3 sm:gap-10 md:mb-16">
+        {STEPS.map((s) => (
+          <div key={s.n}>
+            <p className="text-sm font-bold text-blue-600">{s.n}</p>
+            <p className="mt-3 text-base font-bold text-[#0a0a23]">{s.title}</p>
+            <p className="mt-2 text-[0.95rem] leading-relaxed text-[#5b6486]">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+
       <div className="mx-auto max-w-5xl rounded-[28px] bg-[#f5f4f1] px-7 py-9 sm:px-10 sm:py-12 md:px-16 md:py-16">
         <div className="grid items-center gap-10 md:grid-cols-[1.5fr_1fr] md:gap-12">
           {/* Left: headline, body, CTA */}
