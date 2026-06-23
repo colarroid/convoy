@@ -14,10 +14,17 @@ import { getUser } from '@/lib/userStore'
 import { useSuspended } from '@/lib/useSuspended'
 import { getMilesShared } from '@/lib/trips'
 
-/** Format whole miles into a compact value + suffix, e.g. 12384 -> {value:'12.4', suffix:'K'}. */
+// Show a 15K floor until real miles overtake it, then switch to the live figure.
+const MILES_FLOOR = 15_000
+
+/** Format whole miles into a compact value + suffix, e.g. 15000 -> {value:'15', suffix:'K'}. */
 function formatMiles(miles: number): { value: string; suffix: string } {
-  if (miles >= 1_000_000) return { value: (miles / 1_000_000).toFixed(1), suffix: 'M' }
-  if (miles >= 1_000) return { value: (miles / 1_000).toFixed(1), suffix: 'K' }
+  const compact = (n: number) => {
+    const v = miles / n
+    return Number.isInteger(v) ? String(v) : v.toFixed(1)
+  }
+  if (miles >= 1_000_000) return { value: compact(1_000_000), suffix: 'M' }
+  if (miles >= 1_000) return { value: compact(1_000), suffix: 'K' }
   return { value: String(miles), suffix: '' }
 }
 
@@ -31,7 +38,7 @@ export default function LandingPage() {
     getMilesShared().then(setMiles).catch(() => {})
   }, [])
 
-  const milesStat = formatMiles(miles)
+  const milesStat = formatMiles(Math.max(MILES_FLOOR, miles))
 
   // When signed in, the buttons skip the login gate
   const offerHref = loggedIn ? '/offer/community' : '/login?next=/offer/community'
