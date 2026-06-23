@@ -1,34 +1,42 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { HERO_BLACK_PATH, HERO_BLUE_PATHS, HERO_DEST } from '@/lib/heroRoute'
 
 /**
  * Illustrated city-map hero. The static map + location dots live in
- * public/hero-map.svg (cropped to viewBox 0 110 448 560). The routes and the
- * destination are animated overlays so we can time them: the black route draws
- * from the location to the destination, each blue feeder draws to meet it at
- * its intersection as the black line passes, and the destination star only
- * appears once the black route has finished drawing.
+ * public/hero-map.svg (viewBox 0 110 448 560). The routes, the moving car and
+ * the destination are animated overlays so we can time them: a car drives the
+ * black route from the location to the destination (drawing it as it goes),
+ * each blue feeder draws to meet the black line at its intersection, and the
+ * destination star only appears once the car arrives.
  */
-const BLACK_DUR = 2.4
-const BLACK_DELAY = 0.3
-const DEST_AT = BLACK_DELAY + BLACK_DUR // when the black route finishes
+const BLACK_DUR = 4.5     // slow + dramatic
+const BLACK_DELAY = 0.4
+const OLD_BLACK_DUR = 2.4 // the blue feeder timings were calibrated against this
+const RATIO = BLACK_DUR / OLD_BLACK_DUR
+const DEST_AT = BLACK_DELAY + BLACK_DUR
 
 export default function HeroMap() {
+  const [animate, setAnimate] = useState(false)
+  useEffect(() => {
+    setAnimate(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
+
   return (
     <div className="relative w-full max-w-[520px]">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] ring-1 ring-black/5 shadow-[0_40px_90px_-50px_rgba(20,24,60,0.35)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hero-map.svg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
 
-        {/* animated routes + destination, aligned to the map viewBox */}
+        {/* animated routes + car + destination, aligned to the map viewBox */}
         <svg viewBox="0 110 448 560" className="absolute inset-0 h-full w-full" aria-hidden>
           {/* blue feeders draw to meet the black route at their intersections */}
           {HERO_BLUE_PATHS.map((b, i) => (
             <path
               key={i}
               className="hm-line"
-              style={{ animationDuration: `${b.dur}s`, animationDelay: `${b.delay}s` }}
+              style={{ animationDuration: `${b.dur * RATIO}s`, animationDelay: `${BLACK_DELAY + (b.delay - 0.3) * RATIO}s` }}
               d={b.d}
               pathLength={1}
               fill="none"
@@ -41,6 +49,7 @@ export default function HeroMap() {
 
           {/* black route: location -> destination */}
           <path
+            id="hm-black"
             className="hm-line"
             style={{ animationDuration: `${BLACK_DUR}s`, animationDelay: `${BLACK_DELAY}s` }}
             d={HERO_BLACK_PATH}
@@ -52,7 +61,24 @@ export default function HeroMap() {
             strokeLinejoin="round"
           />
 
-          {/* destination star, revealed after the black route finishes */}
+          {/* car driving the black route, hidden until it starts and after it arrives */}
+          {animate && (
+            <g opacity={0}>
+              {/* top-down car, pointing east (rotate=auto orients it along travel) */}
+              <g>
+                <rect x={-9} y={-5} width={18} height={10} rx={3.5} fill="#112129" />
+                <rect x={1.5} y={-3.6} width={4.6} height={7.2} rx={1.4} fill="#9cc3ff" />
+                <rect x={-6.5} y={-3.6} width={3.6} height={7.2} rx={1.3} fill="#3b4a63" />
+              </g>
+              <animateMotion begin={`${BLACK_DELAY}s`} dur={`${BLACK_DUR}s`} rotate="auto" fill="freeze">
+                <mpath href="#hm-black" />
+              </animateMotion>
+              <set attributeName="opacity" to="1" begin={`${BLACK_DELAY}s`} />
+              <set attributeName="opacity" to="0" begin={`${DEST_AT}s`} />
+            </g>
+          )}
+
+          {/* destination star, revealed after the car arrives */}
           <g className="hm-dest" style={{ animationDelay: `${DEST_AT}s` }}>
             <circle cx={HERO_DEST.x} cy={HERO_DEST.y} r={16} fill="#fff" />
             <circle cx={HERO_DEST.x} cy={HERO_DEST.y} r={12.5} fill="#f90d3b" />
@@ -92,7 +118,7 @@ export default function HeroMap() {
         .hm-line {
           stroke-dasharray: 1;
           stroke-dashoffset: 1;
-          animation: hm-draw 2s ease-out 0s forwards;
+          animation: hm-draw 2s linear 0s forwards;
         }
         @keyframes hm-draw { to { stroke-dashoffset: 0; } }
 
