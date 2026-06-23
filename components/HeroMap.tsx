@@ -13,10 +13,11 @@
  */
 
 // Square crop shows the central band (x ~ 125..625), so the route lives there.
-const BLACK = 'M600 379 L600 205 L430 205'      // 152 St up, 88 Ave west to star
-const BLUE_1 = 'M259 379 L259 205'              // 144 St up to junction
-const BLUE_2 = 'M430 379 L259 379 L259 205'     // 84 Ave west, 144 St up to junction
-const TRUNK = 'M259 205 L430 205'               // shared 88 Ave, junction to star
+// Black leads from its pickup along the roads to the star. The blues tap onto
+// the black route at real intersections it passes, then ride it to the star.
+const BLACK = 'M600 379 L600 205 L259 205'        // 152 St up, 88 Ave west to star (passes 430,205)
+const BLUE_1 = 'M430 379 L430 205 L259 205'       // 148 St up, joins black at (430,205), on to star
+const BLUE_2 = 'M259 379 L259 205'                // 144 St up, joins black at the star
 
 export default function HeroMap() {
   return (
@@ -32,10 +33,9 @@ export default function HeroMap() {
           <path className="hm-route hm-route-dark" d={BLACK} fill="none" stroke="#0a0a23" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
           <path className="hm-route hm-route-blueA" d={BLUE_1} fill="none" stroke="#2563eb" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
           <path className="hm-route hm-route-blueB" d={BLUE_2} fill="none" stroke="#2563eb" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-          <path className="hm-route hm-route-trunk" d={TRUNK} fill="none" stroke="#2563eb" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
 
-          {/* junction where the blues link onto the route */}
-          <g className="hm-node hm-node-j"><circle cx="259" cy="205" r="7" fill="#fff" /><circle cx="259" cy="205" r="3.5" fill="#2563eb" /></g>
+          {/* tap point where blue 1 links onto the black route */}
+          <g className="hm-node hm-node-j"><circle cx="430" cy="205" r="7" fill="#fff" /><circle cx="430" cy="205" r="3.5" fill="#2563eb" /></g>
 
           {/* pickups */}
           <g className="hm-node"><circle cx="600" cy="379" r="13" fill="#fff" /><circle cx="600" cy="379" r="5.5" fill="#0a0a23" /></g>
@@ -44,9 +44,9 @@ export default function HeroMap() {
 
           {/* destination star */}
           <g className="hm-dest">
-            <circle className="hm-dest-pulse" cx="430" cy="205" r="28" fill="#2563eb" opacity="0.18" />
-            <circle cx="430" cy="205" r="18" fill="#2563eb" />
-            <path d="M430 195 l2.8 5.7 6.3 0.9 -4.55 4.45 1.05 6.3 -5.6 -2.95 -5.6 2.95 1.05 -6.3 -4.55 -4.45 6.3 -0.9 z" fill="#fff" />
+            <circle className="hm-dest-pulse" cx="259" cy="205" r="28" fill="#2563eb" opacity="0.18" />
+            <circle cx="259" cy="205" r="18" fill="#2563eb" />
+            <path d="M259 195 l2.8 5.7 6.3 0.9 -4.55 4.45 1.05 6.3 -5.6 -2.95 -5.6 2.95 1.05 -6.3 -4.55 -4.45 6.3 -0.9 z" fill="#fff" />
           </g>
         </svg>
 
@@ -78,22 +78,21 @@ export default function HeroMap() {
       <style jsx>{`
         .hm-route { stroke-dasharray: 600; stroke-dashoffset: 600; animation: hm-draw 1.8s ease-out forwards; }
         .hm-route-dark  { animation-delay: 0s; }
-        .hm-route-blueA { animation-delay: 1.3s; }
-        .hm-route-blueB { animation-delay: 1.7s; }
-        .hm-route-trunk { animation-delay: 2.6s; animation-duration: 0.9s; }
+        .hm-route-blueA { animation-delay: 1.4s; }
+        .hm-route-blueB { animation-delay: 2s; }
         @keyframes hm-draw { to { stroke-dashoffset: 0; } }
 
         .hm-node { transform-box: fill-box; transform-origin: center; animation: hm-pop 0.5s ease-out both; }
         .hm-node-2 { animation-delay: 0.4s; }
         .hm-node-3 { animation-delay: 0.8s; }
-        .hm-node-j { animation-delay: 2.5s; }
+        .hm-node-j { animation-delay: 1.9s; }
         @keyframes hm-pop {
           0% { opacity: 0; transform: scale(0.4); }
           70% { transform: scale(1.12); }
           100% { opacity: 1; transform: scale(1); }
         }
 
-        .hm-dest { transform-box: fill-box; transform-origin: 430px 205px; }
+        .hm-dest { transform-box: fill-box; transform-origin: 259px 205px; }
         .hm-dest-pulse { animation: hm-pulse 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
         @keyframes hm-pulse {
           0%, 100% { transform: scale(0.85); opacity: 0.25; }
