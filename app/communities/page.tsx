@@ -100,8 +100,17 @@ export default function CommunitiesPage() {
                     key={`${c.name}-${i}`}
                     className="flex items-center gap-3.5 rounded-2xl border border-gray-200 p-4 transition-all hover:border-gray-400 hover:shadow-sm"
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
+                    <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-900 text-sm font-bold text-white">
                       {initials(c.name)}
+                      {c.logo_url && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={c.logo_url}
+                          alt=""
+                          className="absolute inset-0 h-full w-full object-cover"
+                          onError={(e) => { e.currentTarget.style.display = 'none' }}
+                        />
+                      )}
                     </span>
                     <span className="min-w-0">
                       <span className="block truncate text-sm font-semibold text-black">{c.name}</span>

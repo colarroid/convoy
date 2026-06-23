@@ -40,6 +40,7 @@ export interface PublicCommunity {
   name: string
   area: string | null
   country: string // ISO-2
+  logo_url: string | null
 }
 
 /** Public list of communities (name, area, country) for the Communities page. */
