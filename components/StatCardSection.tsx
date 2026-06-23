@@ -22,7 +22,7 @@ interface StatCardSectionProps {
 export default function StatCardSection({
   headline = 'The best conversations start on the way there',
   body = "Every shared ride is more than a trip to a destination, it's an opportunity to break the ice, start a conversation, and bring people closer together.",
-  ctaLabel = 'Launch demo',
+  ctaLabel = 'Watch introduction',
   videoUrl = '',
   statPrefix = '',
   statValue = '12.4',
