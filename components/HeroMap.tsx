@@ -70,6 +70,10 @@ export default function HeroMap() {
       return { el, len, meet: best / blackLen }
     })
 
+    // Start fully hidden so nothing flashes before the first animation frame.
+    black.style.strokeDashoffset = `${blackLen}`
+    for (const b of blues) b.el.style.strokeDashoffset = `${b.len}`
+
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     // Show/hide the route lines as a whole (they vanish at each journey's end).
