@@ -1,5 +1,7 @@
 'use client'
 
+import { HERO_BLACK_PATH } from '@/lib/heroRoute'
+
 /**
  * Illustrated city-map hero. The map, the route (black line to the starred
  * destination, blue feeders linking onto it) and the location markers are all
@@ -13,6 +15,20 @@ export default function HeroMap() {
       <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] ring-1 ring-black/5 shadow-[0_40px_90px_-50px_rgba(20,24,60,0.35)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hero-map.svg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+
+        {/* animated black route: draws from the location to the destination */}
+        <svg viewBox="0 110 448 560" className="absolute inset-0 h-full w-full" aria-hidden>
+          <path
+            className="hm-draw"
+            d={HERO_BLACK_PATH}
+            pathLength={1}
+            fill="none"
+            stroke="#112129"
+            strokeWidth={4.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
 
         {/* gentle pulse on the destination */}
         <span className="hm-pulse pointer-events-none absolute block h-12 w-12 rounded-full" style={{ left: '79%', top: '81.3%' }} />
@@ -43,6 +59,13 @@ export default function HeroMap() {
       </div>
 
       <style jsx>{`
+        .hm-draw {
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+          animation: hm-draw 2.4s ease-out 0.3s forwards;
+        }
+        @keyframes hm-draw { to { stroke-dashoffset: 0; } }
+
         .hm-pulse {
           transform: translate(-50%, -50%);
           background: rgba(249, 13, 59, 0.22);
@@ -53,6 +76,7 @@ export default function HeroMap() {
           50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) {
+          .hm-draw { animation: none; stroke-dashoffset: 0; }
           .hm-pulse { animation: none; opacity: 0; }
         }
       `}</style>
