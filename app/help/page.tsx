@@ -216,7 +216,7 @@ export default function HelpPage() {
             </p>
           </div>
           <Link
-            href="mailto:support@veesaa.co"
+            href="mailto:hello@veesaa.co"
             className="shrink-0 px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition-colors"
           >
             Contact support

@@ -7,6 +7,8 @@ interface FooterProps {
   mobileSpacer?: boolean
 }
 
+const SUPPORT_EMAIL = 'hello@veesaa.co'
+
 const COLUMNS = [
   {
     title: 'Product',
@@ -20,7 +22,12 @@ const COLUMNS = [
     title: 'Company',
     links: [
       { href: '/help', label: 'Help' },
-      { href: '/contact', label: 'Contact' },
+    ],
+  },
+  {
+    title: 'Support',
+    links: [
+      { href: `mailto:${SUPPORT_EMAIL}`, label: SUPPORT_EMAIL },
     ],
   },
 ]

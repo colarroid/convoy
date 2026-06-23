@@ -17,7 +17,8 @@
       "Bash(git commit -q -m 'Signup: detect existing email and prompt to log in *)",
       "Bash(git commit -q -m 'Add date-of-birth field + 18+ age gate *)",
       "Read(//c/Users/HP/Desktop/**)",
-      "Bash(cp amira-hephzibah-final.html \"amira-hephzibah-final.backup.html\")"
+      "Bash(cp amira-hephzibah-final.html \"amira-hephzibah-final.backup.html\")",
+      "Bash(cd \"C:/Users/HP/Downloads\"; grep -o 'viewBox=\"[^\"]*\"' 5653187_2947939.svg | head; echo \"---width/height---\"; grep -oE '<svg[^>]*' 5653187_2947939.svg | head -c 600)"
     ]
   }
 }
