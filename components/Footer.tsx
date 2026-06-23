@@ -13,7 +13,7 @@ const COLUMNS = [
     links: [
       { href: '/#how-it-works', label: 'How it works' },
       { href: '/#about', label: 'About' },
-      { href: '/#communities', label: 'Communities' },
+      { href: '/communities', label: 'Communities' },
     ],
   },
   {
