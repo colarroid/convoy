@@ -1,14 +1,19 @@
 'use client'
 
-import { HERO_BLACK_PATH } from '@/lib/heroRoute'
+import { HERO_BLACK_PATH, HERO_BLUE_PATHS, HERO_DEST } from '@/lib/heroRoute'
 
 /**
- * Illustrated city-map hero. The map, the route (black line to the starred
- * destination, blue feeders linking onto it) and the location markers are all
- * baked into public/hero-map.svg (cropped to a square viewBox 0 100 500 500).
- * Here we just frame it and lay the card UI on top. With viewBox 0 110 448 560
- * the destination star sits at ~79% across, ~81% down.
+ * Illustrated city-map hero. The static map + location dots live in
+ * public/hero-map.svg (cropped to viewBox 0 110 448 560). The routes and the
+ * destination are animated overlays so we can time them: the black route draws
+ * from the location to the destination, each blue feeder draws to meet it at
+ * its intersection as the black line passes, and the destination star only
+ * appears once the black route has finished drawing.
  */
+const BLACK_DUR = 2.4
+const BLACK_DELAY = 0.3
+const DEST_AT = BLACK_DELAY + BLACK_DUR // when the black route finishes
+
 export default function HeroMap() {
   return (
     <div className="relative w-full max-w-[520px]">
@@ -16,10 +21,28 @@ export default function HeroMap() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hero-map.svg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
 
-        {/* animated black route: draws from the location to the destination */}
+        {/* animated routes + destination, aligned to the map viewBox */}
         <svg viewBox="0 110 448 560" className="absolute inset-0 h-full w-full" aria-hidden>
+          {/* blue feeders draw to meet the black route at their intersections */}
+          {HERO_BLUE_PATHS.map((b, i) => (
+            <path
+              key={i}
+              className="hm-line"
+              style={{ animationDuration: `${b.dur}s`, animationDelay: `${b.delay}s` }}
+              d={b.d}
+              pathLength={1}
+              fill="none"
+              stroke="#2563eb"
+              strokeWidth={4.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          ))}
+
+          {/* black route: location -> destination */}
           <path
-            className="hm-draw"
+            className="hm-line"
+            style={{ animationDuration: `${BLACK_DUR}s`, animationDelay: `${BLACK_DELAY}s` }}
             d={HERO_BLACK_PATH}
             pathLength={1}
             fill="none"
@@ -28,10 +51,17 @@ export default function HeroMap() {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
+
+          {/* destination star, revealed after the black route finishes */}
+          <g className="hm-dest" style={{ animationDelay: `${DEST_AT}s` }}>
+            <circle cx={HERO_DEST.x} cy={HERO_DEST.y} r={16} fill="#fff" />
+            <circle cx={HERO_DEST.x} cy={HERO_DEST.y} r={12.5} fill="#f90d3b" />
+            <path transform={`translate(${HERO_DEST.x} ${HERO_DEST.y})`} d="M0 -9 L2 -2.8 L8.6 -2.8 L3.3 1.1 L5.3 7.3 L0 3.4 L-5.3 7.3 L-3.3 1.1 L-8.6 -2.8 L-2 -2.8 Z" fill="#fff" />
+          </g>
         </svg>
 
-        {/* gentle pulse on the destination */}
-        <span className="hm-pulse pointer-events-none absolute block h-12 w-12 rounded-full" style={{ left: '79%', top: '81.3%' }} />
+        {/* gentle pulse on the destination, after it appears */}
+        <span className="hm-pulse pointer-events-none absolute block h-12 w-12 rounded-full" style={{ left: '79%', top: '81.3%', animationDelay: `${DEST_AT + 0.2}s` }} />
 
         {/* top label */}
         <div className="absolute left-5 top-5 rounded-full bg-white/85 px-3 py-1 text-[11px] font-semibold tracking-[0.12em] text-[#5b6486] backdrop-blur">
@@ -59,14 +89,27 @@ export default function HeroMap() {
       </div>
 
       <style jsx>{`
-        .hm-draw {
+        .hm-line {
           stroke-dasharray: 1;
           stroke-dashoffset: 1;
-          animation: hm-draw 2.4s ease-out 0.3s forwards;
+          animation: hm-draw 2s ease-out 0s forwards;
         }
         @keyframes hm-draw { to { stroke-dashoffset: 0; } }
 
+        .hm-dest {
+          transform-box: fill-box;
+          transform-origin: center;
+          opacity: 0;
+          animation: hm-pop 0.5s ease-out both;
+        }
+        @keyframes hm-pop {
+          0% { opacity: 0; transform: scale(0.3); }
+          70% { opacity: 1; transform: scale(1.15); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+
         .hm-pulse {
+          opacity: 0;
           transform: translate(-50%, -50%);
           background: rgba(249, 13, 59, 0.22);
           animation: hm-pulse 2.4s ease-in-out infinite;
@@ -75,8 +118,10 @@ export default function HeroMap() {
           0%, 100% { transform: translate(-50%, -50%) scale(0.7); opacity: 0.5; }
           50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
         }
+
         @media (prefers-reduced-motion: reduce) {
-          .hm-draw { animation: none; stroke-dashoffset: 0; }
+          .hm-line { animation: none !important; stroke-dashoffset: 0; }
+          .hm-dest { animation: none; opacity: 1; }
           .hm-pulse { animation: none; opacity: 0; }
         }
       `}</style>
