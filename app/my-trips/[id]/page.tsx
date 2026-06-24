@@ -17,6 +17,7 @@ export default function MyTripDetailsPage() {
   const [loading, setLoading] = useState(true)
   const [cancelling, setCancelling] = useState(false)
   const [confirmCancel, setConfirmCancel] = useState(false)
+  const [cancelReason, setCancelReason] = useState('')
 
   useEffect(() => {
     Promise.all([getTripDetail(id), getTripRequests(id, 'approved')])
@@ -29,7 +30,7 @@ export default function MyTripDetailsPage() {
     if (!trip) return
     setCancelling(true)
     try {
-      await cancelTrip(trip.id)   // notifies approved riders server-side
+      await cancelTrip(trip.id, cancelReason)   // notifies passengers server-side; reason optional
       router.push('/my-trips')
     } catch {
       setCancelling(false)
@@ -183,6 +184,13 @@ export default function MyTripDetailsPage() {
                     ? `${approved.length} approved guest${approved.length !== 1 ? 's' : ''} will be notified. This can’t be undone.`
                     : 'This can’t be undone.'}
                 </p>
+                <textarea
+                  value={cancelReason}
+                  onChange={(e) => setCancelReason(e.target.value)}
+                  rows={2}
+                  placeholder="Reason (optional). Shared with your passengers."
+                  className="w-full mb-3 rounded-xl border border-red-200 bg-white px-3.5 py-2.5 text-sm text-black placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
+                />
                 <div className="flex gap-3">
                   <button onClick={() => setConfirmCancel(false)} disabled={cancelling} className="flex-1 py-2.5 rounded-xl bg-white text-gray-700 text-sm font-semibold border border-gray-200 hover:bg-gray-50 transition-all disabled:opacity-50">
                     Keep ride

@@ -198,9 +198,10 @@ export async function completeTrip(tripId: string) {
   if (error) throw error
 }
 
-/** Host cancels a ride. Notifies approved + pending riders server-side. */
-export async function cancelTrip(tripId: string): Promise<void> {
-  const { error } = await supabase.rpc('cancel_trip', { p_trip: tripId })
+/** Host cancels a ride. Notifies approved + pending riders server-side.
+ *  An optional reason is shared with passengers and recorded for the admin. */
+export async function cancelTrip(tripId: string, reason?: string): Promise<void> {
+  const { error } = await supabase.rpc('cancel_trip', { p_trip: tripId, p_reason: reason?.trim() || null })
   if (error) throw error
 }
 
