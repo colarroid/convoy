@@ -165,8 +165,8 @@ export default function MyTripDetailsPage() {
           </Link>
         )}
 
-        {/* Cancel an upcoming, still-open ride */}
-        {trip.status === 'open' && !isPast(trip.departs_at) && (
+        {/* Cancel an upcoming ride (open or full, i.e. even with passengers) */}
+        {(trip.status === 'open' || trip.status === 'full') && !isPast(trip.departs_at) && (
           <div className="mt-8 pt-6 border-t border-gray-100">
             {!confirmCancel ? (
               <button
