@@ -208,33 +208,54 @@ export default function HelpPage() {
         </div>
 
         {/* Still need help — direct channels */}
-        <div className="mt-8 rounded-3xl bg-[#0b1120] px-6 py-10 md:px-10 md:py-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Still need help?</h2>
+        <div className="mt-8 rounded-3xl border border-gray-200 bg-gray-50 px-6 py-10 md:px-10 md:py-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-black">Still need help?</h2>
           <div className="mt-7 grid gap-4 sm:grid-cols-2">
             <Link
               href="mailto:hello@veesaa.co"
-              className="rounded-2xl ring-1 ring-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-colors"
+              className="rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:border-gray-300 hover:shadow-sm"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-700">
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                 </svg>
               </span>
-              <p className="mt-5 font-bold text-white">Email</p>
-              <p className="mt-1 text-sm text-gray-400">hello@veesaa.co</p>
+              <p className="mt-5 font-bold text-black">Email</p>
+              <p className="mt-1 text-sm text-gray-500">hello@veesaa.co</p>
             </Link>
 
+            {/* WhatsApp: hover reveals a QR to scan (drop the image in at /whatsapp-qr.png) */}
             <Link
               href="https://wa.me/2348000000000"
-              className="rounded-2xl ring-1 ring-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-colors"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:border-gray-300 hover:shadow-sm"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white">
+              {/* small QR glyph, hint that a scan is available */}
+              <span className="absolute right-5 top-5 text-gray-300 transition-opacity group-hover:opacity-0">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.5h4.5v4.5h-4.5zM15.75 4.5h4.5v4.5h-4.5zM3.75 15h4.5v4.5h-4.5zM15.75 15h2.25M20.25 15v4.5M15.75 19.5h2.25" />
+                </svg>
+              </span>
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-700">
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 012.42 5.82c0 4.54-3.7 8.23-8.24 8.23-1.52 0-3.01-.41-4.3-1.19l-.31-.18-3.12.82.83-3.04-.2-.32a8.2 8.2 0 01-1.26-4.36c0-4.54 3.7-8.24 8.24-8.24zm-4.71 4.4c-.22 0-.58.08-.89.42-.3.33-1.16 1.13-1.16 2.76s1.19 3.2 1.36 3.42c.16.22 2.33 3.56 5.65 4.86 2.76 1.09 3.32.87 3.92.82.6-.06 1.93-.79 2.2-1.55.27-.76.27-1.41.19-1.55-.08-.13-.3-.22-.63-.38-.33-.16-1.93-.95-2.23-1.06-.3-.11-.52-.16-.73.17-.22.33-.84 1.06-1.03 1.27-.19.22-.38.25-.71.08-.33-.16-1.39-.51-2.64-1.63-.98-.87-1.64-1.95-1.83-2.28-.19-.33-.02-.51.14-.67.15-.15.33-.38.49-.58.16-.19.22-.33.33-.55.11-.22.05-.41-.03-.58-.08-.16-.73-1.77-1.02-2.42-.27-.64-.54-.55-.73-.56l-.62-.01z" />
                 </svg>
               </span>
-              <p className="mt-5 font-bold text-white">WhatsApp</p>
-              <p className="mt-1 text-sm text-gray-400">+234 800 000 0000</p>
+              <p className="mt-5 font-bold text-black">WhatsApp</p>
+              <p className="mt-1 text-sm text-gray-500">+234 800 000 0000</p>
+
+              {/* Scan overlay (revealed on hover) */}
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center gap-5 bg-white/95 opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
+                <div className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-gray-300 bg-white text-[10px] font-medium uppercase tracking-wider text-gray-400">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/whatsapp-qr.png" alt="" className="absolute inset-0 h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none' }} />
+                  QR code
+                  <span className="scan-line absolute inset-x-2 h-0.5 rounded bg-green-500/70 shadow-[0_0_8px_2px_rgba(34,197,94,0.5)]" />
+                </div>
+                <div className="text-left">
+                  <p className="font-bold text-black">Scan to chat</p>
+                  <p className="mt-0.5 text-sm text-gray-500">Open WhatsApp<br />and scan the code</p>
+                </div>
+              </div>
             </Link>
           </div>
         </div>

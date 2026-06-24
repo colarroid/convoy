@@ -20,13 +20,6 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
             Veesaa
           </Link>
 
-          {/* Desktop nav links, landing page only */}
-          {showAuth === 'both' && (
-            <nav className="hidden md:flex items-center gap-1">
-              <Link href="/#about"        className="nav-pill-light">About</Link>
-              <Link href="/#how-it-works" className="nav-pill-light">How it works</Link>
-            </nav>
-          )}
         </div>
 
         {/* Desktop auth */}
@@ -101,14 +94,7 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 px-5 pb-5 pt-3 flex flex-col gap-1">
-          {showAuth === 'both' && (
-            <>
-              <Link href="/#about"        className="mobile-nav-link-light" onClick={() => setMenuOpen(false)}>About</Link>
-              <Link href="/#how-it-works" className="mobile-nav-link-light" onClick={() => setMenuOpen(false)}>How it works</Link>
-            </>
-          )}
-
-          <div className="border-t border-gray-100 mt-3 pt-4 flex gap-3">
+          <div className="flex gap-3">
             <Link
               href="/login"
               className="flex-1 text-center py-2.5 text-sm font-medium rounded-xl border border-gray-300 text-black hover:bg-gray-100 transition-colors"
