@@ -8,6 +8,7 @@ import AppNav from '@/components/AppNav'
 import MobileHero from '@/components/MobileHero'
 import ManifestoSection from '@/components/ManifestoSection'
 import AvailabilitySection from '@/components/AvailabilitySection'
+import TestimonialsSection from '@/components/TestimonialsSection'
 import StatCardSection from '@/components/StatCardSection'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
@@ -116,6 +117,7 @@ export default function LandingPage() {
         statCaption="Kilometres shared on Veesaa"
       />
       <AvailabilitySection />
+      <TestimonialsSection />
 
       {/* Footer */}
       <Footer id="contact" mobileSpacer />
