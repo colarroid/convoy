@@ -52,7 +52,7 @@ export default function Footer({ id, mobileSpacer = false }: FooterProps) {
           </div>
 
           {/* Link columns */}
-          <div className="flex gap-14 sm:gap-24">
+          <div className="grid grid-cols-2 gap-x-10 gap-y-8 sm:flex sm:gap-16 md:gap-24">
             {COLUMNS.map((col) => (
               <nav key={col.title}>
                 <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-white/40">{col.title}</p>

@@ -264,7 +264,7 @@ export default function HeroMap() {
         <div className="absolute bottom-4 left-4 flex max-w-[64%] items-center gap-3 rounded-2xl bg-white px-3.5 py-3 shadow-[0_20px_50px_-20px_rgba(20,24,60,0.45)]">
           <Avatar src="/avatars/amara.jpg" initials="AO" className="h-10 w-10 shrink-0 bg-[#0a0a23] text-xs font-bold text-white" />
           <span className="min-w-0 flex-1">
-            <span className="block text-sm font-bold text-[#0a0a23]">Amara O.</span>
+            <span className="block truncate text-sm font-bold text-[#0a0a23]">Amara O.</span>
             <span className="block truncate text-xs text-[#5b6486]">Driving to Riverside Hall</span>
           </span>
           <span className="shrink-0 rounded-md bg-[#e6edff] px-2 py-1 text-[10px] font-bold tracking-wide text-[#2563eb]">13.5 km</span>
