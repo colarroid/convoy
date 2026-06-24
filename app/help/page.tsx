@@ -90,6 +90,7 @@ export default function HelpPage() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [showReport, setShowReport] = useState(false)
   const [active, setActive] = useState(SECTIONS[0].id)
+  const [openKey, setOpenKey] = useState<string | null>(null)
   const refs = useRef<Record<string, HTMLElement | null>>({})
 
   useEffect(() => { setLoggedIn(!!getUser()) }, [])
@@ -155,22 +156,30 @@ export default function HelpPage() {
                   <h2 className="text-lg font-bold text-black">{s.title}</h2>
                 </div>
                 <div>
-                  {s.items.map((it) => (
-                    <details
-                      key={it.q}
-                      className="group border-b border-gray-100 px-4 transition-colors open:rounded-2xl open:border-transparent open:bg-[#f5f5f4]"
-                    >
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-[15px] font-semibold text-black [&::-webkit-details-marker]:hidden">
-                        {it.q}
-                        {/* plus -> minus toggle */}
-                        <span className="relative h-4 w-4 shrink-0 text-gray-400">
-                          <span className="absolute left-0 top-1/2 h-[2px] w-4 -translate-y-1/2 rounded-full bg-current" />
-                          <span className="absolute left-1/2 top-0 h-4 w-[2px] -translate-x-1/2 rounded-full bg-current transition-all duration-200 group-open:rotate-90 group-open:opacity-0" />
-                        </span>
-                      </summary>
-                      <p className="pb-5 pr-8 text-[15px] leading-relaxed text-gray-500">{it.a}</p>
-                    </details>
-                  ))}
+                  {s.items.map((it, i) => {
+                    const key = `${s.id}-${i}`
+                    const isOpen = openKey === key
+                    return (
+                      <div
+                        key={it.q}
+                        className={`border-b border-gray-100 px-4 transition-colors ${isOpen ? 'rounded-2xl border-transparent bg-[#f5f5f4]' : ''}`}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => setOpenKey(isOpen ? null : key)}
+                          className="flex w-full items-center justify-between gap-4 py-5 text-left text-[15px] font-semibold text-black"
+                        >
+                          {it.q}
+                          {/* plus -> minus toggle */}
+                          <span className="relative h-4 w-4 shrink-0 text-gray-400">
+                            <span className="absolute left-0 top-1/2 h-[2px] w-4 -translate-y-1/2 rounded-full bg-current" />
+                            <span className={`absolute left-1/2 top-0 h-4 w-[2px] -translate-x-1/2 rounded-full bg-current transition-all duration-200 ${isOpen ? 'rotate-90 opacity-0' : ''}`} />
+                          </span>
+                        </button>
+                        {isOpen && <p className="pb-5 pr-8 text-[15px] leading-relaxed text-gray-500">{it.a}</p>}
+                      </div>
+                    )
+                  })}
                 </div>
               </section>
             ))}
