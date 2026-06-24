@@ -198,9 +198,21 @@ export async function completeTrip(tripId: string) {
   if (error) throw error
 }
 
-/** Host cancels a ride. Notifies approved riders server-side. */
+/** Host cancels a ride. Notifies approved + pending riders server-side. */
 export async function cancelTrip(tripId: string): Promise<void> {
   const { error } = await supabase.rpc('cancel_trip', { p_trip: tripId })
+  if (error) throw error
+}
+
+/** Host permanently deletes one of their own cancelled trips. */
+export async function deleteTrip(tripId: string): Promise<void> {
+  const { error } = await supabase.rpc('delete_trip', { p_trip: tripId })
+  if (error) throw error
+}
+
+/** Rider removes a joined trip from their own list (e.g. a cancelled ride). */
+export async function forgetJoinedTrip(tripId: string): Promise<void> {
+  const { error } = await supabase.rpc('forget_joined_trip', { p_trip: tripId })
   if (error) throw error
 }
 

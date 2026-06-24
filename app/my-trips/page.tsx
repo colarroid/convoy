@@ -7,7 +7,7 @@ import CommunityLogo from '@/components/CommunityLogo'
 import AddToCalendar from '@/components/AddToCalendar'
 import { tripStart } from '@/lib/calendar'
 import {
-  getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, withdrawRequest, recordTripFeedback, formatTripDate, isPast, isPastBy,
+  getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, deleteTrip, forgetJoinedTrip, withdrawRequest, recordTripFeedback, formatTripDate, isPast, isPastBy,
   type MyTripRow, type JoinedTripRow,
 } from '@/lib/trips'
 
@@ -29,6 +29,8 @@ export default function MyTripsPage() {
   const [busy, setBusy] = useState<string | null>(null)
   const [leftJoined, setLeftJoined] = useState<string[]>([])
   const [leaving, setLeaving] = useState<string | null>(null)
+  const [deletedHosting, setDeletedHosting] = useState<string[]>([])
+  const [removing, setRemoving] = useState<string | null>(null)
   const [feedbackFor, setFeedbackFor] = useState<string | null>(null)
   const [feedbackText, setFeedbackText] = useState('')
 
@@ -68,6 +70,24 @@ export default function MyTripsPage() {
     } catch { /* keep card for retry */ } finally { setLeaving(null) }
   }
 
+  // Host deletes one of their own cancelled trips.
+  const handleDeleteHosting = async (id: string) => {
+    setRemoving(id)
+    try {
+      await deleteTrip(id)
+      setDeletedHosting(prev => [...prev, id])
+    } catch { /* keep card for retry */ } finally { setRemoving(null) }
+  }
+
+  // Rider removes a cancelled joined trip from their own list.
+  const handleForgetJoined = async (id: string) => {
+    setRemoving(id)
+    try {
+      await forgetJoinedTrip(id)
+      setLeftJoined(prev => [...prev, id])
+    } catch { /* keep card for retry */ } finally { setRemoving(null) }
+  }
+
   const statusOf = (t: MyTripRow): string => resolved[t.id] ?? t.status
 
   if (loading) {
@@ -86,7 +106,10 @@ export default function MyTripsPage() {
   // (Hosts keep theirs until they confirm or mark it didn't happen.)
   const visibleJoined = joined.filter(t => !leftJoined.includes(t.trip_id) && !isPastBy(t.departs_at, 15))
 
-  const nothing = hosting.length === 0 && visibleJoined.length === 0
+  // Hosting: hide deleted trips, and auto-hide cancelled trips once they're past departure.
+  const visibleHosting = hosting.filter(t => !deletedHosting.includes(t.id) && !(statusOf(t) === 'cancelled' && isPast(t.departs_at)))
+
+  const nothing = visibleHosting.length === 0 && visibleJoined.length === 0
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -95,8 +118,20 @@ export default function MyTripsPage() {
       <main className="flex-1 w-full max-w-xl mx-auto px-5 md:px-8 pt-8 pb-12">
         <div className="animate-fade-up">
           <h1 className="text-3xl font-bold text-black mb-1">My Trips</h1>
-          <p className="text-sm text-gray-500 mb-7">Manage your posted trips and rides you&apos;ve joined.</p>
+          <p className="text-sm text-gray-500 mb-5">Manage your posted trips and rides you&apos;ve joined.</p>
         </div>
+
+        {/* Quick actions: start a new ride any time */}
+        {!nothing && (
+          <div className="flex gap-3 mb-7 animate-fade-up">
+            <Link href="/offer/community" className="flex-1 inline-flex items-center justify-center gap-2 py-3 bg-black text-white rounded-xl text-sm font-semibold hover:bg-gray-800 active:scale-[0.98] transition-all">
+              Offer a ride
+            </Link>
+            <Link href="/find/community" className="flex-1 inline-flex items-center justify-center gap-2 py-3 border border-black text-black rounded-xl text-sm font-semibold hover:bg-black hover:text-white active:scale-[0.98] transition-all">
+              Find a ride
+            </Link>
+          </div>
+        )}
 
         {error ? (
           <p className="text-sm text-red-500">{error}</p>
@@ -109,18 +144,23 @@ export default function MyTripsPage() {
             </div>
             <h2 className="text-lg font-bold text-black mb-2">No trips yet</h2>
             <p className="text-sm text-gray-400 leading-relaxed max-w-xs mb-6">Offer a ride or join one and it&apos;ll show up here.</p>
-            <Link href="/offer/community" className="px-6 py-3 bg-black text-white rounded-xl text-sm font-semibold hover:bg-gray-800 active:scale-[0.98] transition-all">
-              Offer a ride
-            </Link>
+            <div className="flex gap-3">
+              <Link href="/offer/community" className="px-6 py-3 bg-black text-white rounded-xl text-sm font-semibold hover:bg-gray-800 active:scale-[0.98] transition-all">
+                Offer a ride
+              </Link>
+              <Link href="/find/community" className="px-6 py-3 border border-black text-black rounded-xl text-sm font-semibold hover:bg-black hover:text-white active:scale-[0.98] transition-all">
+                Find a ride
+              </Link>
+            </div>
           </div>
         ) : (
           <>
             {/* ── Offering ── */}
-            {hosting.length > 0 && (
+            {visibleHosting.length > 0 && (
               <>
                 <p className="text-xs font-bold tracking-widest text-gray-400 uppercase mb-3 px-1">Rides you&apos;re offering</p>
                 <div className="flex flex-col gap-5 mb-9">
-                  {hosting.map((trip, i) => {
+                  {visibleHosting.map((trip, i) => {
                     const status = statusOf(trip)
                     const past = isPast(trip.departs_at)
                     const needsConfirm = status === 'open' && past
@@ -209,6 +249,15 @@ export default function MyTripsPage() {
                                 )}
                               </Link>
                             )}
+                            {status === 'cancelled' && (
+                              <button
+                                onClick={() => handleDeleteHosting(trip.id)}
+                                disabled={removing === trip.id}
+                                className="flex-1 py-3 rounded-xl text-sm font-semibold text-red-500 bg-red-50 hover:bg-red-100 active:scale-[0.98] transition-all disabled:opacity-50"
+                              >
+                                {removing === trip.id ? 'Deleting…' : 'Delete'}
+                              </button>
+                            )}
                           </div>
                         )}
                       </div>
@@ -287,6 +336,18 @@ export default function MyTripsPage() {
                               className={`${trip.host_phone ? 'flex-1' : 'w-full'} py-3 rounded-xl text-sm font-semibold text-red-500 bg-red-50 hover:bg-red-100 active:scale-[0.98] transition-all disabled:opacity-50`}
                             >
                               {leaving === trip.trip_id ? 'Leaving…' : 'Leave ride'}
+                            </button>
+                          </div>
+                        )}
+
+                        {trip.status === 'cancelled' && (
+                          <div className="px-4 pb-4 pt-3 border-t border-gray-100">
+                            <button
+                              onClick={() => handleForgetJoined(trip.trip_id)}
+                              disabled={removing === trip.trip_id}
+                              className="w-full py-3 rounded-xl text-sm font-semibold text-red-500 bg-red-50 hover:bg-red-100 active:scale-[0.98] transition-all disabled:opacity-50"
+                            >
+                              {removing === trip.trip_id ? 'Removing…' : 'Remove'}
                             </button>
                           </div>
                         )}
