@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import ScheduleCallButton from '@/components/ScheduleCallButton'
 
 function LiveRow({ flag, name }: { flag: string; name: string }) {
@@ -41,7 +42,15 @@ export default function AvailabilitySection() {
           <p className="text-sm font-semibold text-white mb-1">Bring Veesaa to your community</p>
           <p className="text-sm text-gray-500 mb-5 leading-relaxed">Not live near you yet? Book a quick call and we&apos;ll help bring Veesaa to your community.</p>
 
-          <ScheduleCallButton className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-100" />
+          <div className="flex flex-wrap items-center gap-3">
+            <ScheduleCallButton className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-100" />
+            <Link
+              href="/communities"
+              className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+            >
+              View communities
+            </Link>
+          </div>
         </div>
 
         {/* Right column intentionally left empty for now */}
