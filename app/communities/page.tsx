@@ -100,8 +100,7 @@ export default function CommunitiesPage() {
           Communities on Veesaa
         </h1>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-500">
-          Veesaa grows one trusted circle at a time. Each community is a closed group that travels
-          to the same places, together. Find yours below, or bring Veesaa to a new one.
+          Veesaa grows one trusted circle at a time. Find yours below, or bring Veesaa to a new one.
         </p>
       </div>
 
