@@ -191,9 +191,12 @@ export default function HelpPage() {
               </button>
             </div>
 
-            {/* Still need help */}
+            {/* Got questions */}
             <div className="mt-8 rounded-3xl border border-gray-200 bg-gray-50 px-6 py-10 md:px-10 md:py-12">
-              <h2 className="text-2xl font-bold text-black md:text-3xl">Still need help?</h2>
+              <h2 className="text-2xl font-bold text-black md:text-3xl">Got questions?</h2>
+              <p className="mt-2 max-w-sm text-sm leading-relaxed text-gray-500">
+                Can&apos;t find what you&apos;re looking for? Reach out, we&apos;re fast.
+              </p>
               <div className="mt-7 grid gap-4 sm:grid-cols-2">
                 <Link href="mailto:hello@veesaa.co" className="rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:border-gray-300 hover:shadow-sm">
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-700">
