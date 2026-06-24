@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { joinWaitlist } from '@/lib/waitlist'
+import ScheduleCallButton from '@/components/ScheduleCallButton'
 
 function LiveRow({ flag, name }: { flag: string; name: string }) {
   return (
@@ -21,38 +20,13 @@ function LiveRow({ flag, name }: { flag: string; name: string }) {
   )
 }
 
-/** "Where Veesaa is live" + a bring-it-to-your-community waitlist (visual only for now). */
+/** "Where Veesaa is live" + a schedule-a-call CTA to bring it somewhere new. */
 export default function AvailabilitySection() {
-  const [community, setCommunity] = useState('')
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [busy, setBusy] = useState(false)
-  const [error, setError] = useState('')
-
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email.trim() || busy) return
-    setBusy(true)
-    setError('')
-    try {
-      await joinWaitlist(community, email)
-      setSubmitted(true)
-    } catch {
-      setError('Something went wrong. Please check your email and try again.')
-    } finally {
-      setBusy(false)
-    }
-  }
-
-  const inputCls =
-    'px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all'
-
   return (
     <section className="relative bg-neutral-950 text-white py-24 md:py-32 px-5 md:px-8 overflow-hidden">
       <div className="pointer-events-none absolute -top-24 right-[-10%] w-[42rem] h-[42rem] rounded-full bg-blue-500/10 blur-[120px]" />
 
       <div className="relative max-w-5xl mx-auto grid md:grid-cols-2 gap-14 md:gap-24 items-center">
-        {/* Availability + waitlist */}
         <div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-3 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
             Where Veesaa is live
@@ -65,25 +39,9 @@ export default function AvailabilitySection() {
           </div>
 
           <p className="text-sm font-semibold text-white mb-1">Bring Veesaa to your community</p>
-          <p className="text-sm text-gray-500 mb-4 leading-relaxed">Not live near you yet? Tell us where, and we&apos;ll reach out when Veesaa lands in your community.</p>
+          <p className="text-sm text-gray-500 mb-5 leading-relaxed">Not live near you yet? Book a quick call and we&apos;ll help bring Veesaa to your community.</p>
 
-          {submitted ? (
-            <div className="flex items-center gap-2 text-sm text-blue-400 bg-blue-500/10 ring-1 ring-blue-500/20 rounded-xl px-4 py-3">
-              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-              You&apos;re on the list. We&apos;ll be in touch.
-            </div>
-          ) : (
-            <form onSubmit={onSubmit} className="flex flex-col gap-2.5">
-              <input value={community} onChange={e => setCommunity(e.target.value)} placeholder="Your community or city" className={inputCls} />
-              <div className="flex gap-2">
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@email.com" required className={`flex-1 min-w-0 ${inputCls}`} />
-                <button type="submit" disabled={busy} className="px-5 py-3 bg-white text-black rounded-xl text-sm font-semibold hover:bg-gray-100 active:scale-[0.98] transition-all shrink-0 disabled:opacity-60 disabled:cursor-not-allowed">
-                  {busy ? 'Adding…' : 'Notify me'}
-                </button>
-              </div>
-              {error && <p className="text-sm text-red-400">{error}</p>}
-            </form>
-          )}
+          <ScheduleCallButton className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-100" />
         </div>
 
         {/* Right column intentionally left empty for now */}
