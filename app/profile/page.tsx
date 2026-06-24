@@ -11,6 +11,7 @@ import { supabase } from '@/lib/supabase'
 import { uploadProfilePhoto } from '@/lib/cloudinary'
 import { signOut } from '@/lib/auth'
 import { getRideHistory, getRidesCompleted, formatTripDate, ridesLabel, isPast, isPastBy, type RideHistoryRow } from '@/lib/trips'
+import ShareExperience from '@/components/ShareExperience'
 import { getMySettings, updateMySetting, DEFAULT_SETTINGS, type Settings } from '@/lib/settings'
 
 /* ── Toggle switch ── */
@@ -365,6 +366,9 @@ export default function ProfilePage() {
             <p className="mt-3 text-xs text-green-600 font-medium text-center animate-fade-up">Profile updated ✓</p>
           )}
         </div>
+
+        {/* ── Share your experience ── */}
+        <ShareExperience />
 
         {/* ── Ride history ── */}
         <div className="mb-7">
