@@ -12,6 +12,7 @@ import { uploadProfilePhoto } from '@/lib/cloudinary'
 import { signOut } from '@/lib/auth'
 import { getRideHistory, getRidesCompleted, formatTripDate, ridesLabel, isPast, isPastBy, type RideHistoryRow } from '@/lib/trips'
 import ShareExperience from '@/components/ShareExperience'
+import { getMyExperience } from '@/lib/experiences'
 import { getMySettings, updateMySetting, DEFAULT_SETTINGS, type Settings } from '@/lib/settings'
 
 /* ── Toggle switch ── */
@@ -181,6 +182,8 @@ export default function ProfilePage() {
   const [history, setHistory] = useState<RideHistoryRow[]>([])
   const [historyLoading, setHistoryLoading] = useState(true)
   const [photoUploading, setPhotoUploading] = useState(false)
+  const [myExp, setMyExp] = useState<string | null>(null)
+  const [expLoaded, setExpLoaded] = useState(false)
 
   const seedForm = (u: ConvoyUser) => {
     setForm({ firstName: u.firstName, lastName: u.lastName })
@@ -200,6 +203,10 @@ export default function ProfilePage() {
       .then(setHistory)
       .catch(() => {})
       .finally(() => setHistoryLoading(false))
+    getMyExperience()
+      .then((e) => setMyExp(e?.body ?? null))
+      .catch(() => {})
+      .finally(() => setExpLoaded(true))
   }, [])
 
   const updateSetting = (key: keyof Settings, value: boolean) => {
@@ -367,8 +374,8 @@ export default function ProfilePage() {
           )}
         </div>
 
-        {/* ── Share your experience ── */}
-        <ShareExperience />
+        {/* ── Share your experience (form shows only until they share) ── */}
+        {expLoaded && myExp === null && <ShareExperience onSaved={setMyExp} />}
 
         {/* ── Ride history ── */}
         <div className="mb-7">
@@ -437,6 +444,22 @@ export default function ProfilePage() {
             )}
           </div>
         </div>
+
+        {/* ── Your experience (locked once shared) ── */}
+        {myExp !== null && (
+          <div className="mb-7">
+            <p className="mb-2 px-1 text-xs font-bold uppercase tracking-widest text-gray-400">Your experience</p>
+            <div className="rounded-2xl border border-gray-200 bg-white p-4">
+              <p className="whitespace-pre-wrap text-sm leading-relaxed text-gray-700">&ldquo;{myExp}&rdquo;</p>
+              <p className="mt-3 flex items-center gap-1.5 text-xs text-gray-400">
+                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 0h10.5a2.25 2.25 0 012.25 2.25v6.75a2.25 2.25 0 01-2.25 2.25H6.75a2.25 2.25 0 01-2.25-2.25v-6.75a2.25 2.25 0 012.25-2.25z" />
+                </svg>
+                Locked for now. You&apos;ll be able to edit this in future.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* ── Account ── */}
         <Section title="Account">
