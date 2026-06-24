@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getExperiences, type Experience } from '@/lib/experiences'
+import ExperienceCard from '@/components/ExperienceCard'
 
 // Placeholder content shown until at least MIN_REAL pinned experiences exist.
 const MIN_REAL = 3
@@ -11,9 +12,6 @@ const DEMO: Experience[] = [
   { id: 'demo-2', name: 'Tunde A.', photo_url: null, created_at: '', body: 'Match-days are sorted. I ride with people from my estate and we split nothing but good conversation.' },
   { id: 'demo-3', name: 'Chidinma E.', photo_url: null, created_at: '', body: 'As a parent, knowing it is only verified neighbours in the car gives me real peace of mind.' },
 ]
-
-const initials = (name: string | null) =>
-  (name ?? '?').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase()
 
 export default function TestimonialsSection() {
   const [pinned, setPinned] = useState<Experience[]>([])
@@ -46,22 +44,8 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((t) => (
-            <figure key={t.id} className="flex flex-col rounded-3xl bg-[#f5f4f1] p-7">
-              <blockquote className="flex-1 text-[1.05rem] leading-relaxed text-[#0a0a23]">
-                &ldquo;{t.body}&rdquo;
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-900 text-xs font-bold text-white">
-                  {initials(t.name)}
-                  {t.photo_url && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={t.photo_url} alt="" className="absolute inset-0 h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none' }} />
-                  )}
-                </span>
-                <span className="block truncate text-sm font-bold text-black">{t.name ?? 'Veesaa member'}</span>
-              </figcaption>
-            </figure>
+          {items.map((t, i) => (
+            <ExperienceCard key={t.id} item={t} index={i} />
           ))}
         </div>
       </div>
