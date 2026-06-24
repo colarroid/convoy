@@ -148,6 +148,7 @@ export default function OfferCommunityPage() {
         <div className="mt-5 rounded-2xl border border-gray-200 bg-white p-4 flex items-center gap-4 shadow-sm animate-fade-up">
           <CommunityLogo src={match.logo_url} name={match.name} className="w-16 h-16" />
           <div className="min-w-0">
+            <p className="mb-1 text-[11px] font-bold uppercase tracking-wide text-blue-600">Your destination</p>
             <p className="font-bold text-black leading-snug">{match.name}</p>
             {match.address && (
               <p className="text-xs text-gray-500 mt-1 flex items-start gap-1.5">

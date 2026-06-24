@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import OfferFlowShell from '@/components/OfferFlowShell'
+import DestinationBanner from '@/components/DestinationBanner'
 import AddressAutocomplete, { type PlaceCoords } from '@/components/AddressAutocomplete'
 import { geocodeAddress } from '@/lib/googleMaps'
 import { saveDraft, getDraft } from '@/lib/offerStore'
@@ -35,8 +36,8 @@ export default function OfferPickupPage() {
   return (
     <OfferFlowShell
       context="Offer a ride"
-      title="Add a pickup point"
-      subtitle="One clear spot along your route where riders can meet you."
+      title="Where do you set off from?"
+      subtitle="Your pickup point, where riders meet you on the way. This is your starting point, not the destination."
       communityName={draft.communityName}
       footer={
         <div className="flex gap-3">
@@ -50,10 +51,12 @@ export default function OfferPickupPage() {
         </div>
       }
     >
+      <DestinationBanner name={draft.communityName} address={draft.communityAddress} />
+
       <AddressAutocomplete
         value={search}
         onChange={(text, c) => { setSearch(text); setCoords(c) }}
-        placeholder="Search a place or landmark"
+        placeholder="Search your pickup point or landmark"
         autoFocus
         leftAdornment={<svg className="w-4 h-4 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /></svg>}
         rightAdornment={
