@@ -76,15 +76,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── Animations ───────────────────────────────────────── */
-@keyframes scan-line {
-  0% { top: 14%; }
-  100% { top: 86%; }
-}
-.scan-line {
-  top: 14%;
-  animation: scan-line 1.4s ease-in-out infinite alternate;
-}
-
 @keyframes convoy-fade-up {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
