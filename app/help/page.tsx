@@ -253,7 +253,6 @@ export default function HelpPage() {
                 </div>
                 <div className="text-left">
                   <p className="font-bold text-black">Scan to chat</p>
-                  <p className="mt-0.5 text-sm text-gray-500">Open WhatsApp<br />and scan the code</p>
                 </div>
               </div>
             </Link>
