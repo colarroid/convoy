@@ -4,19 +4,26 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { getExperiences, type Experience } from '@/lib/experiences'
 
+// Placeholder content shown until at least MIN_REAL pinned experiences exist.
+const MIN_REAL = 3
+const DEMO: Experience[] = [
+  { id: 'demo-1', name: 'Amara O.', photo_url: null, created_at: '', body: "I used to drive to service alone every Sunday. Now three of us go together and it's the best part of the morning." },
+  { id: 'demo-2', name: 'Tunde A.', photo_url: null, created_at: '', body: 'Match-days are sorted. I ride with people from my estate and we split nothing but good conversation.' },
+  { id: 'demo-3', name: 'Chidinma E.', photo_url: null, created_at: '', body: 'As a parent, knowing it is only verified neighbours in the car gives me real peace of mind.' },
+]
+
 const initials = (name: string | null) =>
   (name ?? '?').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase()
 
 export default function TestimonialsSection() {
-  const [items, setItems] = useState<Experience[]>([])
-  const [ready, setReady] = useState(false)
+  const [pinned, setPinned] = useState<Experience[]>([])
 
   useEffect(() => {
-    getExperiences(true).then(setItems).catch(() => {}).finally(() => setReady(true))
+    getExperiences(true).then(setPinned).catch(() => {})
   }, [])
 
-  // Nothing pinned yet -> don't render an empty section.
-  if (!ready || items.length === 0) return null
+  const useReal = pinned.length >= MIN_REAL
+  const items = (useReal ? pinned : DEMO).slice(0, 7)
 
   return (
     <section className="bg-white px-5 py-20 md:px-8 md:py-28">
@@ -28,16 +35,18 @@ export default function TestimonialsSection() {
               Neighbours, getting there together.
             </h2>
           </div>
-          <Link
-            href="/experiences"
-            className="rounded-full border border-gray-300 px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-gray-100"
-          >
-            View more
-          </Link>
+          {useReal && (
+            <Link
+              href="/experiences"
+              className="rounded-full border border-gray-300 px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-gray-100"
+            >
+              View more
+            </Link>
+          )}
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {items.slice(0, 7).map((t) => (
+          {items.map((t) => (
             <figure key={t.id} className="flex flex-col rounded-3xl bg-[#f5f4f1] p-7">
               <blockquote className="flex-1 text-[1.05rem] leading-relaxed text-[#0a0a23]">
                 &ldquo;{t.body}&rdquo;
@@ -50,9 +59,7 @@ export default function TestimonialsSection() {
                     <img src={t.photo_url} alt="" className="absolute inset-0 h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none' }} />
                   )}
                 </span>
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-bold text-black">{t.name ?? 'Veesaa member'}</span>
-                </span>
+                <span className="block truncate text-sm font-bold text-black">{t.name ?? 'Veesaa member'}</span>
               </figcaption>
             </figure>
           ))}
