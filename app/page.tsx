@@ -54,56 +54,54 @@ export default function LandingPage() {
         <MobileHero offerHref={offerHref} findHref={findHref} offerDisabled={suspended} />
       </section>
 
-      {/* Desktop hero:fits within one screen (nav + hero <= viewport) */}
-      <section className="hidden md:flex bg-white h-[calc(100vh-4rem)] overflow-hidden items-stretch">
-        <div className="max-w-6xl mx-auto w-full px-8 grid grid-cols-2 gap-12 items-stretch py-10">
-          {/* Text: headline pinned top, supporting content pushed to the bottom */}
-          <div className="flex flex-col justify-between min-h-0">
-            <div>
-              <p className="text-[11px] font-bold uppercase text-black mb-3">
-                Community lift-sharing
-              </p>
-              <h1 className="text-6xl lg:text-7xl font-bold text-black leading-[1.02] tracking-tight">
-                Get there,<br />together.
-              </h1>
-            </div>
-
-            <div className="max-w-md">
-              <p className="text-gray-500 text-[0.95rem] leading-relaxed mb-7">
-                Connecting people in your community heading to the same place at the same time, so you ride together.
-              </p>
-              <div className="flex flex-row gap-3">
-                {suspended ? (
-                  <span
-                    className="px-7 py-3.5 bg-gray-100 text-gray-400 rounded-full font-medium text-sm cursor-not-allowed"
-                    title="Your account is suspended"
-                  >
-                    Offer a ride
-                  </span>
-                ) : (
-                  <Link
-                    href={offerHref}
-                    className="group inline-flex items-center gap-2 px-7 py-3.5 bg-black text-white rounded-full font-medium text-sm hover:bg-gray-800 transition-all active:scale-[0.97]"
-                  >
-                    Offer a ride
-                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
-                    </svg>
-                  </Link>
-                )}
-                <Link
-                  href={findHref}
-                  className="px-7 py-3.5 border border-black text-black rounded-full font-medium text-sm hover:bg-black hover:text-white transition-all active:scale-[0.97]"
-                >
-                  Find a ride
-                </Link>
-              </div>
-            </div>
+      {/* Desktop / tablet hero. Tablet (md) stacks: headline, map, then text.
+          Large screens (lg) put the map in a full-height column on the right. */}
+      <section className="hidden md:flex bg-white items-stretch min-h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] lg:overflow-hidden">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-8 py-10 lg:grid lg:h-full lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-0">
+          {/* Headline */}
+          <div className="lg:col-start-1 lg:row-start-1">
+            <p className="mb-3 text-[11px] font-bold uppercase text-black">Community lift-sharing</p>
+            <h1 className="text-6xl font-bold leading-[1.02] tracking-tight text-black lg:text-7xl">
+              Get there,<br />together.
+            </h1>
           </div>
 
-          {/* Hero illustration:animated convergence map (sized to fit the screen) */}
-          <div className="flex items-center justify-end min-h-0">
+          {/* Map: between headline and text on tablet; full-height right column on desktop */}
+          <div className="flex min-h-0 items-center justify-center lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:justify-end">
             <HeroMap />
+          </div>
+
+          {/* Supporting text + CTAs */}
+          <div className="max-w-md lg:col-start-1 lg:row-start-2 lg:self-end">
+            <p className="mb-7 text-[0.95rem] leading-relaxed text-gray-500">
+              Connecting people in your community heading to the same place at the same time, so you ride together.
+            </p>
+            <div className="flex flex-row gap-3">
+              {suspended ? (
+                <span
+                  className="px-7 py-3.5 bg-gray-100 text-gray-400 rounded-full font-medium text-sm cursor-not-allowed"
+                  title="Your account is suspended"
+                >
+                  Offer a ride
+                </span>
+              ) : (
+                <Link
+                  href={offerHref}
+                  className="group inline-flex items-center gap-2 px-7 py-3.5 bg-black text-white rounded-full font-medium text-sm hover:bg-gray-800 transition-all active:scale-[0.97]"
+                >
+                  Offer a ride
+                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </Link>
+              )}
+              <Link
+                href={findHref}
+                className="px-7 py-3.5 border border-black text-black rounded-full font-medium text-sm hover:bg-black hover:text-white transition-all active:scale-[0.97]"
+              >
+                Find a ride
+              </Link>
+            </div>
           </div>
         </div>
       </section>
