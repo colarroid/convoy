@@ -207,20 +207,36 @@ export default function HelpPage() {
           </button>
         </div>
 
-        {/* Contact strip */}
-        <div className="mt-6 rounded-2xl bg-gray-50 border border-gray-200 px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <p className="text-sm font-bold text-black mb-0.5">Still need help?</p>
-            <p className="text-sm text-gray-500 leading-relaxed">
-              Reach your community admin or send us a message and we&apos;ll get back to you.
-            </p>
+        {/* Still need help — direct channels */}
+        <div className="mt-8 rounded-3xl bg-[#0b1120] px-6 py-10 md:px-10 md:py-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-white">Still need help?</h2>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            <Link
+              href="mailto:hello@veesaa.co"
+              className="rounded-2xl ring-1 ring-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-colors"
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white">
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+              </span>
+              <p className="mt-5 font-bold text-white">Email</p>
+              <p className="mt-1 text-sm text-gray-400">hello@veesaa.co</p>
+            </Link>
+
+            <Link
+              href="https://wa.me/2348000000000"
+              className="rounded-2xl ring-1 ring-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-colors"
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white">
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 1.67c2.2 0 4.27.86 5.82 2.42a8.2 8.2 0 012.42 5.82c0 4.54-3.7 8.23-8.24 8.23-1.52 0-3.01-.41-4.3-1.19l-.31-.18-3.12.82.83-3.04-.2-.32a8.2 8.2 0 01-1.26-4.36c0-4.54 3.7-8.24 8.24-8.24zm-4.71 4.4c-.22 0-.58.08-.89.42-.3.33-1.16 1.13-1.16 2.76s1.19 3.2 1.36 3.42c.16.22 2.33 3.56 5.65 4.86 2.76 1.09 3.32.87 3.92.82.6-.06 1.93-.79 2.2-1.55.27-.76.27-1.41.19-1.55-.08-.13-.3-.22-.63-.38-.33-.16-1.93-.95-2.23-1.06-.3-.11-.52-.16-.73.17-.22.33-.84 1.06-1.03 1.27-.19.22-.38.25-.71.08-.33-.16-1.39-.51-2.64-1.63-.98-.87-1.64-1.95-1.83-2.28-.19-.33-.02-.51.14-.67.15-.15.33-.38.49-.58.16-.19.22-.33.33-.55.11-.22.05-.41-.03-.58-.08-.16-.73-1.77-1.02-2.42-.27-.64-.54-.55-.73-.56l-.62-.01z" />
+                </svg>
+              </span>
+              <p className="mt-5 font-bold text-white">WhatsApp</p>
+              <p className="mt-1 text-sm text-gray-400">+234 800 000 0000</p>
+            </Link>
           </div>
-          <Link
-            href="mailto:hello@veesaa.co"
-            className="shrink-0 px-5 py-2.5 bg-black text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition-colors"
-          >
-            Contact support
-          </Link>
         </div>
       </div>
 
