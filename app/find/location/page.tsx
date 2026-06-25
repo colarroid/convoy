@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import FindFlowShell from '@/components/FindFlowShell'
-import DestinationBanner from '@/components/DestinationBanner'
 import AddressAutocomplete, { type PlaceCoords } from '@/components/AddressAutocomplete'
 import { geocodeAddress } from '@/lib/googleMaps'
 import { saveFindDraft, getFindDraft } from '@/lib/findStore'
@@ -58,8 +57,6 @@ export default function FindLocationPage() {
         </div>
       }
     >
-      <DestinationBanner name={draft.communityName} address={draft.communityAddress ?? draft.communityArea} />
-
       <AddressAutocomplete
         value={search}
         onChange={(text, c) => { setSearch(text); setCoords(c) }}

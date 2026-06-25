@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import OfferFlowShell from '@/components/OfferFlowShell'
-import DestinationBanner from '@/components/DestinationBanner'
 import AddressAutocomplete, { type PlaceCoords } from '@/components/AddressAutocomplete'
 import { geocodeAddress } from '@/lib/googleMaps'
 import { saveDraft, getDraft } from '@/lib/offerStore'
@@ -51,8 +50,6 @@ export default function OfferPickupPage() {
         </div>
       }
     >
-      <DestinationBanner name={draft.communityName} address={draft.communityAddress} />
-
       <AddressAutocomplete
         value={search}
         onChange={(text, c) => { setSearch(text); setCoords(c) }}
