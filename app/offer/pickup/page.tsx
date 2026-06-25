@@ -36,7 +36,7 @@ export default function OfferPickupPage() {
     <OfferFlowShell
       context="Offer a ride"
       title="Where do you set off from?"
-      subtitle="Where riders meet you to set off, not the destination."
+      subtitle="Enter a convenient location to pick up passengers"
       communityName={draft.communityName}
       footer={
         <div className="flex gap-3">
