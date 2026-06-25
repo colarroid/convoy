@@ -184,11 +184,12 @@ export default function MyTripDetailsPage() {
                     ? `${approved.length} approved guest${approved.length !== 1 ? 's' : ''} will be notified. This can’t be undone.`
                     : 'This can’t be undone.'}
                 </p>
+                <label className="mb-1.5 block text-xs font-medium text-red-700">Why are you cancelling this trip? (optional)</label>
                 <textarea
                   value={cancelReason}
                   onChange={(e) => setCancelReason(e.target.value)}
                   rows={2}
-                  placeholder="Reason (optional). Shared with your passengers."
+                  placeholder="Shared with your passengers"
                   className="w-full mb-3 rounded-xl border border-red-200 bg-white px-3.5 py-2.5 text-sm text-black placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-400 resize-none"
                 />
                 <div className="flex gap-3">
