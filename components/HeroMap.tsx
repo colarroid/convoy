@@ -198,11 +198,29 @@ export default function HeroMap() {
   return (
     // Width is capped by height too, so the portrait card never taller than the screen.
     <div className="relative ml-auto w-full max-w-[min(520px,calc((100vh-9rem)*0.8))]">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] ring-1 ring-black/5 shadow-[0_40px_90px_-50px_rgba(20,24,60,0.35)]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] ring-1 ring-black/[0.06] shadow-[0_48px_100px_-48px_rgba(20,24,60,0.45)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hero-map.svg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
 
         <svg viewBox="0 110 448 560" className="absolute inset-0 h-full w-full" aria-hidden>
+          {/* soft pings on the pickup locations */}
+          {[
+            { x: 176.26, y: 256.22, c: '#112129', d: 0 },
+            { x: 62.1, y: 289.66, c: '#2563eb', d: 0.9 },
+            { x: 95.72, y: 179.79, c: '#2563eb', d: 1.8 },
+          ].map((p, i) => (
+            <circle
+              key={i}
+              className="hm-dotping"
+              style={{ animationDelay: `${p.d}s` }}
+              cx={p.x}
+              cy={p.y}
+              r={15}
+              fill={p.c}
+              opacity={0.18}
+            />
+          ))}
+
           {/* blue feeders */}
           {HERO_BLUE_PATHS.map((b, i) => (
             <path
@@ -227,7 +245,7 @@ export default function HeroMap() {
             strokeWidth={4.5}
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{ strokeDasharray: 1, strokeDashoffset: 1 }}
+            style={{ strokeDasharray: 1, strokeDashoffset: 1, filter: 'drop-shadow(0 2px 3px rgba(17,33,41,0.35))' }}
           />
 
           {/* car (top-down, drawn pointing east; the loop rotates it to the road) */}
@@ -272,6 +290,15 @@ export default function HeroMap() {
       </div>
 
       <style jsx>{`
+        .hm-dotping {
+          transform-box: fill-box;
+          transform-origin: center;
+          animation: hm-dotping 2.8s ease-out infinite;
+        }
+        @keyframes hm-dotping {
+          0% { transform: scale(0.45); opacity: 0.3; }
+          75%, 100% { transform: scale(1.7); opacity: 0; }
+        }
         .hm-ping {
           transform-box: fill-box;
           transform-origin: center;
@@ -282,7 +309,7 @@ export default function HeroMap() {
           80%, 100% { transform: scale(1.9); opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .hm-ping { animation: none; opacity: 0; }
+          .hm-ping, .hm-dotping { animation: none; opacity: 0; }
         }
       `}</style>
     </div>

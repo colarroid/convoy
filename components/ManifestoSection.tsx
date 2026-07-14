@@ -57,6 +57,25 @@ export default function ManifestoSection() {
             })}
           </p>
         </div>
+
+        {/* Scroll indicator: fill progress + hint, fades away once the reveal completes */}
+        <div
+          className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 transition-opacity duration-500"
+          style={{ opacity: progress > 0.92 ? 0 : 1 }}
+        >
+          <div className="h-[3px] w-28 overflow-hidden rounded-full bg-white/15">
+            <div
+              className="h-full rounded-full bg-white"
+              style={{ width: `${Math.min(100, (progress / 0.85) * 100)}%` }}
+            />
+          </div>
+          <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/40">
+            Scroll
+            <svg className="h-3 w-3 animate-bounce" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </div>
       </div>
     </section>
   )

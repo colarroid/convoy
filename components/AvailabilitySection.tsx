@@ -27,7 +27,7 @@ export default function AvailabilitySection() {
     <section className="relative bg-neutral-950 text-white py-24 md:py-32 px-5 md:px-8 overflow-hidden">
       <div className="pointer-events-none absolute -top-24 right-[-10%] w-[42rem] h-[42rem] rounded-full bg-blue-500/10 blur-[120px]" />
 
-      <div className="relative max-w-5xl mx-auto grid md:grid-cols-2 gap-14 md:gap-24 items-center">
+      <div className="relative max-w-5xl mx-auto grid md:grid-cols-2 gap-14 md:gap-20 items-center">
         <div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-3 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
             Where Veesaa is live
@@ -53,7 +53,7 @@ export default function AvailabilitySection() {
           </div>
         </div>
 
-        {/* Right column intentionally left empty for now */}
+        {/* Right column intentionally left empty; illustration to come */}
         <div aria-hidden />
       </div>
     </section>

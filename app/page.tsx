@@ -60,9 +60,15 @@ export default function LandingPage() {
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-8 py-10 lg:grid lg:h-full lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-0">
           {/* Headline */}
           <div className="lg:col-start-1 lg:row-start-1">
-            <p className="mb-3 text-[11px] font-bold uppercase text-black">Community lift-sharing</p>
-            <h1 className="text-6xl font-bold leading-[1.02] tracking-tight text-black lg:text-7xl">
-              Get there,<br />together.
+            <p className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase text-black">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-600 opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
+              </span>
+              Community lift-sharing
+            </p>
+            <h1 className="text-6xl font-bold leading-[1.02] tracking-[-0.03em] text-black lg:text-7xl">
+              Get there,<br />together<span className="text-blue-600">.</span>
             </h1>
           </div>
 
@@ -87,7 +93,7 @@ export default function LandingPage() {
               ) : (
                 <Link
                   href={offerHref}
-                  className="group inline-flex items-center gap-2 px-7 py-3.5 bg-black text-white rounded-full font-medium text-sm hover:bg-gray-800 transition-all active:scale-[0.97]"
+                  className="group inline-flex items-center gap-2 px-7 py-3.5 bg-black text-white rounded-full font-semibold text-sm shadow-[0_10px_28px_-10px_rgba(0,0,0,0.5)] hover:bg-gray-800 hover:shadow-[0_14px_32px_-10px_rgba(0,0,0,0.55)] transition-all active:scale-[0.97]"
                 >
                   Offer a ride
                   <svg className="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -97,7 +103,7 @@ export default function LandingPage() {
               )}
               <Link
                 href={findHref}
-                className="px-7 py-3.5 border border-black text-black rounded-full font-medium text-sm hover:bg-black hover:text-white transition-all active:scale-[0.97]"
+                className="px-7 py-3.5 border border-gray-300 text-black rounded-full font-semibold text-sm hover:border-black hover:bg-black hover:text-white transition-all active:scale-[0.97]"
               >
                 Find a ride
               </Link>
