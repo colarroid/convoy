@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
+import { FormCard, FormRow, formInput } from '@/components/FormCard'
 import { supabase } from '@/lib/supabase'
 
 export default function ForgotPasswordPage() {
@@ -54,19 +55,23 @@ export default function ForgotPasswordPage() {
             Enter your email and we&apos;ll send you a secure code to reset it.
           </p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            <input
-              type="email"
-              placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="email"
-              autoFocus
-              className="input-field"
-            />
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <FormCard>
+              <FormRow label="Email">
+                <input
+                  type="email"
+                  placeholder="you@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  autoComplete="email"
+                  autoFocus
+                  className={formInput}
+                />
+              </FormRow>
+            </FormCard>
 
-            <button type="submit" disabled={loading} className="btn-primary mt-1">
+            <button type="submit" disabled={loading} className="btn-primary">
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">

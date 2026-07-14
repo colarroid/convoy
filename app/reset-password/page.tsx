@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Navbar from '@/components/Navbar'
+import { FormCard, FormRow, formInput } from '@/components/FormCard'
 import { supabase } from '@/lib/supabase'
 import { signOut } from '@/lib/auth'
 
@@ -67,33 +68,24 @@ function ResetPasswordForm() {
         <div className="w-full max-w-sm">
           <h1 className="text-2xl md:text-3xl font-bold text-black mb-8">Set a new password</h1>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            {/* Password field */}
-            <div>
-              <div className={`relative flex items-center rounded-xl border-2 bg-gray-50 transition-all
-                ${passwordTouched && !allMet
-                  ? 'border-red-400 bg-white'
-                  : passwordTouched && allMet
-                    ? 'border-green-500 bg-white'
-                    : 'border-gray-200 focus-within:border-black focus-within:bg-white'
-                }`}
-              >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <FormCard>
+              <FormRow label="New password">
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="New password"
+                  placeholder="••••••••"
                   value={password}
                   onChange={(e) => { setPassword(e.target.value); setMismatch(false) }}
                   required
                   autoComplete="new-password"
                   autoFocus
-                  className="flex-1 bg-transparent px-4 py-3.5 text-sm text-black placeholder-gray-400 focus:outline-none min-w-0"
+                  className={formInput}
                 />
-                {/* Clear */}
                 {password.length > 0 && (
                   <button
                     type="button"
                     onClick={() => setPassword('')}
-                    className="p-1 mr-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    className="shrink-0 p-0.5 text-gray-400 hover:text-gray-600 transition-colors"
                     aria-label="Clear password"
                   >
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -101,11 +93,10 @@ function ResetPasswordForm() {
                     </svg>
                   </button>
                 )}
-                {/* Show/hide */}
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="p-1 mr-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="shrink-0 p-0.5 text-gray-400 hover:text-gray-600 transition-colors"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? (
@@ -119,68 +110,60 @@ function ResetPasswordForm() {
                     </svg>
                   )}
                 </button>
-              </div>
+              </FormRow>
 
-              {/* Requirements checklist */}
-              {passwordTouched && (
-                <ul className="mt-2.5 flex flex-col gap-1.5 px-1">
-                  {REQUIREMENTS.map((req) => {
-                    const met = req.met(password)
-                    return (
-                      <li key={req.label} className="flex items-center gap-2">
-                        <svg
-                          className={`w-3.5 h-3.5 shrink-0 transition-colors ${met ? 'text-green-500' : 'text-gray-300'}`}
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        <span className={`text-xs transition-colors ${met ? 'text-green-600 font-medium' : 'text-gray-400'}`}>
-                          {req.label}
-                        </span>
-                      </li>
-                    )
-                  })}
-                </ul>
-              )}
-            </div>
+              <FormRow label="Confirm password">
+                <input
+                  type={showConfirm ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  value={confirm}
+                  onChange={(e) => { setConfirm(e.target.value); setMismatch(false) }}
+                  required
+                  autoComplete="new-password"
+                  className={formInput}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirm(!showConfirm)}
+                  className="shrink-0 p-0.5 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label={showConfirm ? 'Hide password' : 'Show password'}
+                >
+                  {showConfirm ? (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                    </svg>
+                  ) : (
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  )}
+                </button>
+              </FormRow>
+            </FormCard>
 
-            {/* Confirm password */}
-            <div className={`relative flex items-center rounded-xl border-2 bg-gray-50 transition-all
-              ${mismatch
-                ? 'border-red-400 bg-white'
-                : confirm && password === confirm
-                  ? 'border-green-500 bg-white'
-                  : 'border-gray-200 focus-within:border-black focus-within:bg-white'
-              }`}
-            >
-              <input
-                type={showConfirm ? 'text' : 'password'}
-                placeholder="Confirm password"
-                value={confirm}
-                onChange={(e) => { setConfirm(e.target.value); setMismatch(false) }}
-                required
-                autoComplete="new-password"
-                className="flex-1 bg-transparent px-4 py-3.5 text-sm text-black placeholder-gray-400 focus:outline-none min-w-0"
-              />
-              <button
-                type="button"
-                onClick={() => setShowConfirm(!showConfirm)}
-                className="p-1 mr-2 text-gray-400 hover:text-gray-600 transition-colors"
-                aria-label={showConfirm ? 'Hide password' : 'Show password'}
-              >
-                {showConfirm ? (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
-                  </svg>
-                ) : (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                )}
-              </button>
-            </div>
+            {/* Requirements checklist */}
+            {passwordTouched && (
+              <ul className="-mt-1 flex flex-col gap-1.5 px-1">
+                {REQUIREMENTS.map((req) => {
+                  const met = req.met(password)
+                  return (
+                    <li key={req.label} className="flex items-center gap-2">
+                      <svg
+                        className={`w-3.5 h-3.5 shrink-0 transition-colors ${met ? 'text-green-500' : 'text-gray-300'}`}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span className={`text-xs transition-colors ${met ? 'text-green-600 font-medium' : 'text-gray-400'}`}>
+                        {req.label}
+                      </span>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
             {mismatch && (
               <p className="text-xs text-red-500 -mt-1 px-1">Passwords don&apos;t match.</p>
             )}

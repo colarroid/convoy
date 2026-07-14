@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from '@/components/Navbar'
+import { FormCard, FormRow, formInput, formLabel } from '@/components/FormCard'
 import PhoneField from '@/components/PhoneField'
 import DateOfBirthField from '@/components/DateOfBirthField'
 import { COUNTRY_CODES } from '@/lib/countries'
@@ -110,73 +111,83 @@ export default function SignupPage() {
           </h1>
           <p className="text-sm text-gray-500 mb-8">Rides are free. No fares, ever.</p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            <div className="grid grid-cols-2 gap-3">
-              <input
-                type="text"
-                placeholder="First name"
-                value={form.firstName}
-                onChange={update('firstName')}
-                required
-                autoComplete="given-name"
-                className="input-field"
-              />
-              <input
-                type="text"
-                placeholder="Last name"
-                value={form.lastName}
-                onChange={update('lastName')}
-                required
-                autoComplete="family-name"
-                className="input-field"
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <FormCard>
+              {/* Names, side by side in one row */}
+              <div className="grid grid-cols-2 divide-x divide-gray-100">
+                <div className="group px-5 pt-3.5 pb-4">
+                  <span className={formLabel}>First name</span>
+                  <div className="mt-1.5">
+                    <input
+                      type="text"
+                      placeholder="Ada"
+                      value={form.firstName}
+                      onChange={update('firstName')}
+                      required
+                      autoComplete="given-name"
+                      className={formInput}
+                    />
+                  </div>
+                </div>
+                <div className="group px-5 pt-3.5 pb-4">
+                  <span className={formLabel}>Last name</span>
+                  <div className="mt-1.5">
+                    <input
+                      type="text"
+                      placeholder="Obi"
+                      value={form.lastName}
+                      onChange={update('lastName')}
+                      required
+                      autoComplete="family-name"
+                      className={formInput}
+                    />
+                  </div>
+                </div>
+              </div>
 
-            <input
-              type="email"
-              placeholder="Email address"
-              value={form.email}
-              onChange={update('email')}
-              required
-              autoComplete="email"
-              className="input-field"
-            />
+              <FormRow label="Email">
+                <input
+                  type="email"
+                  placeholder="you@email.com"
+                  value={form.email}
+                  onChange={update('email')}
+                  required
+                  autoComplete="email"
+                  className={formInput}
+                />
+              </FormRow>
 
-            {/* Phone with inline country code prefix */}
-            <PhoneField
-              country={countryCode}
-              localPhone={localPhone}
-              onCountryChange={(c) => { setCountryCode(c); setLocalPhone('') }}
-              onLocalChange={setLocalPhone}
-            />
+              <FormRow label="Phone">
+                <PhoneField
+                  bare
+                  country={countryCode}
+                  localPhone={localPhone}
+                  onCountryChange={(c) => { setCountryCode(c); setLocalPhone('') }}
+                  onLocalChange={setLocalPhone}
+                />
+              </FormRow>
 
-            <div>
-              <label className="block text-xs text-gray-500 mb-1.5 px-1">Date of birth (you must be 18 or older)</label>
-              <DateOfBirthField value={dob} onChange={setDob} />
-            </div>
-
-            <div>
-              <div className={`relative flex items-center rounded-xl border-2 bg-gray-50 transition-all
-                ${form.password.length > 0 && !PASSWORD_REQS.every(r => r.met(form.password))
-                  ? 'border-red-400 bg-white'
-                  : form.password.length > 0 && PASSWORD_REQS.every(r => r.met(form.password))
-                    ? 'border-green-500 bg-white'
-                    : 'border-gray-200 focus-within:border-black focus-within:bg-white'
-                }`}
+              <FormRow
+                label="Date of birth"
+                labelRight={<span className="text-xs text-gray-400">18 or older</span>}
               >
+                <DateOfBirthField bare value={dob} onChange={setDob} />
+              </FormRow>
+
+              <FormRow label="Password">
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Password"
+                  placeholder="••••••••"
                   value={form.password}
                   onChange={update('password')}
                   required
                   autoComplete="new-password"
-                  className="flex-1 bg-transparent px-4 py-3.5 text-sm text-black placeholder-gray-400 focus:outline-none min-w-0"
+                  className={formInput}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="p-1 mr-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="shrink-0 p-0.5 text-gray-400 hover:text-gray-600 transition-colors"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? (
@@ -190,27 +201,27 @@ export default function SignupPage() {
                     </svg>
                   )}
                 </button>
-              </div>
+              </FormRow>
+            </FormCard>
 
-              {/* Requirements checklist */}
-              {form.password.length > 0 && (
-                <ul className="mt-2.5 flex flex-col gap-1.5 px-1">
-                  {PASSWORD_REQS.map((req) => {
-                    const met = req.met(form.password)
-                    return (
-                      <li key={req.label} className="flex items-center gap-2">
-                        <svg className={`w-3.5 h-3.5 shrink-0 transition-colors ${met ? 'text-green-500' : 'text-gray-300'}`} fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                        </svg>
-                        <span className={`text-xs transition-colors ${met ? 'text-green-600 font-medium' : 'text-gray-400'}`}>{req.label}</span>
-                      </li>
-                    )
-                  })}
-                </ul>
-              )}
-            </div>
+            {/* Requirements checklist */}
+            {form.password.length > 0 && (
+              <ul className="-mt-1 flex flex-col gap-1.5 px-1">
+                {PASSWORD_REQS.map((req) => {
+                  const met = req.met(form.password)
+                  return (
+                    <li key={req.label} className="flex items-center gap-2">
+                      <svg className={`w-3.5 h-3.5 shrink-0 transition-colors ${met ? 'text-green-500' : 'text-gray-300'}`} fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span className={`text-xs transition-colors ${met ? 'text-green-600 font-medium' : 'text-gray-400'}`}>{req.label}</span>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
 
-            <button type="submit" disabled={loading} className="btn-primary mt-1">
+            <button type="submit" disabled={loading} className="btn-primary">
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">

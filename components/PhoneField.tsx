@@ -9,6 +9,8 @@ interface PhoneFieldProps {
   onCountryChange: (c: Country) => void
   onLocalChange: (digits: string) => void
   placeholder?: string
+  /** Borderless variant for use inside a grouped form card. */
+  bare?: boolean
 }
 
 export default function PhoneField({
@@ -17,18 +19,26 @@ export default function PhoneField({
   onCountryChange,
   onLocalChange,
   placeholder,
+  bare = false,
 }: PhoneFieldProps) {
   // Default the example number to the selected country (e.g. CA → 4161234567).
   placeholder = placeholder ?? country.example
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="relative flex items-stretch rounded-xl border border-gray-200 bg-gray-50 focus-within:ring-2 focus-within:ring-black focus-within:border-transparent focus-within:bg-white transition-all">
+    <div
+      className={
+        bare
+          ? 'relative flex flex-1 items-center'
+          : 'relative flex items-stretch rounded-xl border border-gray-200 bg-gray-50 focus-within:ring-2 focus-within:ring-black focus-within:border-transparent focus-within:bg-white transition-all'
+      }
+    >
       {/* Country picker trigger */}
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        className="flex items-center gap-1.5 pl-3.5 pr-2 py-3.5 text-sm text-gray-700 hover:text-black transition-colors shrink-0 border-r border-gray-200 focus:outline-none"
+        className={`flex items-center gap-1.5 text-sm text-gray-700 hover:text-black transition-colors shrink-0 border-r border-gray-200 focus:outline-none
+          ${bare ? 'pr-3 py-0.5' : 'pl-3.5 pr-2 py-3.5'}`}
       >
         <span className="text-base leading-none">{country.flag}</span>
         <span className="font-medium">{country.dial}</span>
@@ -47,7 +57,8 @@ export default function PhoneField({
         onChange={(e) => onLocalChange(e.target.value.replace(/\D/g, '').replace(/^0+/, ''))}
         autoComplete="tel-national"
         inputMode="numeric"
-        className="flex-1 bg-transparent px-3 py-3.5 text-sm text-black placeholder-gray-400 focus:outline-none min-w-0"
+        className={`flex-1 bg-transparent focus:outline-none min-w-0
+          ${bare ? 'pl-3 text-[15px] text-black placeholder-gray-300' : 'px-3 py-3.5 text-sm text-black placeholder-gray-400'}`}
       />
 
       {/* Dropdown */}
