@@ -83,30 +83,27 @@ const MARKERS = [
 // Orbiting members: real photos cycled with colourful initials.
 // Drop more images into public/avatars and add them here.
 const PHOTOS = ['/avatars/amara.jpg', '/avatars/neighbour-1.jpg', '/avatars/neighbour-2.jpg']
-const AVATARS: ({ img: string } | { initials: string; hue: number })[] = [
+const AVATARS: ({ img: string } | { initials: string })[] = [
   { img: PHOTOS[0] },
-  { initials: 'TA', hue: 210 },
-  { initials: 'CE', hue: 150 },
+  { initials: 'TA' },
+  { initials: 'CE' },
   { img: PHOTOS[1] },
-  { initials: 'MO', hue: 260 },
-  { initials: 'JX', hue: 20 },
+  { initials: 'MO' },
+  { initials: 'JX' },
   { img: PHOTOS[2] },
-  { initials: 'SB', hue: 330 },
-  { initials: 'KP', hue: 180 },
-  { img: PHOTOS[0] },
-  { initials: 'AN', hue: 45 },
-  { img: PHOTOS[1] },
-  { initials: 'LI', hue: 285 },
-  { initials: 'RD', hue: 100 },
+  { initials: 'SB' },
+  { initials: 'KP' },
+  { initials: 'DE' },
+  { initials: 'AN' },
+  { initials: 'OZ' },
+  { initials: 'LI' },
+  { initials: 'RD' },
 ]
 
 export default function GlobeNetwork() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const avatarRefs = useRef<(HTMLDivElement | null)[]>([])
-  const hovered = useRef<boolean[]>(AVATARS.map(() => false))
-  const angleAdj = useRef<number[]>(AVATARS.map(() => 0))
-  const lastAngle = useRef<number[]>(AVATARS.map(() => 0))
 
   useEffect(() => {
     const wrap = wrapRef.current
@@ -187,13 +184,7 @@ export default function GlobeNetwork() {
       AVATARS.forEach((_, i) => {
         const el = avatarRefs.current[i]
         if (!el) return
-        let a: number
-        if (hovered.current[i]) {
-          a = lastAngle.current[i]
-        } else {
-          a = base + (i * Math.PI * 2) / AVATARS.length + angleAdj.current[i]
-          lastAngle.current[i] = a
-        }
+        const a = base + (i * Math.PI * 2) / AVATARS.length
         const x = Math.cos(a) * orbitR
         const y = Math.sin(a) * orbitR
         el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
@@ -219,14 +210,6 @@ export default function GlobeNetwork() {
     }
   }, [])
 
-  const onEnter = (i: number) => { hovered.current[i] = true }
-  const onLeave = (i: number) => {
-    // rejoin the orbit exactly where the avatar was paused
-    const base = (performance.now() / 1000) * (Math.PI * 2) / ORBIT_SECONDS
-    angleAdj.current[i] = lastAngle.current[i] - base - (i * Math.PI * 2) / AVATARS.length
-    hovered.current[i] = false
-  }
-
   return (
     <div ref={wrapRef} className="relative mx-auto aspect-square w-full max-w-[460px]" aria-hidden>
       {/* breathing glow */}
@@ -247,11 +230,7 @@ export default function GlobeNetwork() {
             ref={(el) => { avatarRefs.current[i] = el }}
             className="absolute left-1/2 top-1/2 -ml-[26px] -mt-[26px] h-[52px] w-[52px] will-change-transform"
           >
-            <div
-              onMouseEnter={() => onEnter(i)}
-              onMouseLeave={() => onLeave(i)}
-              className="h-full w-full overflow-hidden rounded-full border-2 border-neutral-800 bg-neutral-900/70 shadow-[0_10px_26px_rgba(0,0,0,0.55)] ring-1 ring-white/10 backdrop-blur-sm transition-transform duration-300 hover:scale-125"
-            >
+            <div className="h-full w-full overflow-hidden rounded-full border-2 border-neutral-800 bg-neutral-900/70 shadow-[0_10px_26px_rgba(0,0,0,0.55)] ring-1 ring-white/10 backdrop-blur-sm">
               {'img' in av ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={av.img} alt="" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none' }} />
