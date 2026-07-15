@@ -24,7 +24,7 @@ const SECTIONS: Section[] = [
     n: 1,
     title: 'Introduction',
     blocks: [
-      { type: 'p', text: 'This Privacy Policy explains how Veesaa (“we”, “us”, or “our”) collects, uses, shares, and protects your personal data when you use Veesaa (the “Platform”), a community carpooling coordination service. Veesaa operates in Nigeria and Canada, and this Policy applies to users in both countries.' },
+      { type: 'p', text: 'This Privacy Policy explains how VZA Technologies Limited (“Veesaa”, “we”, “us”, or “our”) collects, uses, shares, and protects your personal data when you use Veesaa (the “Platform”), a community carpooling coordination service. Veesaa operates in Nigeria and Canada, and this Policy applies to users in both countries.' },
       { type: 'p', text: 'We are the data controller (in Canada, the organisation responsible for personal information) and we handle your personal data in accordance with the privacy laws that apply to you:' },
       { type: 'list', items: [
         'Nigeria: the Nigeria Data Protection Act, 2023 (the “NDPA”), overseen by the Nigeria Data Protection Commission (the “NDPC”).',

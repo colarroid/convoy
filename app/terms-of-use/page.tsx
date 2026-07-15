@@ -23,7 +23,7 @@ const SECTIONS: Section[] = [
     n: 1,
     title: 'Introduction and acceptance',
     blocks: [
-      { type: 'p', text: 'Welcome to Veesaa (the “Platform”), a community carpooling coordination service operated by Veesaa (“we”, “us”, or “our”). Veesaa operates in Nigeria and Canada, and these Terms apply to all users in both countries.' },
+      { type: 'p', text: 'Welcome to Veesaa (the “Platform”), a community carpooling coordination service operated by VZA Technologies Limited (“Veesaa”, “we”, “us”, or “our”). Veesaa operates in Nigeria and Canada, and these Terms apply to all users in both countries.' },
       { type: 'p', text: 'These Terms of Use (“Terms”) govern your access to and use of the Platform, including our website and any associated web application. By creating an account, entering a community code, or otherwise using the Platform, you confirm that you have read, understood, and agree to be bound by these Terms. If you do not agree, you must not use the Platform.' },
       { type: 'p', text: 'The Platform is currently offered as a pilot (MVP) and is provided on an “as is” and “as available” basis. Features may change, be limited, or be withdrawn during this period.' },
     ],
