@@ -256,10 +256,7 @@ export default function GlobeNetwork() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={av.img} alt="" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none' }} />
               ) : (
-                <span
-                  className="flex h-full w-full items-center justify-center text-[13px] font-bold text-white/90"
-                  style={{ background: `linear-gradient(135deg, hsl(${av.hue} 55% 42%), hsl(${(av.hue + 40) % 360} 55% 30%))` }}
-                >
+                <span className="flex h-full w-full items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900 text-[13px] font-bold text-white/80">
                   {av.initials}
                 </span>
               )}
