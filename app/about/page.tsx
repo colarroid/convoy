@@ -70,7 +70,7 @@ export default function AboutPage() {
       {/* ── Mission statement ── */}
       <section className="bg-white px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-4xl">
-          <p className="mb-8 text-xs font-bold uppercase tracking-[0.25em] text-gray-400">The belief behind Veesaa</p>
+          <p className="mb-8 text-xs font-bold uppercase tracking-[0.25em] text-gray-600">The belief behind Veesaa</p>
           <p className="text-[26px] font-bold leading-[1.35] tracking-tight text-black md:text-[38px] md:leading-[1.3]">
             Every day, people living side by side head to the same place and travel there alone. We think that is a missed connection. Veesaa turns those separate journeys into shared ones, so getting there also means getting closer.
           </p>
@@ -81,7 +81,7 @@ export default function AboutPage() {
       <section className="bg-[#f5f4f1] px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="max-w-2xl">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-gray-400">Why we are building this</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-gray-600">Why we are building this</p>
             <h2 className="text-3xl font-bold tracking-tight text-black md:text-5xl">
               Communities are stronger when they move together.
             </h2>
@@ -104,7 +104,7 @@ export default function AboutPage() {
       {/* ── What we stand for ── */}
       <section className="bg-white px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-gray-400">What we stand for</p>
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-gray-600">What we stand for</p>
           <h2 className="max-w-3xl text-3xl font-bold tracking-tight text-black md:text-5xl">
             Trust first, reach second.
           </h2>
