@@ -5,8 +5,8 @@ import { useEffect, useRef } from 'react'
 /**
  * Global-network animation for the "Where Veesaa is live" section.
  * A frosted-glass sphere holds a dotted globe (canvas, ~2k dots) slowly
- * rotating on its Y axis; glowing blue markers stay pinned to Nigeria and
- * Canada, green ambient dots pulse, and a ring of upright avatars orbits
+ * rotating on its Y axis; two glowing blue markers stay pinned to Nigeria
+ * and Canada, and a ring of upright avatars orbits
  * clockwise above it. Hovering an avatar enlarges it and pauses only it.
  */
 
@@ -65,19 +65,12 @@ function getDots() {
   return dots
 }
 
-// Location markers pinned to real coordinates.
+// Location markers pinned to real coordinates: one blue dot per live country.
 const MARKERS = [
   // Nigeria (blue)
-  { lat: 6.5, lng: 3.4, color: '#60a5fa', glow: '#3b82f6', phase: 0 },
-  { lat: 9.1, lng: 7.4, color: '#60a5fa', glow: '#3b82f6', phase: 0.6 },
+  { lat: 9.1, lng: 8.7, color: '#60a5fa', glow: '#3b82f6', phase: 0 },
   // Canada (blue)
-  { lat: 43.7, lng: -79.4, color: '#60a5fa', glow: '#3b82f6', phase: 1.1 },
-  { lat: 51.0, lng: -114.1, color: '#60a5fa', glow: '#3b82f6', phase: 1.7 },
-  // Ambient network activity (green)
-  { lat: 48.9, lng: 2.3, color: '#4ade80', glow: '#22c55e', phase: 0.3 },
-  { lat: -1.3, lng: 36.8, color: '#4ade80', glow: '#22c55e', phase: 1.0 },
-  { lat: 35.7, lng: 139.7, color: '#4ade80', glow: '#22c55e', phase: 1.5 },
-  { lat: -23.5, lng: -46.6, color: '#4ade80', glow: '#22c55e', phase: 0.8 },
+  { lat: 56.1, lng: -106.3, color: '#60a5fa', glow: '#3b82f6', phase: 1.1 },
 ]
 
 // Orbiting members: real photos cycled with colourful initials.
