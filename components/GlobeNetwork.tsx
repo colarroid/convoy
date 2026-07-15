@@ -79,7 +79,7 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
   ctx.closePath()
 }
 
-export default function GlobeNetwork() {
+export default function GlobeNetwork({ className = 'max-w-[520px]' }: { className?: string }) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -202,7 +202,7 @@ export default function GlobeNetwork() {
   }, [])
 
   return (
-    <div ref={wrapRef} className="relative mx-auto aspect-square w-full max-w-[520px]" aria-hidden>
+    <div ref={wrapRef} className={`relative mx-auto aspect-square w-full ${className}`} aria-hidden>
       <canvas ref={canvasRef} className="h-full w-full" />
     </div>
   )
