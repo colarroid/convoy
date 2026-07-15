@@ -34,7 +34,8 @@
       "Bash(perl -CSD -i -pe \"s/icon: '🚗',/icon: ICONS.car,/; s/icon: '🔍',/icon: ICONS.search,/; s/icon: '🏘️',/icon: ICONS.building,/; s/icon: '👤',/icon: ICONS.userCog,/; s/icon: '🔒',/icon: ICONS.shield,/; s/icon: '💳',/icon: ICONS.wallet,/\" app/help/page.tsx)",
       "Bash(cp \"C:/Users/HP/Desktop/SVG/veesaa-logo-black.svg\" public/veesaa-logo-black.svg)",
       "Bash(cp \"C:/Users/HP/Desktop/SVG/veesaa-logo-white.svg\" public/veesaa-logo-white.svg)",
-      "PowerShell(git add -A)"
+      "PowerShell(git add -A)",
+      "PowerShell(git push)"
     ]
   }
 }

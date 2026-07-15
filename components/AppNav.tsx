@@ -90,7 +90,7 @@ export default function AppNav() {
         <div className="flex items-center" style={{ gap: '60px' }}>
           <Link href="/" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/veesaa-logo-black.svg" alt="Veesaa" className="h-[15px] w-auto" />
+            <img src="/veesaa-logo-black.svg" alt="Veesaa" className="h-[20px] w-auto" />
           </Link>
           <nav className="hidden md:flex items-center gap-1">
             {LINKS.map(l => (
