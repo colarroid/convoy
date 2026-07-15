@@ -40,6 +40,11 @@ export default function AvailabilitySection() {
             <LiveRow flag="🇨🇦" name="Canada" />
           </div>
 
+          {/* Global network animation (mobile: sits between the live list and the CTA) */}
+          <div className="md:hidden mb-9">
+            <GlobeNetwork />
+          </div>
+
           <p className="text-sm font-semibold text-white mb-1">Bring Veesaa to your community</p>
           <p className="text-sm text-gray-500 mb-5 leading-relaxed">Not live near you yet? Book a quick call and we&apos;ll help bring Veesaa to your community.</p>
 
