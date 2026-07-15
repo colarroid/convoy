@@ -1,4 +1,4 @@
-const KEY = 'convoy_offer_draft'
+const KEY = 'veesaa_offer_draft'
 
 export interface OfferDraft {
   communityCode?: string

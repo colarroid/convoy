@@ -186,7 +186,7 @@ export default function OnboardingPhotoPage() {
       // onboarded flag) so the app recognises the user as signed in, important
       // for Google sign-ups that never touched the email-signup cache path.
       await syncProfileToCache()
-      localStorage.setItem('convoy_onboarded', '1')
+      localStorage.setItem('veesaa_onboarded', '1')
       router.push('/')
     } catch (e) {
       setSaving(false)

@@ -1,7 +1,7 @@
-# Convoy — "fine for now" list
+# Veesaa — "fine for now" list
 
 Things we built simply on purpose. Each is acceptable at the current scale
-(one community, small membership) but worth revisiting as Convoy grows.
+(one community, small membership) but worth revisiting as Veesaa grows.
 Grouped by area, with a rough trigger for when to act.
 
 ## Notifications & broadcasts
@@ -10,10 +10,11 @@ Grouped by area, with a rough trigger for when to act.
   per row. Fine for hundreds of users; at thousands, switch to OneSignal
   segments / a single batched push and skip the per-row webhook.
   → *Revisit when a broadcast reaches ~1k+ recipients.*
-- **`notifications` grows unbounded.** No archival or cleanup. Add a retention
-  policy (e.g. delete read rows older than N months) before it gets large.
-- **No rate limiting** on reports or join requests — a user could spam them.
-  Add per-user throttling when abuse becomes possible.
+- ~~**`notifications` grows unbounded.**~~ Done (migration 0035): `prune_notifications()`
+  removes read rows > 90 days and any row > 12 months, scheduled daily via pg_cron
+  (enable the `pg_cron` extension in the Supabase dashboard for the schedule to run).
+- ~~**No rate limiting** on reports or join requests.~~ Done (migration 0036):
+  BEFORE INSERT triggers cap reports (5/hour, 20/day) and join requests (20/hour) per user.
 
 ## Admin dashboard
 - **Lists are capped, not paginated.** Trips (200), reports (100), broadcasts
@@ -32,9 +33,11 @@ Grouped by area, with a rough trigger for when to act.
   block is obvious to the user, not just silent.
 
 ## Media & uploads
-- **Cloudinary unsigned upload preset.** Anyone with the preset can upload to the
-  account. Fine for a trusted-community MVP; move to signed uploads (and maybe
-  image moderation) before opening up registration broadly.
+- ~~**Cloudinary unsigned upload preset.**~~ Done: uploads are now server-signed
+  (`app/api/cloudinary/sign`), gated to signed-in members. Requires server env
+  `CLOUDINARY_API_KEY` and `CLOUDINARY_API_SECRET`; the old
+  `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` is no longer used and can be removed.
+  Image moderation is still worth adding before opening registration broadly.
 
 ## Maps & geocoding
 - **One Google Maps key shared by both apps**, restricted by HTTP referrer + API.

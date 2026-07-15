@@ -12,7 +12,7 @@ export function loadGoogleMaps(): Promise<any> {
   const key = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
   loader = new Promise((resolve, reject) => {
     if (!key) { reject(new Error('Google Maps key missing')); return }
-    const cbName = '__convoyMapsInit'
+    const cbName = '__veesaaMapsInit'
     w[cbName] = () => resolve(w.google)
     const s = document.createElement('script')
     s.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&loading=async&callback=${cbName}`

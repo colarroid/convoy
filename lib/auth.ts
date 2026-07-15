@@ -26,8 +26,8 @@ export async function syncProfileToCache() {
 
   // Mirror onboarding state for the gate (photo present = onboarded).
   if (typeof window !== 'undefined') {
-    if (profile?.photo_url) localStorage.setItem('convoy_onboarded', '1')
-    else localStorage.removeItem('convoy_onboarded')
+    if (profile?.photo_url) localStorage.setItem('veesaa_onboarded', '1')
+    else localStorage.removeItem('veesaa_onboarded')
   }
 
   return profile
@@ -53,10 +53,10 @@ export async function signOut() {
   if (typeof window !== 'undefined') {
     // Clear every per-user cache so the next person on this browser/tab can't
     // see the previous account's data (e.g. the "recent" starting location).
-    localStorage.removeItem('convoy_user')
-    localStorage.removeItem('convoy_onboarded')
-    localStorage.removeItem('convoy_settings')
-    sessionStorage.removeItem('convoy_find_draft')
-    sessionStorage.removeItem('convoy_offer_draft')
+    localStorage.removeItem('veesaa_user')
+    localStorage.removeItem('veesaa_onboarded')
+    localStorage.removeItem('veesaa_settings')
+    sessionStorage.removeItem('veesaa_find_draft')
+    sessionStorage.removeItem('veesaa_offer_draft')
   }
 }

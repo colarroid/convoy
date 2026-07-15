@@ -1,6 +1,6 @@
-const USER_KEY = 'convoy_user'
+const USER_KEY = 'veesaa_user'
 
-export interface ConvoyUser {
+export interface VeesaaUser {
   firstName: string
   lastName: string
   email: string
@@ -13,27 +13,27 @@ export function savePhoto(dataUrl: string) {
   if (user) saveUser({ ...user, photoDataUrl: dataUrl })
 }
 
-export function saveUser(user: ConvoyUser) {
+export function saveUser(user: VeesaaUser) {
   if (typeof window === 'undefined') return
   localStorage.setItem(USER_KEY, JSON.stringify(user))
 }
 
-export function getUser(): ConvoyUser | null {
+export function getUser(): VeesaaUser | null {
   if (typeof window === 'undefined') return null
   try {
     const raw = localStorage.getItem(USER_KEY)
-    return raw ? (JSON.parse(raw) as ConvoyUser) : null
+    return raw ? (JSON.parse(raw) as VeesaaUser) : null
   } catch {
     return null
   }
 }
 
-export function getDisplayName(user: ConvoyUser | null): string {
+export function getDisplayName(user: VeesaaUser | null): string {
   if (!user) return 'You'
   return `${user.firstName} ${user.lastName}`.trim()
 }
 
-export function getInitials(user: ConvoyUser | null): string {
+export function getInitials(user: VeesaaUser | null): string {
   if (!user) return '?'
   const f = user.firstName?.[0] ?? ''
   const l = user.lastName?.[0] ?? ''

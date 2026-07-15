@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 
-const KEY = 'convoy_cookie_notice_dismissed'
+const KEY = 'veesaa_cookie_notice_dismissed'
 
 export default function CookieNotice() {
   const [visible, setVisible] = useState(false)

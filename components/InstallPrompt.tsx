@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const DISMISS_KEY = 'convoy_install_dismissed'
+const DISMISS_KEY = 'veesaa_install_dismissed'
 
 export default function InstallPrompt() {
   const [deferred, setDeferred] = useState<any>(null)
@@ -17,7 +17,7 @@ export default function InstallPrompt() {
     // Already installed / running standalone?
     if (window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone) return
     // Don't stack on top of the cookie notice, wait until it's dismissed.
-    if (!localStorage.getItem('convoy_cookie_notice_dismissed')) return
+    if (!localStorage.getItem('veesaa_cookie_notice_dismissed')) return
 
     const ua = navigator.userAgent
     const isIos = /iphone|ipad|ipod/i.test(ua) && !(window as any).MSStream

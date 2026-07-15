@@ -6,7 +6,7 @@ import AppNav from '@/components/AppNav'
 import PhoneField from '@/components/PhoneField'
 import { COUNTRY_CODES, parsePhone, type Country } from '@/lib/countries'
 import { useRouter } from 'next/navigation'
-import { getUser, saveUser, savePhoto, getInitials, type ConvoyUser } from '@/lib/userStore'
+import { getUser, saveUser, savePhoto, getInitials, type VeesaaUser } from '@/lib/userStore'
 import { supabase } from '@/lib/supabase'
 import { uploadProfilePhoto } from '@/lib/cloudinary'
 import { signOut } from '@/lib/auth'
@@ -116,7 +116,7 @@ function PwField({ value, onChange, placeholder, autoFocus }: {
 
 export default function ProfilePage() {
   const router = useRouter()
-  const [user, setUser] = useState<ConvoyUser | null>(null)
+  const [user, setUser] = useState<VeesaaUser | null>(null)
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS)
   const [editing, setEditing] = useState(false)
   const [form, setForm] = useState({ firstName: '', lastName: '' })
@@ -185,7 +185,7 @@ export default function ProfilePage() {
   const [myExp, setMyExp] = useState<string | null>(null)
   const [expLoaded, setExpLoaded] = useState(false)
 
-  const seedForm = (u: ConvoyUser) => {
+  const seedForm = (u: VeesaaUser) => {
     setForm({ firstName: u.firstName, lastName: u.lastName })
     const { country: c, local } = parsePhone(u.phone)
     setCountry(c)
@@ -236,7 +236,7 @@ export default function ProfilePage() {
 
   const handleSave = () => {
     if (!user) return
-    const updated: ConvoyUser = {
+    const updated: VeesaaUser = {
       ...user,
       firstName: form.firstName.trim() || user.firstName,
       lastName: form.lastName.trim() || user.lastName,

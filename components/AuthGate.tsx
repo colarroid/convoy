@@ -12,7 +12,7 @@ const PUBLIC_ROUTES = new Set([
   '/about', '/how-it-works',
 ])
 const ONBOARDING = '/onboarding/photo'
-const ONBOARDED_KEY = 'convoy_onboarded'
+const ONBOARDED_KEY = 'veesaa_onboarded'
 
 /**
  * Enforces two things on every route:

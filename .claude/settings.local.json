@@ -38,7 +38,9 @@
       "PowerShell(git push)",
       "PowerShell(Copy-Item \"C:\\\\Users\\\\HP\\\\Desktop\\\\SVG\\\\Veesaa-logo-black.svg\" \"C:\\\\Users\\\\HP\\\\Desktop\\\\convoy\\\\public\\\\veesaa-logo-black.svg\" -Force)",
       "PowerShell(Copy-Item \"C:\\\\Users\\\\HP\\\\Desktop\\\\SVG\\\\Veesaa-logo-white.svg\" \"C:\\\\Users\\\\HP\\\\Desktop\\\\convoy\\\\public\\\\veesaa-logo-white.svg\" -Force)",
-      "PowerShell(\"done\")"
+      "PowerShell(\"done\")",
+      "Bash(xargs grep -l \"createServerClient\\\\|cookies\\(\\)\\\\|service_role\\\\|SERVICE_ROLE\")",
+      "Bash(git commit -q -m ' *)"
     ]
   }
 }
