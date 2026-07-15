@@ -30,7 +30,7 @@ export default function AvailabilitySection() {
 
       {/* Desktop globe: doubled in size, anchored right and bleeding off the edge */}
       <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-[62%] overflow-hidden">
-        <div className="absolute top-1/2 left-0 h-[644px] w-[644px] -translate-y-1/2">
+        <div className="absolute top-1/2 left-[24%] h-[644px] w-[644px] -translate-y-1/2">
           <GlobeNetwork className="max-w-none" />
         </div>
       </div>
