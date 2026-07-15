@@ -3,16 +3,19 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * Global-network animation for the "Where Veesaa is live" section.
- * A frosted-glass sphere holds a dotted globe (canvas, ~2k dots) slowly
- * rotating on its Y axis; two glowing blue markers stay pinned to Nigeria
- * and Canada, and a ring of upright avatars orbits
- * clockwise above it. Hovering an avatar enlarges it and pauses only it.
+ * Cinematic dotted globe for the "Where Veesaa is live" section.
+ * A dark planet slowly rotates on its tilted axis: dim grey landmass dots, a
+ * bright blue atmospheric glow hugging one limb, a subtle warm counter-rim on
+ * the other, and blue markers pinned to Nigeria and Canada joined by a glowing
+ * great-circle arc. All drawn on a single canvas, no dependencies.
  */
 
-const GLOBE_SECONDS = 45 // one full globe rotation
-const ORBIT_SECONDS = 60 // one full avatar revolution
-const TILT = 0.4 // radians, tips the globe top toward the viewer
+const ROTATION_SECONDS = 60 // one full rotation
+const TILT = 0.34 // radians, tips the north pole toward the viewer
+
+// Light directions in screen space (y points down). Blue lit limb sits lower-left.
+const LX = -0.6, LY = 0.8 // blue atmosphere
+const WX = 0.6, WY = -0.8 // warm counter-rim
 
 // ── rough continent outlines ([lat, lng]) for the dotted landmass ──
 const LAND: [number, number][][] = [
@@ -67,36 +70,13 @@ function getDots() {
 
 // Location markers pinned to real coordinates: one blue dot per live country.
 const MARKERS = [
-  // Nigeria (blue)
-  { lat: 9.1, lng: 8.7, color: '#60a5fa', glow: '#3b82f6', phase: 0 },
-  // Canada (blue)
-  { lat: 56.1, lng: -106.3, color: '#60a5fa', glow: '#3b82f6', phase: 1.1 },
+  { lat: 9.1, lng: 8.7, phase: 0 },     // Nigeria
+  { lat: 56.1, lng: -106.3, phase: 1.1 }, // Canada
 ]
 
-// Orbiting members: real photos cycled with colourful initials.
-// Drop more images into public/avatars and add them here.
-const PHOTOS = ['/avatars/amara.jpg', '/avatars/neighbour-1.jpg', '/avatars/neighbour-2.jpg']
-const AVATARS: ({ img: string } | { initials: string })[] = [
-  { img: PHOTOS[0] },
-  { initials: 'TA' },
-  { initials: 'CE' },
-  { img: PHOTOS[1] },
-  { initials: 'MO' },
-  { initials: 'JX' },
-  { img: PHOTOS[2] },
-  { initials: 'SB' },
-  { initials: 'KP' },
-  { initials: 'DE' },
-  { initials: 'AN' },
-  { initials: 'OZ' },
-  { initials: 'LI' },
-  { initials: 'RD' },
-]
-
-export default function GlobeNetwork({ showAvatars = true }: { showAvatars?: boolean }) {
+export default function GlobeNetwork() {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const avatarRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
     const wrap = wrapRef.current
@@ -121,16 +101,70 @@ export default function GlobeNetwork({ showAvatars = true }: { showAvatars?: boo
     const cosT = Math.cos(TILT)
     const sinT = Math.sin(TILT)
 
-    const drawGlobe = (tMs: number) => {
+    // Project a lat/lng to screen space for the current rotation.
+    const project = (latDeg: number, lngDeg: number, rot: number, cx: number, cy: number, R: number) => {
+      const phi = (latDeg * Math.PI) / 180
+      const lam = (lngDeg * Math.PI) / 180 + rot
+      const cp = Math.cos(phi)
+      const x = cp * Math.sin(lam)
+      const y = Math.sin(phi)
+      const z = cp * Math.cos(lam)
+      const y2 = y * cosT - z * sinT
+      const z2 = y * sinT + z * cosT // > 0 on the front hemisphere
+      return { sx: cx + R * x, sy: cy - R * y2, z2 }
+    }
+
+    const draw = (tMs: number) => {
       const w = canvas.width
       const h = canvas.height
-      ctx.clearRect(0, 0, w, h)
       const cx = w / 2
       const cy = h / 2
-      const R = Math.min(w, h) * 0.48
-      const rot = ((tMs / 1000) * (Math.PI * 2)) / GLOBE_SECONDS
+      const R = Math.min(w, h) * 0.42
+      const rot = ((tMs / 1000) * (Math.PI * 2)) / ROTATION_SECONDS
+      ctx.clearRect(0, 0, w, h)
 
-      // landmass dots
+      // ── atmosphere (drawn behind the opaque body, shows as an outer halo) ──
+      ctx.globalCompositeOperation = 'lighter'
+      // full faint rim halo
+      const halo = ctx.createRadialGradient(cx, cy, R * 0.92, cx, cy, R * 1.22)
+      halo.addColorStop(0, 'rgba(59,130,246,0)')
+      halo.addColorStop(0.35, 'rgba(59,130,246,0.10)')
+      halo.addColorStop(0.6, 'rgba(96,165,250,0.05)')
+      halo.addColorStop(1, 'rgba(96,165,250,0)')
+      ctx.fillStyle = halo
+      ctx.fillRect(0, 0, w, h)
+      // bright blue crescent on the lit limb
+      const bx = cx + R * LX, by = cy + R * LY
+      const blue = ctx.createRadialGradient(bx, by, 0, bx, by, R * 1.05)
+      blue.addColorStop(0, 'rgba(96,165,250,0.55)')
+      blue.addColorStop(0.4, 'rgba(59,130,246,0.28)')
+      blue.addColorStop(1, 'rgba(59,130,246,0)')
+      ctx.fillStyle = blue
+      ctx.fillRect(0, 0, w, h)
+      // subtle warm counter-rim
+      const wx = cx + R * WX, wy = cy + R * WY
+      const warm = ctx.createRadialGradient(wx, wy, 0, wx, wy, R * 0.9)
+      warm.addColorStop(0, 'rgba(251,146,60,0.28)')
+      warm.addColorStop(0.45, 'rgba(234,88,12,0.12)')
+      warm.addColorStop(1, 'rgba(234,88,12,0)')
+      ctx.fillStyle = warm
+      ctx.fillRect(0, 0, w, h)
+      ctx.globalCompositeOperation = 'source-over'
+
+      // ── opaque planet body (shaded toward the lit limb) ──
+      ctx.save()
+      ctx.beginPath()
+      ctx.arc(cx, cy, R, 0, Math.PI * 2)
+      ctx.clip()
+      const body = ctx.createRadialGradient(cx + R * LX * 0.5, cy + R * LY * 0.5, R * 0.1, cx, cy, R * 1.1)
+      body.addColorStop(0, '#0e1a2b')
+      body.addColorStop(0.6, '#070c15')
+      body.addColorStop(1, '#04060b')
+      ctx.fillStyle = body
+      ctx.fillRect(cx - R, cy - R, R * 2, R * 2)
+
+      // ── landmass dots ──
+      ctx.globalCompositeOperation = 'lighter'
       for (const d of dots) {
         const lam = d.lam + rot
         const cp = Math.cos(d.phi)
@@ -139,61 +173,92 @@ export default function GlobeNetwork({ showAvatars = true }: { showAvatars?: boo
         const z = cp * Math.cos(lam)
         const y2 = y * cosT - z * sinT
         const z2 = y * sinT + z * cosT
-        if (z2 <= 0.02) continue
-        const a = 0.1 + 0.42 * z2
-        ctx.fillStyle = `rgba(255,255,255,${a.toFixed(3)})`
-        const s = (0.9 + 0.7 * z2) * dpr
+        if (z2 <= 0.02) continue // hidden on the back of an opaque planet
+        const sx = x, sy = -y2
+        const edge = Math.min(1, sx * sx + sy * sy)
+        const lit = Math.max(0, sx * LX + sy * LY) * edge
+        const warmth = Math.max(0, sx * WX + sy * WY) * edge * 0.5
+
+        let r = 150, g = 162, b = 185
+        let a = 0.10 + 0.26 * z2
+        // blue rim light
+        r = r * (1 - lit) + 96 * lit
+        g = g * (1 - lit) + 165 * lit
+        b = b * (1 - lit) + 255 * lit
+        a += 0.6 * lit
+        // warm rim light
+        r = r * (1 - warmth) + 255 * warmth
+        g = g * (1 - warmth) + 168 * warmth
+        b = b * (1 - warmth) + 116 * warmth
+        a += 0.22 * warmth
+
+        ctx.fillStyle = `rgba(${r | 0},${g | 0},${b | 0},${Math.min(0.9, a).toFixed(3)})`
+        const s = (0.85 + 0.7 * z2 + 0.9 * lit) * dpr
         ctx.fillRect(cx + R * x - s / 2, cy - R * y2 - s / 2, s, s)
       }
+      ctx.globalCompositeOperation = 'source-over'
+      ctx.restore()
 
-      // pinned markers (pulse every 2s)
-      for (const m of MARKERS) {
-        const phi = (m.lat * Math.PI) / 180
-        const lam = (m.lng * Math.PI) / 180 + rot
-        const cp = Math.cos(phi)
-        const x = cp * Math.sin(lam)
-        const y = Math.sin(phi)
-        const z = cp * Math.cos(lam)
-        const y2 = y * cosT - z * sinT
-        const z2 = y * sinT + z * cosT
-        if (z2 <= 0.05) continue
-        const pulse = 0.75 + 0.35 * (0.5 + 0.5 * Math.sin((tMs / 1000) * Math.PI + m.phase * Math.PI))
-        const r = 3.2 * dpr * pulse * (0.7 + 0.5 * z2)
-        ctx.save()
-        ctx.shadowColor = m.glow
-        ctx.shadowBlur = 14 * dpr * pulse
-        ctx.fillStyle = m.color
+      // ── connecting arc between markers (only when both are on the front) ──
+      const pts = MARKERS.map((m) => project(m.lat, m.lng, rot, cx, cy, R))
+      if (pts[0].z2 > 0.08 && pts[1].z2 > 0.08) {
+        const [p1, p2] = pts
+        const mx = (p1.sx + p2.sx) / 2
+        const my = (p1.sy + p2.sy) / 2
+        // bow the arc away from the globe centre
+        let nx = mx - cx, ny = my - cy
+        const nl = Math.hypot(nx, ny) || 1
+        nx /= nl; ny /= nl
+        const ctrlX = mx + nx * R * 0.55
+        const ctrlY = my + ny * R * 0.55
+        ctx.globalCompositeOperation = 'lighter'
         ctx.beginPath()
-        ctx.arc(cx + R * x, cy - R * y2, r, 0, Math.PI * 2)
+        ctx.moveTo(p1.sx, p1.sy)
+        ctx.quadraticCurveTo(ctrlX, ctrlY, p2.sx, p2.sy)
+        ctx.strokeStyle = 'rgba(96,165,250,0.55)'
+        ctx.lineWidth = 1.4 * dpr
+        ctx.shadowColor = '#3b82f6'
+        ctx.shadowBlur = 8 * dpr
+        ctx.stroke()
+        // travelling pulse along the arc
+        const tt = (tMs / 1000) % 3 / 3
+        const px = (1 - tt) * (1 - tt) * p1.sx + 2 * (1 - tt) * tt * ctrlX + tt * tt * p2.sx
+        const py = (1 - tt) * (1 - tt) * p1.sy + 2 * (1 - tt) * tt * ctrlY + tt * tt * p2.sy
+        ctx.beginPath()
+        ctx.arc(px, py, 2.2 * dpr, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgba(191,219,254,0.9)'
+        ctx.fill()
+        ctx.shadowBlur = 0
+        ctx.globalCompositeOperation = 'source-over'
+      }
+
+      // ── pinned markers (pulse every 2s) ──
+      ctx.globalCompositeOperation = 'lighter'
+      for (let i = 0; i < MARKERS.length; i++) {
+        const p = pts[i]
+        if (p.z2 <= 0.05) continue
+        const pulse = 0.75 + 0.35 * (0.5 + 0.5 * Math.sin((tMs / 1000) * Math.PI + MARKERS[i].phase * Math.PI))
+        const r = 3.1 * dpr * pulse * (0.7 + 0.5 * p.z2)
+        ctx.save()
+        ctx.shadowColor = '#3b82f6'
+        ctx.shadowBlur = 16 * dpr * pulse
+        ctx.fillStyle = '#93c5fd'
+        ctx.beginPath()
+        ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2)
         ctx.fill()
         ctx.restore()
       }
-    }
-
-    const placeAvatars = (tMs: number) => {
-      const S = wrap.clientWidth
-      const orbitR = S * 0.44
-      const base = ((tMs / 1000) * (Math.PI * 2)) / ORBIT_SECONDS
-      AVATARS.forEach((_, i) => {
-        const el = avatarRefs.current[i]
-        if (!el) return
-        const a = base + (i * Math.PI * 2) / AVATARS.length
-        const x = Math.cos(a) * orbitR
-        const y = Math.sin(a) * orbitR
-        el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`
-      })
+      ctx.globalCompositeOperation = 'source-over'
     }
 
     if (reduce) {
-      drawGlobe(0)
-      placeAvatars(0)
+      draw(0)
       return () => ro.disconnect()
     }
 
     let raf = 0
     const frame = (t: number) => {
-      drawGlobe(t)
-      placeAvatars(t)
+      draw(t)
       raf = requestAnimationFrame(frame)
     }
     raf = requestAnimationFrame(frame)
@@ -204,53 +269,8 @@ export default function GlobeNetwork({ showAvatars = true }: { showAvatars?: boo
   }, [])
 
   return (
-    <div ref={wrapRef} className="relative mx-auto aspect-square w-full max-w-[460px]" aria-hidden>
-      {/* breathing glow */}
-      <div className="gn-breathe absolute inset-[10%] rounded-full bg-blue-500/10 blur-3xl" />
-
-      {/* frosted-glass sphere with the dotted globe (fills more of the frame when avatars are hidden) */}
-      <div className={`absolute ${showAvatars ? 'inset-[17%]' : 'inset-[3%]'} overflow-hidden rounded-full bg-white/[0.04] ring-1 ring-white/10 backdrop-blur-[2px] shadow-[inset_0_24px_60px_rgba(255,255,255,0.07),inset_0_-34px_70px_rgba(0,0,0,0.55),0_30px_80px_-30px_rgba(0,0,0,0.6)]`}>
-        <canvas ref={canvasRef} className="h-full w-full" />
-        {/* soft top-left light */}
-        <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_24%,rgba(255,255,255,0.16),transparent_46%)]" />
-      </div>
-
-      {/* orbiting members */}
-      {showAvatars && (
-        <div className="absolute inset-0">
-          {AVATARS.map((av, i) => (
-            <div
-              key={i}
-              ref={(el) => { avatarRefs.current[i] = el }}
-              className="absolute left-1/2 top-1/2 -ml-[26px] -mt-[26px] h-[52px] w-[52px] will-change-transform"
-            >
-              <div className="h-full w-full overflow-hidden rounded-full border-2 border-neutral-800 bg-neutral-900/70 shadow-[0_10px_26px_rgba(0,0,0,0.55)] ring-1 ring-white/10 backdrop-blur-sm">
-                {'img' in av ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={av.img} alt="" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none' }} />
-                ) : (
-                  <span className="flex h-full w-full items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900 text-[13px] font-bold text-white/80">
-                    {av.initials}
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <style jsx>{`
-        .gn-breathe {
-          animation: gn-breathe 6s ease-in-out infinite;
-        }
-        @keyframes gn-breathe {
-          0%, 100% { transform: scale(0.96); opacity: 0.7; }
-          50% { transform: scale(1.05); opacity: 1; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .gn-breathe { animation: none; }
-        }
-      `}</style>
+    <div ref={wrapRef} className="relative mx-auto aspect-square w-full max-w-[520px]" aria-hidden>
+      <canvas ref={canvasRef} className="h-full w-full" />
     </div>
   )
 }
