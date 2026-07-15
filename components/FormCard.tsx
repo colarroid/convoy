@@ -7,7 +7,7 @@ export const formInput =
   'w-full min-w-0 flex-1 bg-transparent text-[15px] text-black placeholder-gray-300 focus:outline-none'
 
 export const formLabel =
-  'text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400 transition-colors group-focus-within:text-black'
+  'text-[10px] font-semibold uppercase tracking-[0.10em] text-gray-400 transition-colors group-focus-within:text-black'
 
 export function FormCard({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
