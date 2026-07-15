@@ -90,14 +90,15 @@ export default function Footer({ id }: FooterProps) {
         </div>
       </div>
 
-      {/* Giant watermark, cropped at the bottom edge */}
-      <div aria-hidden className="mt-10 overflow-hidden md:mt-12">
-        <p
-          className="select-none text-center font-bold leading-[0.78] tracking-tighter text-white/[0.05]"
-          style={{ fontSize: 'clamp(88px, 19vw, 250px)', marginBottom: '-0.16em' }}
-        >
-          Veesaa
-        </p>
+      {/* Giant logo watermark, cropped at the bottom edge */}
+      <div aria-hidden className="mt-10 overflow-hidden px-5 md:mt-12 md:px-8">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/veesaa-logo-white.svg"
+          alt=""
+          className="mx-auto w-full max-w-6xl select-none opacity-[0.05]"
+          style={{ marginBottom: '-7%' }}
+        />
       </div>
     </footer>
   )
