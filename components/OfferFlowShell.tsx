@@ -25,14 +25,6 @@ export default function OfferFlowShell({
         {/* ── Desktop hero panel ── */}
         <div className="hidden lg:flex lg:w-[65%] bg-[#f5f4f1] flex-col items-start justify-end overflow-hidden border-r border-black/[0.04]">
           <div className="relative z-10 px-12 pb-14 max-w-xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white ring-1 ring-black/5 px-3.5 py-1.5 mb-6">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-600 opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
-              </span>
-              <span className="text-xs font-medium text-gray-600">Community lift-sharing · free to ride</span>
-            </div>
-
             <h2 className="text-4xl lg:text-5xl font-bold text-black tracking-tight leading-[1.05] mb-4">
               Share your ride,<br />help your community<span className="text-blue-600">.</span>
             </h2>
@@ -50,19 +42,6 @@ export default function OfferFlowShell({
                 <span className="text-sm font-semibold text-black">{communityName}</span>
               </div>
             )}
-
-            <div className="flex gap-3 mt-8">
-              {[
-                { icon: '🔒', label: 'Closed community' },
-                { icon: '📍', label: 'Pickup point only' },
-                { icon: '✓', label: 'Rides, not ratings' },
-              ].map(b => (
-                <div key={b.label} className="flex items-center gap-1.5 rounded-lg bg-white ring-1 ring-black/5 px-2.5 py-1.5">
-                  <span className="text-xs">{b.icon}</span>
-                  <span className="text-xs text-gray-600 whitespace-nowrap">{b.label}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 

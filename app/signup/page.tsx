@@ -114,7 +114,7 @@ export default function SignupPage() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <FormCard>
               {/* Names, side by side in one row */}
-              <div className="grid grid-cols-2 divide-x divide-gray-100">
+              <div className="grid grid-cols-2 divide-x divide-[#a09ca9]">
                 <div className="group px-5 pt-3.5 pb-4">
                   <span className={formLabel}>First name</span>
                   <div className="mt-1.5">

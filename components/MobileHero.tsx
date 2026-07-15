@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import CommunitySwitcher from '@/components/CommunitySwitcher'
+import HeroMap from '@/components/HeroMap'
 
 interface MobileHeroProps {
   offerHref?: string
@@ -9,7 +9,7 @@ interface MobileHeroProps {
   offerDisabled?: boolean
 }
 
-/** Mobile hero: same content as the desktop hero, without the map animation. */
+/** Mobile hero: same content as the desktop hero, with the map animation below the CTAs. */
 export default function MobileHero({
   offerHref = '/login?next=/offer/community',
   findHref = '/login?next=/find/community',
@@ -32,9 +32,6 @@ export default function MobileHero({
           Connecting people in your community heading to the same place at the same time, so you ride together.
         </p>
       </div>
-
-      {/* Returning users: held communities (renders nothing if none / logged out) */}
-      <CommunitySwitcher />
 
       <div className="flex flex-row gap-3">
         {offerDisabled ? (
@@ -61,6 +58,11 @@ export default function MobileHero({
         >
           Find a ride
         </Link>
+      </div>
+
+      {/* Animated convergence map */}
+      <div className="mt-2">
+        <HeroMap />
       </div>
     </div>
   )

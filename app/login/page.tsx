@@ -75,7 +75,7 @@ function LoginForm() {
               <FormRow
                 label="Password"
                 labelRight={
-                  <Link href="/forgot-password" className="text-sm font-medium text-blue-600 hover:underline">
+                  <Link href="/forgot-password" className="text-xs font-medium text-blue-600 hover:underline">
                     Forgot password?
                   </Link>
                 }

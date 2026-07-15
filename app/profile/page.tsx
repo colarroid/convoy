@@ -374,8 +374,8 @@ export default function ProfilePage() {
           )}
         </div>
 
-        {/* ── Share your experience (form shows only until they share) ── */}
-        {expLoaded && myExp === null && <ShareExperience onSaved={setMyExp} />}
+        {/* ── Share your experience (only after at least one completed ride, until they share) ── */}
+        {expLoaded && myExp === null && ridesCompleted >= 1 && <ShareExperience onSaved={setMyExp} />}
 
         {/* ── Ride history ── */}
         <div className="mb-7">
