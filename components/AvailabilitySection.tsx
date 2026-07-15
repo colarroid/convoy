@@ -28,7 +28,14 @@ export default function AvailabilitySection() {
     <section className="relative bg-neutral-950 text-white py-24 md:py-32 px-5 md:px-8 overflow-hidden">
       <div className="pointer-events-none absolute -top-24 right-[-10%] w-[42rem] h-[42rem] rounded-full bg-blue-500/10 blur-[120px]" />
 
-      <div className="relative max-w-6xl mx-auto grid md:grid-cols-[1fr_1.2fr] gap-14 md:gap-20 items-center">
+      {/* Desktop globe: doubled in size, anchored right and bleeding off the edge */}
+      <div className="hidden md:block pointer-events-none absolute inset-y-0 right-0 w-[62%] overflow-hidden">
+        <div className="absolute top-1/2 left-0 h-[805px] w-[805px] -translate-y-1/2">
+          <GlobeNetwork className="max-w-none" />
+        </div>
+      </div>
+
+      <div className="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-14 md:gap-20 items-center">
         <div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-3 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
             Where Veesaa is live
@@ -59,10 +66,8 @@ export default function AvailabilitySection() {
           </div>
         </div>
 
-        {/* Global network animation (larger on desktop) */}
-        <div className="hidden md:block">
-          <GlobeNetwork className="max-w-[680px]" />
-        </div>
+        {/* Right column reserved for the desktop globe, positioned above */}
+        <div className="hidden md:block" aria-hidden />
       </div>
     </section>
   )
