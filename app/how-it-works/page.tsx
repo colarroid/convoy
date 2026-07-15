@@ -60,7 +60,7 @@ export default function HowItWorksPage() {
       {/* ── Two ways to ride (Bolt-style intro block) ── */}
       <section className="bg-[#f5f4f1] px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.15em] text-gray-600">Two ways to ride</p>
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.025em] text-gray-600">Two ways to ride</p>
           <h2 className="max-w-3xl text-3xl font-bold tracking-tight text-black md:text-5xl">
             Offer a seat, or find one.
           </h2>
@@ -90,7 +90,7 @@ export default function HowItWorksPage() {
       {/* ── What makes it work ── */}
       <section className="bg-white px-5 py-24 md:px-8 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[0.15em] text-gray-600">What makes it work</p>
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.025em] text-gray-600">What makes it work</p>
           <h2 className="max-w-3xl text-3xl font-bold tracking-tight text-black md:text-5xl">
             Built on codes and trust.
           </h2>
