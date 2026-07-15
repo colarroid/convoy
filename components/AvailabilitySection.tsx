@@ -40,9 +40,9 @@ export default function AvailabilitySection() {
             <LiveRow flag="🇨🇦" name="Canada" />
           </div>
 
-          {/* Global network animation (mobile: sits between the live list and the CTA) */}
+          {/* Global network animation (mobile: sits between the live list and the CTA, no orbiting avatars) */}
           <div className="md:hidden mb-9">
-            <GlobeNetwork />
+            <GlobeNetwork showAvatars={false} />
           </div>
 
           <p className="text-sm font-semibold text-white mb-1">Bring Veesaa to your community</p>

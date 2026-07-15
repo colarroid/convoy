@@ -11,7 +11,7 @@ import { useEffect, useRef } from 'react'
  */
 
 const GLOBE_SECONDS = 45 // one full globe rotation
-const ORBIT_SECONDS = 42 // one full avatar revolution
+const ORBIT_SECONDS = 60 // one full avatar revolution
 const TILT = 0.4 // radians, tips the globe top toward the viewer
 
 // ── rough continent outlines ([lat, lng]) for the dotted landmass ──
@@ -93,7 +93,7 @@ const AVATARS: ({ img: string } | { initials: string })[] = [
   { initials: 'RD' },
 ]
 
-export default function GlobeNetwork() {
+export default function GlobeNetwork({ showAvatars = true }: { showAvatars?: boolean }) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const avatarRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -208,34 +208,36 @@ export default function GlobeNetwork() {
       {/* breathing glow */}
       <div className="gn-breathe absolute inset-[10%] rounded-full bg-blue-500/10 blur-3xl" />
 
-      {/* frosted-glass sphere with the dotted globe */}
-      <div className="absolute inset-[17%] overflow-hidden rounded-full bg-white/[0.04] ring-1 ring-white/10 backdrop-blur-[2px] shadow-[inset_0_24px_60px_rgba(255,255,255,0.07),inset_0_-34px_70px_rgba(0,0,0,0.55),0_30px_80px_-30px_rgba(0,0,0,0.6)]">
+      {/* frosted-glass sphere with the dotted globe (fills more of the frame when avatars are hidden) */}
+      <div className={`absolute ${showAvatars ? 'inset-[17%]' : 'inset-[3%]'} overflow-hidden rounded-full bg-white/[0.04] ring-1 ring-white/10 backdrop-blur-[2px] shadow-[inset_0_24px_60px_rgba(255,255,255,0.07),inset_0_-34px_70px_rgba(0,0,0,0.55),0_30px_80px_-30px_rgba(0,0,0,0.6)]`}>
         <canvas ref={canvasRef} className="h-full w-full" />
         {/* soft top-left light */}
         <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_24%,rgba(255,255,255,0.16),transparent_46%)]" />
       </div>
 
       {/* orbiting members */}
-      <div className="absolute inset-0">
-        {AVATARS.map((av, i) => (
-          <div
-            key={i}
-            ref={(el) => { avatarRefs.current[i] = el }}
-            className="absolute left-1/2 top-1/2 -ml-[26px] -mt-[26px] h-[52px] w-[52px] will-change-transform"
-          >
-            <div className="h-full w-full overflow-hidden rounded-full border-2 border-neutral-800 bg-neutral-900/70 shadow-[0_10px_26px_rgba(0,0,0,0.55)] ring-1 ring-white/10 backdrop-blur-sm">
-              {'img' in av ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={av.img} alt="" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none' }} />
-              ) : (
-                <span className="flex h-full w-full items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900 text-[13px] font-bold text-white/80">
-                  {av.initials}
-                </span>
-              )}
+      {showAvatars && (
+        <div className="absolute inset-0">
+          {AVATARS.map((av, i) => (
+            <div
+              key={i}
+              ref={(el) => { avatarRefs.current[i] = el }}
+              className="absolute left-1/2 top-1/2 -ml-[26px] -mt-[26px] h-[52px] w-[52px] will-change-transform"
+            >
+              <div className="h-full w-full overflow-hidden rounded-full border-2 border-neutral-800 bg-neutral-900/70 shadow-[0_10px_26px_rgba(0,0,0,0.55)] ring-1 ring-white/10 backdrop-blur-sm">
+                {'img' in av ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={av.img} alt="" className="h-full w-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none' }} />
+                ) : (
+                  <span className="flex h-full w-full items-center justify-center bg-gradient-to-br from-neutral-800 to-neutral-900 text-[13px] font-bold text-white/80">
+                    {av.initials}
+                  </span>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       <style jsx>{`
         .gn-breathe {
