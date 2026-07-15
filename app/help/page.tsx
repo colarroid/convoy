@@ -9,12 +9,55 @@ import ReportModal from '@/components/ReportModal'
 import { getUser } from '@/lib/userStore'
 
 interface QA { q: string; a: string }
-interface FaqSection { id: string; icon: string; title: string; items: QA[] }
+interface FaqSection { id: string; icon: React.ReactNode; title: string; items: QA[] }
+
+const iconProps = {
+  className: 'h-5 w-5',
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 2,
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round',
+} as const
+
+const ICONS = {
+  car: (
+    <svg {...iconProps} aria-hidden>
+      <path d="M21 8.00004L19 10M19 10L17.5 6.30004C17.3585 5.92138 17.1057 5.59446 16.7747 5.36239C16.4437 5.13032 16.0502 5.00399 15.646 5.00004H8.4C7.9925 4.99068 7.59188 5.10605 7.25177 5.3307C6.91166 5.55536 6.64832 5.87856 6.497 6.25704L5 10M19 10H5M19 10C20.1046 10 21 10.8954 21 12V16C21 17.1046 20.1046 18 19 18M5 10L3 8.00004M5 10C3.89543 10 3 10.8954 3 12V16C3 17.1046 3.89543 18 5 18M7 14H7.01M17 14H17.01M19 18H5M19 18V20M5 18V20" />
+    </svg>
+  ),
+  search: (
+    <svg {...iconProps} aria-hidden>
+      <path d="M20.9999 21.0002L16.6599 16.6602M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" />
+    </svg>
+  ),
+  building: (
+    <svg {...iconProps} aria-hidden>
+      <path d="M10 12H14M10 8H14M14 21V18C14 17.4696 13.7893 16.9609 13.4142 16.5858C13.0391 16.2107 12.5304 16 12 16C11.4696 16 10.9609 16.2107 10.5858 16.5858C10.2107 16.9609 10 17.4696 10 18V21M6 10H4C3.46957 10 2.96086 10.2107 2.58579 10.5858C2.21071 10.9609 2 11.4696 2 12V19C2 19.5304 2.21071 20.0391 2.58579 20.4142C2.96086 20.7893 3.46957 21 4 21H20C20.5304 21 21.0391 20.7893 21.4142 20.4142C21.7893 20.0391 22 19.5304 22 19V9C22 8.46957 21.7893 7.96086 21.4142 7.58579C21.0391 7.21071 20.5304 7 20 7H18M6 21V5C6 4.46957 6.21071 3.96086 6.58579 3.58579C6.96086 3.21071 7.46957 3 8 3H16C16.5304 3 17.0391 3.21071 17.4142 3.58579C17.7893 3.96086 18 4.46957 18 5V21" />
+    </svg>
+  ),
+  userCog: (
+    <svg {...iconProps} aria-hidden>
+      <path d="M10 15H6C4.93913 15 3.92172 15.4214 3.17157 16.1716C2.42143 16.9217 2 17.9391 2 19V21M14.3049 16.5299L15.2279 16.1479M15.2279 13.8522L14.3049 13.4692M16.852 12.2282L16.469 11.3052M16.852 17.772L16.469 18.696M19.1479 12.2282L19.5309 11.3052M19.5299 18.696L19.1479 17.772M20.772 13.8522L21.696 13.4692M20.772 16.1479L21.696 16.5309M21 15C21 16.6569 19.6569 18 18 18C16.3431 18 15 16.6569 15 15C15 13.3431 16.3431 12 18 12C19.6569 12 21 13.3431 21 15ZM13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z" />
+    </svg>
+  ),
+  shield: (
+    <svg {...iconProps} aria-hidden>
+      <path d="M9 12L11 14L15 10M20 13C20 18 16.5 20.5 12.34 21.95C12.1222 22.0238 11.8855 22.0202 11.67 21.94C7.5 20.5 4 18 4 13V5.99996C4 5.73474 4.10536 5.48039 4.29289 5.29285C4.48043 5.10532 4.73478 4.99996 5 4.99996C7 4.99996 9.5 3.79996 11.24 2.27996C11.4519 2.09896 11.7214 1.99951 12 1.99951C12.2786 1.99951 12.5481 2.09896 12.76 2.27996C14.51 3.80996 17 4.99996 19 4.99996C19.2652 4.99996 19.5196 5.10532 19.7071 5.29285C19.8946 5.48039 20 5.73474 20 5.99996V13Z" />
+    </svg>
+  ),
+  wallet: (
+    <svg {...iconProps} aria-hidden>
+      <path d="M3 9C3 8.46957 3.21071 7.96086 3.58579 7.58579C3.96086 7.21071 4.46957 7 5 7H19C19.5304 7 20.0391 7.21071 20.4142 7.58579C20.7893 7.96086 21 8.46957 21 9M3 11H6C6.8 11 7.6 11.3 8.1 11.9L9.2 12.8C10.8 14.4 13.3 14.4 14.9 12.8L16 11.9C16.5 11.4 17.3 11 18.1 11H21M5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3Z" />
+    </svg>
+  ),
+}
 
 const SECTIONS: FaqSection[] = [
   {
     id: 'offering',
-    icon: '🚗',
+    icon: ICONS.car,
     title: 'Offering a ride',
     items: [
       { q: 'How do I offer a ride?', a: 'Tap Offer a ride, enter your community code, then add your destination, pickup point, date, time and how many seats you have. Once posted, members of that community can request to join.' },
@@ -27,7 +70,7 @@ const SECTIONS: FaqSection[] = [
   },
   {
     id: 'finding',
-    icon: '🔍',
+    icon: ICONS.search,
     title: 'Finding a ride',
     items: [
       { q: 'How do I find a ride?', a: 'Tap Find a ride, enter your community code and your destination. Veesaa shows rides from members of that community heading the same way, with the closest pickups first.' },
@@ -39,7 +82,7 @@ const SECTIONS: FaqSection[] = [
   },
   {
     id: 'communities',
-    icon: '🏘️',
+    icon: ICONS.building,
     title: 'Communities & codes',
     items: [
       { q: 'What is a community code?', a: 'A community code is a private key to a trusted group, like your estate, parish or campus. It makes sure you only ride with verified members of that community.' },
@@ -51,7 +94,7 @@ const SECTIONS: FaqSection[] = [
   },
   {
     id: 'account',
-    icon: '👤',
+    icon: ICONS.userCog,
     title: 'Account & profile',
     items: [
       { q: 'How do I change my profile photo?', a: 'Go to your Profile and tap your photo to upload a new one.' },
@@ -63,7 +106,7 @@ const SECTIONS: FaqSection[] = [
   },
   {
     id: 'safety',
-    icon: '🔒',
+    icon: ICONS.shield,
     title: 'Safety & trust',
     items: [
       { q: 'Is Veesaa safe to use?', a: 'Veesaa is built around closed communities: you only travel with verified members of a group you already belong to, never strangers.' },
@@ -75,7 +118,7 @@ const SECTIONS: FaqSection[] = [
   },
   {
     id: 'free',
-    icon: '💳',
+    icon: ICONS.wallet,
     title: 'Is it really free?',
     items: [
       { q: 'Is Veesaa really free?', a: 'Yes. Veesaa is free to use. There are no fares and no booking fees.' },
@@ -152,7 +195,7 @@ export default function HelpPage() {
                 className="mb-12 scroll-mt-28 last:mb-0"
               >
                 <div className="mb-3 flex items-center gap-2.5">
-                  <span className="text-xl">{s.icon}</span>
+                  <span className="text-blue-600">{s.icon}</span>
                   <h2 className="text-lg font-bold text-black">{s.title}</h2>
                 </div>
                 <div>
