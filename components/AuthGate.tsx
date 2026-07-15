@@ -9,6 +9,7 @@ import { linkOneSignal } from '@/lib/onesignalClient'
 const PUBLIC_ROUTES = new Set([
   '/', '/login', '/signup', '/verify', '/forgot-password', '/reset-password',
   '/help', '/terms-of-use', '/privacy', '/communities', '/experiences',
+  '/about', '/how-it-works',
 ])
 const ONBOARDING = '/onboarding/photo'
 const ONBOARDED_KEY = 'convoy_onboarded'

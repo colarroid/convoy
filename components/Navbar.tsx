@@ -15,12 +15,16 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
       <div className="max-w-6xl mx-auto px-5 md:px-8 flex items-center justify-between h-14 md:h-16">
 
         {/* Logo + nav links grouped on the left */}
-        <div className="flex items-center" style={{ gap: '60px' }}>
+        <div className="flex items-center" style={{ gap: '48px' }}>
           <Link href="/" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/veesaa-logo-black.svg" alt="Veesaa" className="h-[20px] w-auto" />
           </Link>
 
+          <nav className="hidden md:flex items-center gap-1">
+            <Link href="/how-it-works" className="nav-pill-light">How it works</Link>
+            <Link href="/about" className="nav-pill-light">About</Link>
+          </nav>
         </div>
 
         {/* Desktop auth */}
@@ -95,6 +99,20 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 px-5 pb-5 pt-3 flex flex-col gap-1">
+          <Link
+            href="/how-it-works"
+            className="py-2.5 text-sm font-medium text-gray-700 hover:text-black transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            How it works
+          </Link>
+          <Link
+            href="/about"
+            className="mb-2 py-2.5 text-sm font-medium text-gray-700 hover:text-black transition-colors"
+            onClick={() => setMenuOpen(false)}
+          >
+            About
+          </Link>
           <div className="flex gap-3">
             <Link
               href="/login"
