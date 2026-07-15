@@ -11,7 +11,7 @@ import { useEffect, useRef } from 'react'
  */
 
 const GLOBE_SECONDS = 45 // one full globe rotation
-const ORBIT_SECONDS = 21 // one full avatar revolution
+const ORBIT_SECONDS = 42 // one full avatar revolution
 const TILT = 0.4 // radians, tips the globe top toward the viewer
 
 // ── rough continent outlines ([lat, lng]) for the dotted landmass ──
