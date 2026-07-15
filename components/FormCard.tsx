@@ -11,7 +11,7 @@ export const formLabel =
 
 export function FormCard({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`rounded-2xl border border-[#a09ca9] bg-white divide-y divide-[#a09ca9] shadow-[0_1px_3px_rgba(0,0,0,0.04)] ${className}`}>
+    <div className={`rounded-2xl border border-[#e1dee7] bg-white divide-y divide-[#e1dee7] shadow-[0_1px_3px_rgba(0,0,0,0.04)] ${className}`}>
       {children}
     </div>
   )

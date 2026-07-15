@@ -43,16 +43,12 @@ export default function Footer({ id }: FooterProps) {
         <div className="flex flex-col gap-12 md:flex-row md:justify-between md:gap-8">
           {/* Brand + tagline */}
           <div className="max-w-sm">
-            <Link href="/" className="text-2xl font-bold tracking-tight text-white">Veesaa</Link>
+            <Link href="/" className="inline-flex items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/veesaa-logo-white.svg" alt="Veesaa" className="h-[17px] w-auto" />
+            </Link>
             <p className="mt-4 text-sm leading-relaxed text-white/50">
               Community lift-sharing built around shared destinations and the people you already trust.
-            </p>
-            <p className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-white/60">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-blue-400" />
-              </span>
-              Live in Nigeria &amp; Canada
             </p>
           </div>
 
@@ -83,7 +79,7 @@ export default function Footer({ id }: FooterProps) {
 
         {/* Bottom row */}
         <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between md:mt-16">
-          <p className="text-xs text-white/40">© {new Date().getFullYear()} Veesaa</p>
+          <p className="text-xs text-white/40">VZA Technologies Limited © {new Date().getFullYear()}</p>
           <div className="flex items-center gap-6">
             {LEGAL.map((l) => (
               <Link key={l.href} href={l.href} className="text-xs text-white/50 transition-colors hover:text-white">

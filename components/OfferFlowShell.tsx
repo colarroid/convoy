@@ -26,7 +26,7 @@ export default function OfferFlowShell({
         <div className="hidden lg:flex lg:w-[65%] bg-[#f5f4f1] flex-col items-start justify-end overflow-hidden border-r border-black/[0.04]">
           <div className="relative z-10 px-12 pb-14 max-w-xl">
             <h2 className="text-4xl lg:text-5xl font-bold text-black tracking-tight leading-[1.05] mb-4">
-              Share your ride,<br />help your community<span className="text-blue-600">.</span>
+              Share your ride,<br />help your community.
             </h2>
 
             <p className="text-gray-500 text-base leading-relaxed mb-6">

@@ -16,8 +16,9 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
 
         {/* Logo + nav links grouped on the left */}
         <div className="flex items-center" style={{ gap: '60px' }}>
-          <Link href="/" className="text-lg font-semibold tracking-tight text-black">
-            Veesaa
+          <Link href="/" className="flex items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/veesaa-logo-black.svg" alt="Veesaa" className="h-[15px] w-auto" />
           </Link>
 
         </div>

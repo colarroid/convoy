@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import ScheduleCallButton from '@/components/ScheduleCallButton'
+import GlobeNetwork from '@/components/GlobeNetwork'
 
 function LiveRow({ flag, name }: { flag: string; name: string }) {
   return (
@@ -53,8 +54,10 @@ export default function AvailabilitySection() {
           </div>
         </div>
 
-        {/* Right column intentionally left empty; illustration to come */}
-        <div aria-hidden />
+        {/* Global network animation */}
+        <div className="hidden md:block">
+          <GlobeNetwork />
+        </div>
       </div>
     </section>
   )

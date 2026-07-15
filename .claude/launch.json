@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "crystals-beauty",
+      "runtimeExecutable": "C:\\Users\\HP\\AppData\\Local\\Temp\\claude\\C--Users-HP-Desktop-convoy\\09109a32-05f2-4bec-90db-5d95e496bbf3\\scratchpad\\dev-crystals.cmd",
+      "runtimeArgs": [],
+      "port": 3000
+    }
+  ]
+}

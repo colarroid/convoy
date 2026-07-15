@@ -37,8 +37,8 @@ export default function PhoneField({
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        className={`flex items-center gap-1.5 text-sm text-gray-700 hover:text-black transition-colors shrink-0 border-r border-gray-200 focus:outline-none
-          ${bare ? 'pr-3 py-0.5' : 'pl-3.5 pr-2 py-3.5'}`}
+        className={`flex items-center gap-1.5 text-sm text-gray-700 hover:text-black transition-colors shrink-0 focus:outline-none
+          ${bare ? 'border-r border-[#e1dee7] pr-3 py-0.5' : 'border-r border-gray-200 pl-3.5 pr-2 py-3.5'}`}
       >
         <span className="text-base leading-none">{country.flag}</span>
         <span className="font-medium">{country.dial}</span>

@@ -275,7 +275,10 @@ export default function HeroMap() {
             <Avatar src="/avatars/neighbour-1.jpg" initials="K" className="h-5 w-5 bg-[#cdd7f6] text-[9px] font-bold text-[#2563eb] ring-2 ring-white" />
             <Avatar src="/avatars/neighbour-2.jpg" initials="T" className="h-5 w-5 bg-[#f6d9c9] text-[9px] font-bold text-[#c2410c] ring-2 ring-white" />
           </span>
-          <span className="text-xs font-semibold text-[#0a0a23]">+2 neighbours going</span>
+          <span className="text-xs font-semibold text-[#0a0a23]">
+            <span className="md:hidden">+2</span>
+            <span className="hidden md:inline">+2 neighbours going</span>
+          </span>
         </div>
 
         {/* match card */}

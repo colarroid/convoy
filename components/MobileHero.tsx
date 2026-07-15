@@ -18,15 +18,11 @@ export default function MobileHero({
   return (
     <div className="flex flex-col gap-6 px-5 pt-10 pb-12">
       <div>
-        <p className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase text-black">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-600 opacity-60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
-          </span>
+        <p className="mb-3 text-[11px] font-bold uppercase tracking-wide text-black">
           Community lift-sharing
         </p>
         <h1 className="text-5xl font-bold leading-[1.05] tracking-[-0.03em] text-black">
-          Get there,<br />together<span className="text-blue-600">.</span>
+          Get there,<br />together.
         </h1>
         <p className="mt-5 max-w-md text-[0.95rem] leading-relaxed text-gray-500">
           Connecting people in your community heading to the same place at the same time, so you ride together.

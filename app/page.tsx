@@ -60,15 +60,11 @@ export default function LandingPage() {
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-8 py-10 lg:grid lg:h-full lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-0">
           {/* Headline */}
           <div className="lg:col-start-1 lg:row-start-1">
-            <p className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase text-black">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-600 opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-blue-600" />
-              </span>
+            <p className="mb-3 text-[11px] font-bold uppercase tracking-wide text-black">
               Community lift-sharing
             </p>
             <h1 className="text-6xl font-bold leading-[1.02] tracking-[-0.03em] text-black lg:text-7xl">
-              Get there,<br />together<span className="text-blue-600">.</span>
+              Get there,<br />together.
             </h1>
           </div>
 
