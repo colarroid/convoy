@@ -15,9 +15,9 @@ import { HERO_BLACK_PATH, HERO_BLUE_PATHS, HERO_DEST } from '@/lib/heroRoute'
  * back to the origin (blue feeders now linking from the line back to their dot)
  * while the star stays up; the return line vanishes on arrival, restarting.
  */
-const FORWARD = 5.5
+const FORWARD = 9
 const HOLD = 7
-const RETURN = 4.5
+const RETURN = 7.5
 const GAP = 0.6
 const LOOP = FORWARD + HOLD + RETURN + GAP
 const WIN = 0.13 // how quickly each blue feeder snaps in as the return line passes it
@@ -197,7 +197,7 @@ export default function HeroMap() {
 
   return (
     // Width is capped by height too, so the portrait card never taller than the screen.
-    <div className="relative ml-auto w-full max-w-[min(520px,calc((100vh-9rem)*0.8))]">
+    <div className="relative mx-auto xl:mr-0 w-full max-w-[min(520px,calc((100vh-9rem)*0.8))]">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] ring-1 ring-black/[0.06] shadow-[0_48px_100px_-48px_rgba(20,24,60,0.45)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hero-map.svg" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />

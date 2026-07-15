@@ -68,11 +68,6 @@ export default function LandingPage() {
             </h1>
           </div>
 
-          {/* Map: between headline and text on tablet; full-height right column on desktop */}
-          <div className="flex w-full min-h-0 items-center justify-center xl:col-start-2 xl:row-start-1 xl:row-span-2 xl:justify-end">
-            <HeroMap />
-          </div>
-
           {/* Supporting text + CTAs */}
           <div className="max-w-md mx-auto xl:mx-0 xl:col-start-1 xl:row-start-2 xl:self-end">
             <p className="mb-7 text-[0.95rem] leading-relaxed text-gray-500">
@@ -104,6 +99,11 @@ export default function LandingPage() {
                 Find a ride
               </Link>
             </div>
+          </div>
+
+          {/* Map / animation: below the text on tablet; full-height right column on desktop */}
+          <div className="flex w-full min-h-0 items-center justify-center xl:col-start-2 xl:row-start-1 xl:row-span-2 xl:justify-end">
+            <HeroMap />
           </div>
         </div>
       </section>
