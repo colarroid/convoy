@@ -54,31 +54,31 @@ export default function LandingPage() {
         <MobileHero offerHref={offerHref} findHref={findHref} offerDisabled={suspended} />
       </section>
 
-      {/* Desktop / tablet hero. Tablet (md) stacks: headline, map, then text.
-          Large screens (lg) put the map in a full-height column on the right. */}
-      <section className="hidden md:flex bg-white items-stretch min-h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)] lg:overflow-hidden">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-8 py-10 lg:grid lg:h-full lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-0">
+      {/* Desktop / tablet hero. Tablet (md–lg) is a centred stack: headline, map,
+          then text. Large screens (xl) put the map in a full-height column on the right. */}
+      <section className="hidden md:flex bg-white items-stretch min-h-[calc(100vh-4rem)] xl:h-[calc(100vh-4rem)] xl:overflow-hidden">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-10 px-8 py-12 text-center xl:grid xl:h-full xl:grid-cols-2 xl:grid-rows-[auto_1fr] xl:items-stretch xl:justify-start xl:gap-x-12 xl:gap-y-0 xl:text-left">
           {/* Headline */}
-          <div className="lg:col-start-1 lg:row-start-1">
+          <div className="xl:col-start-1 xl:row-start-1">
             <p className="mb-3 text-[11px] font-bold uppercase tracking-wide text-black">
               Community lift-sharing
             </p>
-            <h1 className="text-6xl font-bold leading-[1.02] tracking-[-0.03em] text-black lg:text-7xl">
+            <h1 className="text-6xl font-bold leading-[1.02] tracking-[-0.03em] text-black xl:text-7xl">
               Get there,<br />together.
             </h1>
           </div>
 
           {/* Map: between headline and text on tablet; full-height right column on desktop */}
-          <div className="flex min-h-0 items-center justify-center lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:justify-end">
+          <div className="flex w-full min-h-0 items-center justify-center xl:col-start-2 xl:row-start-1 xl:row-span-2 xl:justify-end">
             <HeroMap />
           </div>
 
           {/* Supporting text + CTAs */}
-          <div className="max-w-md lg:col-start-1 lg:row-start-2 lg:self-end">
+          <div className="max-w-md mx-auto xl:mx-0 xl:col-start-1 xl:row-start-2 xl:self-end">
             <p className="mb-7 text-[0.95rem] leading-relaxed text-gray-500">
               Connecting people in your community heading to the same place at the same time, so you ride together.
             </p>
-            <div className="flex flex-row gap-3">
+            <div className="flex flex-row justify-center gap-3 xl:justify-start">
               {suspended ? (
                 <span
                   className="px-7 py-3.5 bg-gray-100 text-gray-400 rounded-full font-medium text-sm cursor-not-allowed"
