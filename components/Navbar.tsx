@@ -96,38 +96,72 @@ export default function Navbar({ showAuth = 'both' }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile full-screen menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-5 pb-5 pt-3 flex flex-col gap-1">
-          <Link
-            href="/how-it-works"
-            className="py-2.5 text-sm font-medium text-gray-700 hover:text-black transition-colors"
-            onClick={() => setMenuOpen(false)}
-          >
-            How it works
-          </Link>
-          <Link
-            href="/about"
-            className="mb-2 py-2.5 text-sm font-medium text-gray-700 hover:text-black transition-colors"
-            onClick={() => setMenuOpen(false)}
-          >
-            About
-          </Link>
-          <div className="flex gap-3">
-            <Link
-              href="/login"
-              className="flex-1 text-center py-2.5 text-sm font-medium rounded-xl border border-gray-300 text-black hover:bg-gray-100 transition-colors"
-              onClick={() => setMenuOpen(false)}
-            >
-              Log in
+        <div className="md:hidden fixed inset-0 z-[60] flex flex-col bg-white px-5 pb-8 pt-4">
+          {/* header: logo + close */}
+          <div className="flex h-14 items-center justify-between">
+            <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/veesaa-logo-black.svg" alt="Veesaa" className="h-[20px] w-auto" />
             </Link>
-            <Link
-              href="/signup"
-              className="flex-1 text-center py-2.5 text-sm font-medium rounded-xl bg-black text-white hover:bg-gray-800 transition-colors"
+            <button
               onClick={() => setMenuOpen(false)}
+              className="-mr-1.5 rounded-lg p-1.5 text-black transition-colors hover:bg-gray-100"
+              aria-label="Close menu"
             >
-              Sign up
-            </Link>
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* large nav links */}
+          <nav className="mt-6 flex flex-col divide-y divide-gray-100 border-t border-b border-gray-100">
+            {[
+              { href: '/how-it-works', label: 'How it works' },
+              { href: '/about', label: 'About' },
+              { href: '/help', label: 'Help' },
+            ].map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setMenuOpen(false)}
+                className="py-4 text-[26px] font-bold tracking-tight text-black"
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* bottom auth actions */}
+          <div className="mt-auto flex flex-col items-center gap-4">
+            {showAuth === 'login' ? (
+              <Link
+                href="/login"
+                onClick={() => setMenuOpen(false)}
+                className="w-full rounded-full bg-black py-4 text-center text-base font-semibold text-white transition-colors hover:bg-gray-800 active:scale-[0.99]"
+              >
+                Log in
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/signup"
+                  onClick={() => setMenuOpen(false)}
+                  className="w-full rounded-full bg-black py-4 text-center text-base font-semibold text-white transition-colors hover:bg-gray-800 active:scale-[0.99]"
+                >
+                  Sign up
+                </Link>
+                <Link
+                  href="/login"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-base font-semibold text-black"
+                >
+                  Log in
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

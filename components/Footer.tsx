@@ -22,12 +22,12 @@ const COLUMNS = [
     links: [
       { href: '/about', label: 'About' },
       { href: '/how-it-works', label: 'How it works' },
-      { href: '/help', label: 'Help' },
     ],
   },
   {
     title: 'Support',
     links: [
+      { href: '/help', label: 'Help' },
       { href: `mailto:${SUPPORT_EMAIL}`, label: SUPPORT_EMAIL },
     ],
   },
