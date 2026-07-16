@@ -8,9 +8,12 @@ import ExperienceCard from '@/components/ExperienceCard'
 // Placeholder content shown until at least MIN_REAL pinned experiences exist.
 const MIN_REAL = 3
 const DEMO: Experience[] = [
-  { id: 'demo-1', name: 'Amara O.', photo_url: null, created_at: '', body: "I used to drive to service alone every Sunday. Now three of us go together and it's the best part of the morning." },
-  { id: 'demo-2', name: 'Tunde A.', photo_url: null, created_at: '', body: 'Match-days are sorted. I ride with people from my estate and we split nothing but good conversation.' },
-  { id: 'demo-3', name: 'Chidinma E.', photo_url: null, created_at: '', body: 'As a parent, knowing it is only verified neighbours in the car gives me real peace of mind.' },
+  { id: 'demo-1', name: 'Amara O.', photo_url: null, created_at: '', body: 'I drive the same route every week with three empty seats. Now I post the trip with our community code and neighbours ride along. Same journey, better company.' },
+  { id: 'demo-2', name: 'Tunde A.', photo_url: null, created_at: '', body: 'I used to guess who was going. Now I enter our code, see who is already heading there, and ask for a seat. Sorted in under a minute.' },
+  { id: 'demo-3', name: 'Chidinma E.', photo_url: null, created_at: '', body: 'The host approves who gets in, and everyone holds the same community code. I always know exactly who I am travelling with.' },
+  { id: 'demo-4', name: 'Daniel M.', photo_url: null, created_at: '', body: 'Four of us from work live on the same side of town. One code, one destination, and now it is one car instead of four.' },
+  { id: 'demo-5', name: 'Kemi B.', photo_url: null, created_at: '', body: 'I never type an address. The code already knows where we are going, so I just set my pickup point and show up.' },
+  { id: 'demo-6', name: 'Sarah L.', photo_url: null, created_at: '', body: 'It genuinely costs nothing. A neighbour had a spare seat, we met at the pickup point, and that was that.' },
 ]
 
 export default function TestimonialsSection() {
