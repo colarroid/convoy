@@ -188,8 +188,8 @@ const VALUES: { title: string; body: string }[] = [
     body: 'Every ride lives inside a community. Access comes from a code you were given, not an open marketplace anyone can enter.',
   },
   {
-    title: 'No fare, no cut',
-    body: 'Veesaa is for coordination, not profit on the ride. Neighbours help neighbours get there, and we stay out of the middle.',
+    title: 'Always free',
+    body: 'Veesaa is for coordination, not profit on the ride. Rides cost nothing, neighbours simply help neighbours get there, and we take no cut.',
   },
   {
     title: 'Built with communities',

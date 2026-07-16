@@ -68,7 +68,7 @@ export default function HowItWorksPage() {
             <div className="rounded-3xl bg-white p-8 ring-1 ring-black/5">
               <h3 className="mb-2 text-xl font-bold text-black">Host a ride</h3>
               <p className="mb-6 text-[15px] leading-relaxed text-gray-500">
-                Heading somewhere with room to spare? Post your departure time and route, then approve neighbours from your community who want to come along. No fare, no app cut.
+                Heading somewhere with room to spare? Post your departure time and route, then approve neighbours from your community who want to come along. It is free, and we take no cut.
               </p>
               <Link href="/offer/community" className="text-sm font-semibold text-blue-600 hover:text-blue-700">
                 Offer a ride &rarr;
@@ -191,7 +191,7 @@ const STEPS: { n: number; title: string; body: string; gradient: string; icon: R
 const FEATURES: { title: string; body: string; icon: React.ReactNode }[] = [
   {
     title: 'Community codes',
-    body: 'A code is an access pass to a closed group, and the shared destination for its trips. Hold more than one code to belong to more than one community.',
+    body: 'Your code does two things: it gives you access to a closed community, and it tells us the destination its trips are heading to. Hold more than one code to belong to more than one community.',
     icon: (
       <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M9 9l-1.5 6M15 9l-1.5 6M8 12h8" />
