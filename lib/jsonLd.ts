@@ -1,4 +1,4 @@
-import { SITE_URL, SITE_NAME, LEGAL_NAME, SITE_DESCRIPTION, SUPPORT_EMAIL, COUNTRIES } from './seo'
+import { SITE_URL, SITE_NAME, LEGAL_NAME, SITE_DESCRIPTION, SUPPORT_EMAIL, COUNTRIES, SAME_AS } from './seo'
 
 /**
  * Schema.org graph describing what Veesaa is, who runs it, where it operates and
@@ -16,6 +16,8 @@ export function siteGraph() {
     image: `${SITE_URL}/og.png`,
     description: SITE_DESCRIPTION,
     email: SUPPORT_EMAIL,
+    // Ties the brand's official profiles to this domain as one entity.
+    sameAs: SAME_AS,
     areaServed: COUNTRIES.map((name) => ({ '@type': 'Country', name })),
     contactPoint: {
       '@type': 'ContactPoint',

@@ -14,6 +14,17 @@ export const SITE_DESCRIPTION =
 /** Countries the service currently operates in. */
 export const COUNTRIES = ['Nigeria', 'Canada'] as const
 
+/**
+ * Official brand profiles. Used for the footer links and for schema.org sameAs,
+ * which tells search engines these profiles and veesaa.co are the same entity.
+ * Add new networks here and both places pick them up.
+ */
+export const SOCIAL_LINKS = {
+  linkedin: 'https://www.linkedin.com/company/veesaa',
+} as const
+
+export const SAME_AS = Object.values(SOCIAL_LINKS)
+
 export const OG_IMAGE = {
   url: `${SITE_URL}/og.png`,
   width: 1200,
