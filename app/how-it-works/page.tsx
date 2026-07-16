@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { howToGraph } from '@/lib/jsonLd'
 
 /**
  * How Veesaa works: a bold header, a numbered step-by-step timeline (visual on
@@ -12,6 +13,13 @@ import Footer from '@/components/Footer'
 export default function HowItWorksPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      {/* Step-by-step schema so engines and AI assistants can describe the flow. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(howToGraph(STEPS.map((s) => ({ name: s.title, text: s.body })))),
+        }}
+      />
       <Navbar showAuth="both" />
 
       {/* ── Header ── */}

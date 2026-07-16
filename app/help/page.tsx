@@ -7,6 +7,7 @@ import AppNav from '@/components/AppNav'
 import Footer from '@/components/Footer'
 import ReportModal from '@/components/ReportModal'
 import { getUser } from '@/lib/userStore'
+import { faqGraph } from '@/lib/jsonLd'
 
 interface QA { q: string; a: string }
 interface FaqSection { id: string; icon: React.ReactNode; title: string; items: QA[] }
@@ -153,6 +154,13 @@ export default function HelpPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      {/* FAQ rich results + something for AI assistants to quote accurately. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqGraph(SECTIONS.flatMap((s) => s.items))),
+        }}
+      />
       {loggedIn ? <AppNav /> : <Navbar showAuth="login" />}
 
       {/* Sub-header */}
