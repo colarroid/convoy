@@ -163,8 +163,8 @@ const STEPS: { n: number; title: string; body: string; gradient: string; icon: R
   },
   {
     n: 3,
-    title: 'Match with your community',
-    body: 'Hosts see who is asking and approve riders from the same community. Everyone on the trip is someone you share a code with, so you always know who you are travelling with.',
+    title: 'Match with your neighbours',
+    body: 'Hosts see who is seeking a ride and approve them. Everyone on the trip belongs to the same community as you, so you always know who you are travelling with.',
     gradient: 'from-blue-500 to-blue-700',
     icon: (
       <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -177,7 +177,7 @@ const STEPS: { n: number; title: string; body: string; gradient: string; icon: R
   {
     n: 4,
     title: 'Ride together',
-    body: 'Meet at the agreed pickup point and travel together to the place you all share. No fare, no strangers, and every kilometre counts toward a closer, lighter community.',
+    body: 'Meet at the agreed pickup point and go together to the destination. For free, no strangers, and every shared kilometre counts, bringing the community closer.',
     gradient: 'from-neutral-800 to-black',
     icon: (
       <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
