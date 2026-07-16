@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Why we are building Veesaa: people living side by side head to the same place and travel there alone. Veesaa turns those separate journeys into shared ones, so getting there also means getting closer.',
+    'Why we are building Veesaa: people head to the same place and travel there alone. We turn those separate journeys into shared ones, bringing you closer to your community.',
   alternates: { canonical: '/about' },
   openGraph: {
     title: 'About Veesaa | Bringing communities closer',
