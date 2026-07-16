@@ -163,7 +163,7 @@ const REASONS: { title: string; body: string; icon: React.ReactNode }[] = [
   },
   {
     title: 'Shared destinations',
-    body: 'A community code is the destination everyone is heading to. No addresses to compare, no guesswork about where you are all going.',
+    body: 'Your community code is how we recognise where you are heading, and at the same time it shows you have access to that community. No addresses to compare, no guesswork.',
     icon: (
       <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 01-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 1116 0z" />

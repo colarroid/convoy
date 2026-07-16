@@ -141,7 +141,7 @@ const STEPS: { n: number; title: string; body: string; gradient: string; icon: R
   {
     n: 1,
     title: 'Enter your community code',
-    body: 'Your code is your destination. It unlocks the shared space for everyone in your community heading to the same place, so there is no address to type or guesswork about where you are all going.',
+    body: 'Your code is your destination. It gives you access to a community and lets you offer or join a ride to that destination, so you never type a destination address. Enter your community code and we know where you are going.',
     gradient: 'from-blue-500 to-blue-700',
     icon: (
       <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
