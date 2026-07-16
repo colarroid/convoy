@@ -40,7 +40,14 @@
       "PowerShell(Copy-Item \"C:\\\\Users\\\\HP\\\\Desktop\\\\SVG\\\\Veesaa-logo-white.svg\" \"C:\\\\Users\\\\HP\\\\Desktop\\\\convoy\\\\public\\\\veesaa-logo-white.svg\" -Force)",
       "PowerShell(\"done\")",
       "Bash(xargs grep -l \"createServerClient\\\\|cookies\\(\\)\\\\|service_role\\\\|SERVICE_ROLE\")",
-      "Bash(git commit -q -m ' *)"
+      "Bash(git commit -q -m ' *)",
+      "Bash(grep -rniI \"logo\\\\|veesaa\\\\|brand\\\\|<h1\\\\|admin</\\\\|Admin<\" components app --include=*.tsx)",
+      "Bash(grep -iE \"#[0-9a-f]{3,6}|colors|:\")",
+      "Bash(npm -v)",
+      "Bash(mkdir -p C:/Users/HP/AppData/Local/Temp/claude/C--Users-HP-Desktop-convoy/12480014-6781-4f47-bc82-bb68f3522ba3/scratchpad/icons)",
+      "Bash(cp \"C:/Users/HP/Desktop/SVG/Veesaa-logo-mark.svg\" mark.svg)",
+      "Bash(npm init *)",
+      "Bash(node -e \"require\\('sharp'\\);console.log\\('sharp ready'\\)\")"
     ]
   }
 }

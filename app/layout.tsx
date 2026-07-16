@@ -26,6 +26,14 @@ export const metadata: Metadata = {
   title: 'Veesaa · Community lift-sharing',
   description: 'Veesaa connects people in your community heading to the same place at the same time, so you ride together. Free. Trusted. Community-first.',
   manifest: '/manifest.json',
+  icons: {
+    icon: [
+      { url: '/icons/favicon-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/favicon-16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: '/icons/apple-touch-icon.png',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
