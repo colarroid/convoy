@@ -21,6 +21,7 @@ export const COUNTRIES = ['Nigeria', 'Canada'] as const
  */
 export const SOCIAL_LINKS = {
   linkedin: 'https://www.linkedin.com/company/veesaa',
+  instagram: 'https://www.instagram.com/veesaa.co',
 } as const
 
 export const SAME_AS = Object.values(SOCIAL_LINKS)
