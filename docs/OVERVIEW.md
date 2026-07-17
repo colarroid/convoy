@@ -1,4 +1,4 @@
-# Veesaa — project overview
+# Veesaa: project overview
 
 Everything you need to understand this project. Read this first.
 
@@ -65,11 +65,11 @@ app can never create a community.
 ## 3. Stack
 
 - **Next.js 14** (App Router) · **TypeScript** · **Tailwind**
-- **Supabase** — Postgres, Auth, RLS, security-definer RPCs, Realtime
-- **Cloudinary** — images (avatars, community logos), **server-signed uploads**
-- **OneSignal** — web push
-- **Google Maps** — Places autocomplete + Geocoding
-- **PWA** — manifest + icons + offline page
+- **Supabase**: Postgres, Auth, RLS, security-definer RPCs, Realtime
+- **Cloudinary**: images (avatars, community logos), **server-signed uploads**
+- **OneSignal**: web push
+- **Google Maps**: Places autocomplete + Geocoding
+- **PWA**: manifest + icons + offline page
 
 The main app is **client-rendered** (a single browser Supabase client with
 localStorage sessions). There is almost no server-side code, the only route
@@ -198,12 +198,13 @@ Onboarding: a user without a photo is pushed to `/onboarding/photo`.
 
 ## 9. SEO and AI discoverability
 
-- `lib/seo.ts` — single source of truth (URL, description, socials, route lists).
-- `lib/jsonLd.ts` — schema.org: `Organization` + `WebSite` + `WebApplication` +
-  `Service` site-wide, `HowTo` on `/how-it-works`, `FAQPage` (30 Qs) on `/help`.
-- `app/sitemap.ts` / `app/robots.ts` — robots **deliberately allows AI crawlers**
+- `lib/seo.ts`: single source of truth (URL, description, socials, route lists).
+- `lib/jsonLd.ts` builds the schema.org graph: `Organization` + `WebSite` +
+  `WebApplication` + `Service` site-wide, `HowTo` on `/how-it-works`, and
+  `FAQPage` (30 Qs) on `/help`.
+- `app/sitemap.ts` / `app/robots.ts`: robots **deliberately allows AI crawlers**
   (GPTBot, ClaudeBot, PerplexityBot, Google-Extended…) and blocks the signed-in surface.
-- `public/llms.txt` — plain-language brief for AI assistants, including **when not
+- `public/llms.txt`: plain-language brief for AI assistants, including **when not
   to recommend Veesaa**.
 - Public pages are client components, so their metadata lives in per-route
   `layout.tsx` wrappers.

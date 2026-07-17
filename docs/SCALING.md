@@ -1,4 +1,4 @@
-# Veesaa — "fine for now" list
+# Veesaa: "fine for now" list
 
 Things we built simply on purpose. Each is acceptable at the current scale
 (one community, small membership) but worth revisiting as Veesaa grows.
@@ -20,7 +20,7 @@ Grouped by area, with a rough trigger for when to act.
 - **Lists are capped, not paginated.** Trips (200), reports (100), broadcasts
   (50), users/communities (all). Add pagination + search when any list gets long.
   → *Revisit when a list routinely exceeds the cap.*
-- **Single admin tier.** The `admins` table is all-or-nothing — no roles or
+- **Single admin tier.** The `admins` table is all-or-nothing, with no roles or
   per-community scoping. Add RBAC if you need community-level moderators or
   read-only admins.
 - **Admin uses the service-role key server-side.** Correct today; keep it
@@ -43,7 +43,7 @@ Grouped by area, with a rough trigger for when to act.
 - **One Google Maps key shared by both apps**, restricted by HTTP referrer + API.
   Fine; just keep the referrer allowlist current (main app + admin origins).
 - **Geocoding on trip post.** `createTrip` calls the Geocoding API when a host
-  types a pickup without picking a suggestion — one call per such post. Cheap
+  types a pickup without picking a suggestion, one call per such post. Cheap
   now; watch quota as volume grows.
 - **Proximity matching scans with `earthdistance`** per query. Fine for small
   data; add a spatial index / PostGIS if community trip volume gets large.
@@ -54,9 +54,11 @@ Grouped by area, with a rough trigger for when to act.
 - OneSignal REST API key
 (Anon/publishable key, OneSignal App ID, and the Maps key are public-by-design.)
 
-## Deferred features (not bugs — just not built yet)
-- **Email (Resend)** — transactional/marketing email not wired up.
-- **Premium / paid tiers** — deferred.
-- **PWA icons** — still placeholders; add real icons before production.
-- **Edit a posted trip** — only the review-before-post edit exists; full edit of
+## Deferred features (not bugs, just not built yet)
+- **Email (Resend)**: transactional/marketing email not wired up.
+- **Premium / paid tiers**: deferred.
+- ~~**PWA icons**~~ Done: generated from the Veesaa mark into `public/icons`
+  (192/512, maskable 192/512, apple-touch 180, favicons 32/16) and referenced
+  from the manifest and `app/layout.tsx`.
+- **Edit a posted trip**: only the review-before-post edit exists; full edit of
   a live trip is a later feature.
