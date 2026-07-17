@@ -45,10 +45,11 @@ export default function OfferFlowShell({
             )}
           </div>
 
-          {/* ── Form column ── */}
-          <div className="flex flex-col lg:h-full lg:min-h-0">
-            <div className="flex-1 pt-6 pb-6 lg:min-h-0 lg:overflow-y-auto lg:py-8">
-              <div className="rounded-2xl border border-gray-200 bg-white p-5 md:p-6">
+          {/* ── Form column. On desktop the card fills the column so the CTAs
+                 sit inside it, at the same place they already were. ── */}
+          <div className="flex flex-col py-6 lg:h-full lg:min-h-0 lg:py-8">
+            <div className="flex flex-1 flex-col rounded-2xl border border-gray-200 bg-white lg:min-h-0">
+              <div className="flex-1 p-5 md:p-6 lg:min-h-0 lg:overflow-y-auto">
                 {(context || title) && (
                   <div className="mb-6">
                     {context && <p className="text-[11px] font-bold uppercase tracking-wide text-blue-600 mb-1.5">{context}</p>}
@@ -58,11 +59,12 @@ export default function OfferFlowShell({
                 )}
                 {children}
               </div>
-            </div>
 
-            <div className="fixed bottom-0 left-0 right-0 bg-[#f5f4f1] border-t border-black/[0.06] px-5 py-4
-                            lg:static lg:border-t-0 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
-              {footer}
+              {/* Pinned to the viewport on mobile, part of the card on desktop. */}
+              <div className="fixed bottom-0 left-0 right-0 z-10 border-t border-black/[0.06] bg-[#f5f4f1] px-5 py-4
+                              lg:static lg:z-auto lg:rounded-b-2xl lg:border-gray-100 lg:bg-white lg:px-6 lg:py-5">
+                {footer}
+              </div>
             </div>
           </div>
         </div>
