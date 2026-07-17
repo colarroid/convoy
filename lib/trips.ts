@@ -119,7 +119,10 @@ export async function createTrip(draft: OfferDraft): Promise<string> {
   if (error) {
     // RLS blocks suspended members from inserting a trip (see migration 0016).
     if (error.code === '42501') throw new Error('Your account is suspended. Please contact your community admin.')
-    throw error
+    // Supabase errors are plain objects, not Error instances, so re-throw as a
+    // real Error. Otherwise callers checking `instanceof Error` fall back to a
+    // generic message and the actual cause is invisible.
+    throw new Error(error.message || 'Could not post your ride. Please try again.')
   }
   const tripId = data.id as string
 
