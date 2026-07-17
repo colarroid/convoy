@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import FindFlowShell from '@/components/FindFlowShell'
 import { getFindDraft } from '@/lib/findStore'
 import { getCommunityTrips, formatTripDate, ridesLabel, type RideRow } from '@/lib/trips'
+import { recordRideWant, setRideWantNotify } from '@/lib/rideWants'
 
 // Rides at/under this distance are grouped under "Near you".
 const NEAR_KM = 3
@@ -76,6 +77,7 @@ export default function FindResultsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [notified, setNotified] = useState(false)
+  const [wantId, setWantId] = useState<string | null>(null)
 
   useEffect(() => {
     if (!draft.communityCode) { setLoading(false); return }
@@ -83,11 +85,29 @@ export default function FindResultsPage() {
       ? { lat: draft.startLat, lng: draft.startLng }
       : undefined
     getCommunityTrips(draft.communityCode, coords)
-      .then(setRides)
+      .then(async (found) => {
+        setRides(found)
+        // Record the search as demand signal. A zero-result search is unmet
+        // demand and cannot be recovered later, so log it as it happens.
+        const id = await recordRideWant({
+          code: draft.communityCode!,
+          place: draft.startingPlace,
+          lat: draft.startLat,
+          lng: draft.startLng,
+          results: found.length,
+        })
+        setWantId(id)
+      })
       .catch(e => setError(e?.message ?? 'Could not load rides.'))
       .finally(() => setLoading(false))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [draft.communityCode])
+
+  // "Notify me" has to actually put the rider on the list, not just say so.
+  const handleNotify = async () => {
+    setNotified(true)
+    if (wantId) await setRideWantNotify(wantId, true)
+  }
 
   const handleSelect = (ride: RideRow) => {
     router.push(`/find/ride/${ride.id}`)
@@ -150,7 +170,7 @@ export default function FindResultsPage() {
     )
   } else if (!notified) {
     footer = (
-      <button onClick={() => setNotified(true)} className="w-full py-3.5 rounded-xl text-sm font-medium bg-black text-white hover:bg-gray-800 active:scale-[0.98] transition-all">
+      <button onClick={handleNotify} className="w-full py-3.5 rounded-xl text-sm font-medium bg-black text-white hover:bg-gray-800 active:scale-[0.98] transition-all">
         Notify me
       </button>
     )

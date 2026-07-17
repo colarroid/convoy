@@ -90,9 +90,23 @@ Six core tables (`supabase/migrations/0001_init.sql` + later):
 | `join_requests` | A rider asking to join a trip. `pending`/`approved`/`declined`. Unique per (trip, rider). |
 | `community_members` | **A remembered-access cache, NOT the access gate.** See below. |
 | `notifications` | In-app inbox; an insert fans out to push + email. |
+| `ride_wants` | **Demand signal.** Every ride search + how many results it returned. See below. |
 
 Plus: `user_settings`, `reports`, `trip_feedback`, `experiences`, `waitlist`,
 `call_requests`, `admins`, `broadcasts`.
+
+### `ride_wants` is non-backfillable
+
+Every search is recorded with its `results_count`. **`results_count = 0` is unmet
+demand**: a member wanted a ride and there was nothing. That is the strongest
+signal for where to recruit hosts, and it only exists if we capture it at the
+moment it happens. It can never be reconstructed later. Never make this
+best-effort or defer it.
+
+It also makes "Notify me" real: opting in sets `wants_notify`, and an AFTER
+INSERT trigger on `trips` (`notify_ride_wants`) notifies waiting riders in that
+community (proximity-filtered to 25km when both sides have coordinates), then
+marks the want `fulfilled`. Admins see it all at `/ride-wants`.
 
 ### There are no user types
 
