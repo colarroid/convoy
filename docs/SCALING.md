@@ -63,6 +63,14 @@ Grouped by area, with a rough trigger for when to act.
     (`RESEND_API_KEY` secret), sending from `noreply@veesaa.co`.
   - Still worth checking: Supabase **Auth rate limits** apply even with custom
     SMTP and default low. Raise before a launch burst.
+- **Resend Free caps at 100 emails/day.** The monthly 3,000 never saves you from
+  a burst: an 80-person community launch is 80 confirmation emails, and one
+  broadcast to 200 members is 200 emails in a single click. Both blow the daily
+  cap. **Upgrade to Resend Pro (no daily limit) before the first real community
+  goes live.**
+  → *Both failure paths are silent: the edge function swallows email errors on
+  purpose, and auth mail just fails, so a member who never gets a confirmation
+  or reset link simply leaves without telling you.*
 - **Premium / paid tiers**: deferred.
 - ~~**PWA icons**~~ Done: generated from the Veesaa mark into `public/icons`
   (192/512, maskable 192/512, apple-touch 180, favicons 32/16) and referenced
