@@ -1,3 +1,5 @@
+import type { TripDirection } from './trips'
+
 const KEY = 'veesaa_find_draft'
 
 export interface FindDraft {
@@ -5,6 +7,9 @@ export interface FindDraft {
   communityName?: string
   communityAddress?: string
   communityArea?: string
+  /** Which way the rider is going relative to the community. */
+  direction?: TripDirection
+  /** The member-side point: where to pick you up, or where you want dropping. */
   startingPlace?: string
   startLat?: number
   startLng?: number

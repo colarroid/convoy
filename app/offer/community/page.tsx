@@ -53,7 +53,7 @@ export default function OfferCommunityPage() {
 
   const goToOffer = (c: { code: string; name: string; address?: string | null }) => {
     saveDraft({ communityCode: c.code, communityName: c.name, communityAddress: c.address ?? undefined })
-    router.push('/offer/pickup')
+    router.push('/offer/direction')
   }
 
   const handleContinue = async () => {

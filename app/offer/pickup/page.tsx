@@ -10,6 +10,7 @@ import { saveDraft, getDraft } from '@/lib/offerStore'
 export default function OfferPickupPage() {
   const router = useRouter()
   const draft = getDraft()
+  const returning = draft.direction === 'from_community'
   const [search, setSearch] = useState(draft.pickupPlace ?? '')
   const [coords, setCoords] = useState<PlaceCoords | undefined>(
     draft.pickupLat != null && draft.pickupLng != null ? { lat: draft.pickupLat, lng: draft.pickupLng } : undefined
@@ -34,9 +35,11 @@ export default function OfferPickupPage() {
 
   return (
     <OfferFlowShell
-      context="Offer a ride"
-      title="Where do you set off from?"
-      subtitle="Enter a convenient location to pick up passengers"
+      context={returning ? 'Offer a ride back' : 'Offer a ride'}
+      title={returning ? 'Where will you drop people off?' : 'Where do you set off from?'}
+      subtitle={returning
+        ? 'Enter a convenient location to drop passengers off'
+        : 'Enter a convenient location to pick up passengers'}
       communityName={draft.communityName}
       footer={
         <div className="flex gap-3">
@@ -53,7 +56,7 @@ export default function OfferPickupPage() {
       <AddressAutocomplete
         value={search}
         onChange={(text, c) => { setSearch(text); setCoords(c) }}
-        placeholder="Search your pickup point or landmark"
+        placeholder={returning ? 'Search your drop-off point or landmark' : 'Search your pickup point or landmark'}
         autoFocus
         leftAdornment={<svg className="w-4 h-4 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /></svg>}
         rightAdornment={

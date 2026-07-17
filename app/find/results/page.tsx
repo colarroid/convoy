@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import FindFlowShell from '@/components/FindFlowShell'
 import { getFindDraft } from '@/lib/findStore'
-import { getCommunityTrips, formatTripDate, ridesLabel, type RideRow } from '@/lib/trips'
+import { getCommunityTrips, formatTripDate, ridesLabel, pointLabel, type RideRow } from '@/lib/trips'
 import { recordRideWant, setRideWantNotify } from '@/lib/rideWants'
 
 // Rides at/under this distance are grouped under "Near you".
@@ -40,7 +40,7 @@ function RideCard({ ride, onSelect }: { ride: RideRow; onSelect: () => void }) {
       </div>
 
       <div className="px-4 py-3.5">
-        <p className="text-xs text-gray-400 mb-0.5">Pickup point</p>
+        <p className="text-xs text-gray-400 mb-0.5">{pointLabel(ride.direction)}</p>
         <p className="text-sm font-bold text-black leading-snug">{ride.pickup_point}</p>
         {ride.pickup_note && <p className="text-xs text-gray-400 mt-0.5">{ride.pickup_note}</p>}
       </div>
@@ -73,6 +73,8 @@ function SkeletonCard() {
 export default function FindResultsPage() {
   const router = useRouter()
   const draft = getFindDraft()
+  const direction = draft.direction ?? 'to_community'
+  const returning = direction === 'from_community'
   const [rides, setRides] = useState<RideRow[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -84,7 +86,7 @@ export default function FindResultsPage() {
     const coords = draft.startLat != null && draft.startLng != null
       ? { lat: draft.startLat, lng: draft.startLng }
       : undefined
-    getCommunityTrips(draft.communityCode, coords)
+    getCommunityTrips(draft.communityCode, coords, 10, direction)
       .then(async (found) => {
         setRides(found)
         // Record the search as demand signal. A zero-result search is unmet
@@ -95,6 +97,7 @@ export default function FindResultsPage() {
           lat: draft.startLat,
           lng: draft.startLng,
           results: found.length,
+          direction,
         })
         setWantId(id)
       })
@@ -151,11 +154,15 @@ export default function FindResultsPage() {
   } else {
     body = (
       <div className="flex flex-col items-center justify-center text-center min-h-[50vh] px-4">
-        <h2 className="text-2xl font-bold text-black mb-3">{notified ? 'You’re on the list!' : 'No rides just yet'}</h2>
+        <h2 className="text-2xl font-bold text-black mb-3">
+          {notified ? 'You’re on the list!' : returning ? 'No rides back just yet' : 'No rides just yet'}
+        </h2>
         <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
           {notified
             ? 'We’ll notify you the moment someone from your community offers a ride on your route.'
-            : 'No one’s offered a ride on your route yet. We’ll let you know as soon as one appears.'}
+            : returning
+              ? 'No one’s offered a ride back your way yet. We’ll let you know as soon as one appears.'
+              : 'No one’s offered a ride on your route yet. We’ll let you know as soon as one appears.'}
         </p>
       </div>
     )
@@ -184,8 +191,8 @@ export default function FindResultsPage() {
 
   return (
     <FindFlowShell
-      context="Find a ride"
-      title="Rides passing your route"
+      context={returning ? 'Find a ride back' : 'Find a ride'}
+      title={returning ? 'Rides heading your way' : 'Rides passing your route'}
       subtitle={!loading && hasRides ? `${rides.length} ${rides.length === 1 ? 'ride' : 'rides'}` : undefined}
       communityName={draft.communityName}
       footer={footer}

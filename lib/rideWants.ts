@@ -1,4 +1,5 @@
 import { supabase } from './supabase'
+import type { TripDirection } from './trips'
 
 /**
  * Demand signal. Every ride search is recorded with how many results it showed;
@@ -11,6 +12,7 @@ export async function recordRideWant(params: {
   lat?: number
   lng?: number
   results: number
+  direction?: TripDirection
 }): Promise<string | null> {
   const { data, error } = await supabase.rpc('record_ride_want', {
     p_code: params.code,
@@ -18,6 +20,7 @@ export async function recordRideWant(params: {
     p_lat: params.lat ?? null,
     p_lng: params.lng ?? null,
     p_results: params.results,
+    p_direction: params.direction ?? 'to_community',
   })
   // Never let the signal break the rider's search.
   if (error) return null

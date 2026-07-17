@@ -82,24 +82,34 @@ export async function createTrip(draft: OfferDraft): Promise<string> {
     }
   }
 
+  // Fields both legs share. The community is always one end of the trip, and
+  // pickup_* is always the member-side point: where riders are picked up on the
+  // way there, and where they are dropped off on the way back.
+  const shared = {
+    host_id: user.id,
+    community_id: community.id,
+    depart_date: draft.date,
+    pickup_point: draft.pickupPlace,
+    pickup_note: draft.pickupNote || null,
+    pickup_lat: pLat,
+    pickup_lng: pLng,
+    distance_km: distanceKm,
+    vehicle: vehicle || null,
+    color: draft.unknownVehicle ? null : (draft.color || null),
+    color_hex: draft.unknownVehicle ? '#9CA3AF' : (COLOR_HEX[draft.color ?? ''] ?? '#9CA3AF'),
+    plate_number: draft.unknownVehicle ? null : (draft.plateNumber || null),
+    unknown_vehicle: !!draft.unknownVehicle,
+  }
+
+  const direction = draft.direction ?? 'to_community'
+
   const { data, error } = await supabase
     .from('trips')
     .insert({
-      host_id: user.id,
-      community_id: community.id,
-      depart_date: draft.date,
+      ...shared,
+      direction,
       depart_time: draft.time,
       departs_at: toDepartsAt(draft.date, draft.time),
-      pickup_point: draft.pickupPlace,
-      pickup_note: draft.pickupNote || null,
-      pickup_lat: pLat,
-      pickup_lng: pLng,
-      distance_km: distanceKm,
-      vehicle: vehicle || null,
-      color: draft.unknownVehicle ? null : (draft.color || null),
-      color_hex: draft.unknownVehicle ? '#9CA3AF' : (COLOR_HEX[draft.color ?? ''] ?? '#9CA3AF'),
-      plate_number: draft.unknownVehicle ? null : (draft.plateNumber || null),
-      unknown_vehicle: !!draft.unknownVehicle,
       seats_total: seats,
       seats_open: seats,
     })
@@ -111,8 +121,44 @@ export async function createTrip(draft: OfferDraft): Promise<string> {
     if (error.code === '42501') throw new Error('Your account is suspended. Please contact your community admin.')
     throw error
   }
-  return data.id as string
+  const tripId = data.id as string
+
+  // Paired return: a separate trip, posted now so members can find it early.
+  // The date is fixed to the outbound's; only seats and time can differ.
+  // A standalone return has no outbound to mirror, so it never pairs.
+  if (direction === 'to_community' && draft.returning && draft.returnTime) {
+    const rSeats = draft.returnSeats ?? seats
+    const { error: rErr } = await supabase.from('trips').insert({
+      ...shared,
+      direction: 'from_community',
+      paired_trip_id: tripId,
+      depart_time: draft.returnTime,
+      departs_at: toDepartsAt(draft.date, draft.returnTime),
+      seats_total: rSeats,
+      seats_open: rSeats,
+    })
+    // The outbound is already posted, so a failed return must not lose it. The
+    // host can still offer the return on its own.
+    if (rErr) throw new Error('Your ride was posted, but the return trip could not be created. You can offer it separately from My trips.')
+  }
+
+  return tripId
 }
+
+// ── Direction ──
+
+/**
+ * A community code identifies the shared place; a trip either heads to it or
+ * comes back from it. `pickup_point` is always the member-side point: where
+ * riders are picked up going there, and dropped off coming back.
+ */
+export type TripDirection = 'to_community' | 'from_community'
+
+export const isReturn = (d?: TripDirection | null) => d === 'from_community'
+
+/** Label for the member-side point, which flips meaning with direction. */
+export const pointLabel = (d?: TripDirection | null) =>
+  isReturn(d) ? 'Drop-off point' : 'Pickup point'
 
 // ── My Trips (host-facing) ──
 
@@ -132,6 +178,7 @@ export interface MyTripRow {
   seats_open: number
   status: string
   pending_count: number
+  direction: TripDirection
 }
 
 export interface JoinedTripRow {
@@ -151,6 +198,7 @@ export interface JoinedTripRow {
   vehicle: string | null
   color_hex: string | null
   status: string
+  direction: TripDirection
 }
 
 export interface RequestRow {
@@ -261,18 +309,21 @@ export interface RideRow {
   seats_open: number
   already_requested: boolean
   distance_km: number | null
+  direction: TripDirection
 }
 
 export async function getCommunityTrips(
   code: string,
   coords?: { lat: number; lng: number },
   radiusKm = 10,
+  direction: TripDirection = 'to_community',
 ): Promise<RideRow[]> {
   const { data, error } = await supabase.rpc('get_community_trips', {
     p_code: code,
     p_lat: coords?.lat ?? null,
     p_lng: coords?.lng ?? null,
     p_radius_km: radiusKm,
+    p_direction: direction,
   })
   if (error) throw error
   return (data ?? []) as RideRow[]

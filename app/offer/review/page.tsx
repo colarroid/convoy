@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import OfferFlowShell from '@/components/OfferFlowShell'
-import { getDraft, clearDraft, type OfferDraft } from '@/lib/offerStore'
+import { getDraft, saveDraft, clearDraft, type OfferDraft } from '@/lib/offerStore'
 import { getUser, getDisplayName, getInitials } from '@/lib/userStore'
 import { createTrip, getRidesCompleted, ridesLabel } from '@/lib/trips'
+import TimePicker from '@/components/TimePicker'
 
 function formatDate(iso: string) {
   if (!iso) return '-'
@@ -37,15 +38,26 @@ export default function OfferReviewPage() {
   const [initials, setInitials] = useState('?')
   const [photo, setPhoto] = useState<string | null>(null)
   const [ridesCompleted, setRidesCompleted] = useState(0)
+  // "Driving back" opt-in. Date is fixed to the outbound's; only seats and the
+  // departure time can differ, since it is the same car making the same trip.
+  const [returning, setReturning] = useState(false)
+  const [returnTime, setReturnTime] = useState('05:00 PM')
+  const [returnSeats, setReturnSeats] = useState(1)
 
   useEffect(() => {
-    setDraft(getDraft())
+    const d = getDraft()
+    setDraft(d)
+    setReturning(!!d.returning)
+    if (d.returnTime) setReturnTime(d.returnTime)
+    setReturnSeats(d.returnSeats ?? d.seats ?? 1)
     const u = getUser()
     setDisplayName(getDisplayName(u))
     setInitials(getInitials(u))
     setPhoto(u?.photoDataUrl ?? null)
     getRidesCompleted().then(setRidesCompleted).catch(() => {})
   }, [])
+
+  const isStandaloneReturn = draft.direction === 'from_community'
 
   const vehicleDesc = draft.unknownVehicle
     ? 'Hired ride (Uber / Bolt / In-drive)'
@@ -55,7 +67,12 @@ export default function OfferReviewPage() {
     setPosting(true)
     setError('')
     try {
-      await createTrip(getDraft())
+      await createTrip({
+        ...getDraft(),
+        returning,
+        returnTime: returning ? returnTime : undefined,
+        returnSeats: returning ? returnSeats : undefined,
+      })
       clearDraft()
       router.push('/offer/posted')
     } catch (e) {
@@ -66,9 +83,11 @@ export default function OfferReviewPage() {
 
   return (
     <OfferFlowShell
-      context="Offer a ride"
+      context={isStandaloneReturn ? 'Offer a ride back' : 'Offer a ride'}
       title="Review & post"
-      subtitle="People looking for a ride in your community will be able to request this trip."
+      subtitle={isStandaloneReturn
+        ? 'People in your community looking for a ride back will be able to request this trip.'
+        : 'People looking for a ride in your community will be able to request this trip.'}
       communityName={draft.communityName}
       footer={
         <div>
@@ -108,9 +127,18 @@ export default function OfferReviewPage() {
           </div>
         </div>
         <div className="px-4 divide-y divide-gray-100">
-          <ReviewRow label="Destination" value={draft.communityName ?? '-'} editHref="/offer/community" />
+          <ReviewRow
+            label={isStandaloneReturn ? 'Setting off from' : 'Destination'}
+            value={draft.communityName ?? '-'}
+            editHref="/offer/community"
+          />
           <ReviewRow label="Date & time" value={`${formatDate(draft.date ?? '')} · ${draft.time ?? '-'}`} editHref="/offer/datetime" />
-          <ReviewRow label="Pickup point" value={draft.pickupPlace ?? '-'} sub={draft.pickupNote || undefined} editHref="/offer/pickup" />
+          <ReviewRow
+            label={isStandaloneReturn ? 'Drop-off point' : 'Pickup point'}
+            value={draft.pickupPlace ?? '-'}
+            sub={draft.pickupNote || undefined}
+            editHref="/offer/pickup"
+          />
           <ReviewRow label="Ride details" value={vehicleDesc || '-'} editHref="/offer/vehicle" />
           <div className="py-3.5">
             <p className="text-xs text-gray-400 mb-0.5">Seats</p>
@@ -118,6 +146,66 @@ export default function OfferReviewPage() {
           </div>
         </div>
       </div>
+
+      {/* ── Driving back? Posts a separate return trip on the same day.
+             Not offered on a standalone return: it is already the ride back. ── */}
+      {!isStandaloneReturn && (
+      <div className="mt-5 rounded-2xl border border-gray-200 overflow-hidden">
+        <button
+          type="button"
+          onClick={() => { const next = !returning; setReturning(next); saveDraft({ returning: next }) }}
+          aria-pressed={returning}
+          className="w-full px-4 py-4 flex items-start gap-3 text-left"
+        >
+          <span className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors ${returning ? 'border-black bg-black' : 'border-gray-300 bg-white'}`}>
+            {returning && (
+              <svg className="h-3 w-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            )}
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-bold text-black">I&apos;m also driving back</span>
+            <span className="block text-xs text-gray-500 mt-0.5 leading-relaxed">
+              Posts a separate ride back from {draft.communityName ?? 'the community'} on the same day, so people can find it early.
+            </span>
+          </span>
+        </button>
+
+        {returning && (
+          <div className="border-t border-gray-100 px-4 py-4">
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-xs text-gray-400">Date</p>
+              <p className="text-sm font-bold text-black">{formatDate(draft.date ?? '')}</p>
+            </div>
+
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-xs text-gray-400">Drop-off point</p>
+              <p className="text-sm font-bold text-black truncate ml-4">{draft.pickupPlace ?? '-'}</p>
+            </div>
+
+            <p className="text-sm font-semibold text-black mb-3">Seats on the way back</p>
+            <div className="flex gap-2 mb-5">
+              {[1, 2, 3, 4, 5, 6].map(n => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => { setReturnSeats(n); saveDraft({ returnSeats: n }) }}
+                  className={`h-10 w-10 rounded-xl text-sm font-semibold transition-all ${
+                    returnSeats === n ? 'bg-black text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+
+            <p className="text-sm font-semibold text-black mb-3">Departure time</p>
+            <TimePicker value={returnTime} onChange={(t) => { setReturnTime(t); saveDraft({ returnTime: t }) }} />
+          </div>
+        )}
+      </div>
+      )}
 
       <div className="flex items-start gap-2.5 mt-5 px-1">
         <svg className="w-4 h-4 text-gray-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">

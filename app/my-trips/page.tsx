@@ -7,7 +7,7 @@ import CommunityLogo from '@/components/CommunityLogo'
 import AddToCalendar from '@/components/AddToCalendar'
 import { tripStart } from '@/lib/calendar'
 import {
-  getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, deleteTrip, forgetJoinedTrip, withdrawRequest, recordTripFeedback, formatTripDate, isPast, isPastBy,
+  getMyTrips, getMyJoinedTrips, completeTrip, cancelTrip, deleteTrip, forgetJoinedTrip, withdrawRequest, recordTripFeedback, formatTripDate, isPast, isPastBy, isReturn, pointLabel,
   type MyTripRow, type JoinedTripRow,
 } from '@/lib/trips'
 
@@ -170,11 +170,18 @@ export default function MyTripsPage() {
                           <div className="flex items-center gap-3 min-w-0">
                             <CommunityLogo src={trip.community_logo} name={trip.community_name} className="w-12 h-12" />
                             <div className="min-w-0">
-                              <p className="text-base font-bold text-black leading-snug truncate">{trip.community_name}</p>
+                              <p className="text-base font-bold text-black leading-snug truncate">
+                                {isReturn(trip.direction) ? `From ${trip.community_name}` : trip.community_name}
+                              </p>
                               {trip.area && <p className="text-sm text-gray-400">{trip.area}</p>}
                             </div>
                           </div>
-                          <StatusBadge status={status} past={past} />
+                          <div className="flex items-center gap-2 shrink-0">
+                            {isReturn(trip.direction) && (
+                              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-600">Ride back</span>
+                            )}
+                            <StatusBadge status={status} past={past} />
+                          </div>
                         </div>
 
                         <div className="px-4 py-3.5 border-t border-gray-100 flex items-start justify-between gap-3">
@@ -191,7 +198,7 @@ export default function MyTripsPage() {
                           })()}
                         </div>
                         <div className="px-4 py-3.5 border-t border-gray-100">
-                          <p className="text-xs text-gray-400 mb-0.5">Pickup point</p>
+                          <p className="text-xs text-gray-400 mb-0.5">{pointLabel(trip.direction)}</p>
                           <p className="text-sm font-bold text-black leading-snug">{trip.pickup_point}</p>
                           {trip.pickup_note && <p className="text-xs text-gray-400 mt-0.5">{trip.pickup_note}</p>}
                         </div>
@@ -283,7 +290,9 @@ export default function MyTripsPage() {
                             </div>
                             <div className="min-w-0">
                               <p className="text-sm font-bold text-black truncate">{trip.host_name ?? 'Member'}</p>
-                              <p className="text-xs text-gray-400">{trip.community_name}</p>
+                              <p className="text-xs text-gray-400">
+                                {isReturn(trip.direction) ? `From ${trip.community_name}` : trip.community_name}
+                              </p>
                             </div>
                           </div>
                           <StatusBadge status={trip.status} past={past} />
@@ -303,7 +312,7 @@ export default function MyTripsPage() {
                           })()}
                         </div>
                         <div className="px-4 py-3.5 border-t border-gray-100">
-                          <p className="text-xs text-gray-400 mb-0.5">Pickup point</p>
+                          <p className="text-xs text-gray-400 mb-0.5">{pointLabel(trip.direction)}</p>
                           <p className="text-sm font-bold text-black leading-snug">{trip.pickup_point}</p>
                           {trip.pickup_note && <p className="text-xs text-gray-400 mt-0.5">{trip.pickup_note}</p>}
                         </div>

@@ -1,9 +1,14 @@
 const KEY = 'veesaa_offer_draft'
 
+import type { TripDirection } from './trips'
+
 export interface OfferDraft {
   communityCode?: string
   communityName?: string
   communityAddress?: string
+  /** Which way the host is driving relative to the community. */
+  direction?: TripDirection
+  /** The member-side point: pickup going there, drop-off coming back. */
   pickupPlace?: string
   pickupNote?: string
   pickupLat?: number
@@ -16,6 +21,12 @@ export interface OfferDraft {
   color?: string
   unknownVehicle?: boolean
   seats?: number
+  /** Host is also driving back from the community on the same day. */
+  returning?: boolean
+  /** When the host leaves the community. Only used when `returning`. */
+  returnTime?: string
+  /** Seats on the return leg. Defaults to `seats` (same car). */
+  returnSeats?: number
 }
 
 export function getDraft(): OfferDraft {

@@ -10,6 +10,7 @@ import { saveFindDraft, getFindDraft } from '@/lib/findStore'
 export default function FindLocationPage() {
   const router = useRouter()
   const draft = getFindDraft()
+  const returning = draft.direction === 'from_community'
   const [search, setSearch] = useState('')
   const [coords, setCoords] = useState<PlaceCoords | undefined>(undefined)
   const [finding, setFinding] = useState(false)
@@ -37,9 +38,9 @@ export default function FindLocationPage() {
 
   return (
     <FindFlowShell
-      context="Find a ride"
-      title="Where are you coming from?"
-      subtitle="So we can show rides passing near you"
+      context={returning ? 'Find a ride back' : 'Find a ride'}
+      title={returning ? 'Where are you heading?' : 'Where are you coming from?'}
+      subtitle={returning ? 'So we can show rides dropping off near you' : 'So we can show rides passing near you'}
       communityName={draft.communityName}
       footer={
         <div className="flex gap-3">
@@ -60,7 +61,7 @@ export default function FindLocationPage() {
       <AddressAutocomplete
         value={search}
         onChange={(text, c) => { setSearch(text); setCoords(c) }}
-        placeholder="Enter your starting location"
+        placeholder={returning ? 'Enter where you want dropping' : 'Enter your starting location'}
         autoFocus
         wrapperClassName={`flex items-center gap-3 px-4 py-3.5 rounded-xl bg-gray-100 transition-all ${search ? 'ring-2 ring-black bg-white' : 'focus-within:ring-2 focus-within:ring-black focus-within:bg-white'}`}
         leftAdornment={<span className="w-3 h-3 rounded-full border-[3px] border-black shrink-0" />}

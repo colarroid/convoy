@@ -1,7 +1,18 @@
-# Return trips (design, agreed, not yet built)
+# Return trips
 
-Status: **design locked, implementation not started.** One piece outstanding
-(the standalone return flow, being designed separately).
+Status: **built** (migration `0038_return_trips.sql`). Needs the migration
+applied, and end-to-end testing while signed in.
+
+## Where it lives
+
+| Piece | File |
+|---|---|
+| Schema, triggers, RPCs | `supabase/migrations/0038_return_trips.sql` |
+| Direction type, helpers | `lib/trips.ts` (`TripDirection`, `isReturn`, `pointLabel`) |
+| To/from picker | `components/DirectionChoice.tsx` |
+| Host direction step | `app/offer/direction/page.tsx` |
+| Rider direction step | `app/find/direction/page.tsx` |
+| Paired return opt-in | `app/offer/review/page.tsx` |
 
 ---
 
@@ -66,10 +77,13 @@ Anyone at the destination with a free seat can offer a return **without having
 offered an outbound**. Someone who drove themselves in and has three empty seats
 going home is a perfect host and must have a way in.
 
-Because there is no outbound to inherit from, this flow needs its own
-**drop-off point, date and seats**, mirroring the outbound flow.
+Built as a **direction step in the existing offer flow**
+(`/offer/direction`, straight after the community step), so the standalone return
+reuses the whole flow rather than duplicating it. The labels flip
+("Where will you drop people off?"), and the "also driving back" opt-in is hidden,
+since a return is already the ride back.
 
-> The detailed flow for this is being designed separately.
+The checkbox is therefore only a **convenience**, not the only door.
 
 ## 6. Riders get no privilege
 
@@ -122,7 +136,37 @@ way can still legitimately drive people home. The host cancels it themselves.
   address" promise stays.
 - **Admin**: show direction on trips and ride wants.
 
-## 10. Open
+## 10. Decisions made during the build
 
-- The standalone return flow (being designed).
-- Go-ahead to build.
+- **"Notify once" is enforced by a table**, `return_nudges (return_trip_id,
+  user_id)`, because two different events can make the nudge due. Insert on
+  conflict do nothing; notify only if the insert was new.
+- **The nudge links to `/find/community`, not the ride itself.** `find/ride/[id]`
+  reads the community code from the session draft, so a deep link from a
+  notification would render nothing. `/find/community` lists held communities, so
+  the friction is small. Worth revisiting if that page is ever made standalone.
+- **A failed return does not roll back the outbound.** The outbound is posted
+  first; if the return insert fails the host is told the ride is up and the return
+  can be offered separately. Losing a posted ride would be worse than a missing
+  return.
+- **Old rows default to `to_community`**, so every existing trip and ride want
+  keeps working untouched.
+
+## 11. Not yet done
+
+- Apply the migration.
+- End-to-end test while signed in (see below).
+- Copy reframe on About / How it works / `llms.txt` / JSON-LD.
+- Admin: show direction on trips and ride wants.
+
+## 12. How to test
+
+1. Post an outbound with **"I'm also driving back"** ticked. Two trips appear in
+   My Trips, the return badged **Ride back**.
+2. From a second account, request the outbound. Host approves.
+   → the rider is notified: *"... is also driving back at ..., request a seat."*
+   This is the case that fires on **approval**, because at creation the outbound
+   had no riders.
+3. From the second account, Find a ride → **From [community]** → the return shows.
+4. Post a **standalone** return (offer → direction → From). Any rider that host
+   carried out that day is notified, with no checkbox involved.

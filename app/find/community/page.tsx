@@ -54,7 +54,7 @@ export default function FindCommunityPage() {
 
   const goToFind = (c: { code: string; name: string; address?: string | null; area?: string | null }) => {
     saveFindDraft({ communityCode: c.code, communityName: c.name, communityAddress: c.address ?? undefined, communityArea: c.area ?? undefined })
-    router.push('/find/location')
+    router.push('/find/direction')
   }
 
   const handleContinue = async () => {

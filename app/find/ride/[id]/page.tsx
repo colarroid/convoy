@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import FindFlowShell from '@/components/FindFlowShell'
 import { getFindDraft } from '@/lib/findStore'
 import { useSuspended } from '@/lib/useSuspended'
-import { getCommunityTrips, requestToJoin, withdrawRequest, formatTripDate, ridesLabel, type RideRow } from '@/lib/trips'
+import { getCommunityTrips, requestToJoin, withdrawRequest, formatTripDate, ridesLabel, isReturn, pointLabel, type RideRow } from '@/lib/trips'
 import ReportModal from '@/components/ReportModal'
 
 export default function RideDetailPage() {
@@ -23,7 +23,7 @@ export default function RideDetailPage() {
 
   useEffect(() => {
     if (!draft.communityCode) { setLoading(false); return }
-    getCommunityTrips(draft.communityCode)
+    getCommunityTrips(draft.communityCode, undefined, 10, draft.direction ?? 'to_community')
       .then(rides => setRide(rides.find(r => r.id === id) ?? null))
       .catch(() => setRide(null))
       .finally(() => setLoading(false))
@@ -83,8 +83,8 @@ export default function RideDetailPage() {
 
   return (
     <FindFlowShell
-      context="Trip details"
-      title={ride.community_name}
+      context={isReturn(ride.direction) ? 'Ride back' : 'Trip details'}
+      title={isReturn(ride.direction) ? `From ${ride.community_name}` : ride.community_name}
       subtitle={ride.area ?? undefined}
       communityName={draft.communityName}
       footer={
@@ -147,7 +147,7 @@ export default function RideDetailPage() {
         </div>
 
         <div className="px-4 py-3.5 border-b border-gray-100">
-          <p className="text-xs text-gray-400 mb-0.5">Pickup point</p>
+          <p className="text-xs text-gray-400 mb-0.5">{pointLabel(ride.direction)}</p>
           <p className="text-sm font-bold text-black leading-snug">{ride.pickup_point}</p>
           {ride.pickup_note && <p className="text-xs text-gray-400 mt-0.5">{ride.pickup_note}</p>}
         </div>
