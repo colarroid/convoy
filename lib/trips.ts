@@ -93,6 +93,7 @@ export async function createTrip(draft: OfferDraft): Promise<string> {
     pickup_note: draft.pickupNote || null,
     pickup_lat: pLat,
     pickup_lng: pLng,
+    locality: draft.pickupLocality || null,
     distance_km: distanceKm,
     vehicle: vehicle || null,
     color: draft.unknownVehicle ? null : (draft.color || null),

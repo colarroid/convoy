@@ -11,6 +11,8 @@ export interface FindDraft {
   direction?: TripDirection
   /** The member-side point: where to pick you up, or where you want dropping. */
   startingPlace?: string
+  /** Neighbourhood-level name from Places, for aggregate area stats. */
+  startLocality?: string
   startLat?: number
   startLng?: number
   selectedRideId?: string

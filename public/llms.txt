@@ -20,6 +20,9 @@ Key facts:
 - **Access model**: closed. A community code is required. Codes are issued by a
   community admin, not self-serve. One person can hold several codes and belong
   to several communities.
+- **Starting a community**: community owners create their community at
+  community.veesaa.co (name, code, destination address). Veesaa reviews and
+  approves each one before its code goes live.
 - **The community code does two things**: it proves you have access to that
   community, and it identifies the destination its trips are heading to. This is
   why riders never type a destination address.

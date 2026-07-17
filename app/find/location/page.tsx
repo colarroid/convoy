@@ -13,6 +13,7 @@ export default function FindLocationPage() {
   const returning = draft.direction === 'from_community'
   const [search, setSearch] = useState('')
   const [coords, setCoords] = useState<PlaceCoords | undefined>(undefined)
+  const [locality, setLocality] = useState<string | undefined>(undefined)
   const [finding, setFinding] = useState(false)
 
   // The last location used (from a previous search), offered as a quick tap.
@@ -32,7 +33,7 @@ export default function FindLocationPage() {
       const g = await geocodeAddress(search.trim())
       if (g) { lat = g.lat; lng = g.lng }
     }
-    saveFindDraft({ startingPlace: search.trim(), startLat: lat, startLng: lng })
+    saveFindDraft({ startingPlace: search.trim(), startLat: lat, startLng: lng, startLocality: locality })
     router.push('/find/results')
   }
 
@@ -60,7 +61,7 @@ export default function FindLocationPage() {
     >
       <AddressAutocomplete
         value={search}
-        onChange={(text, c) => { setSearch(text); setCoords(c) }}
+        onChange={(text, c, loc) => { setSearch(text); setCoords(c); setLocality(loc) }}
         placeholder={returning ? 'Enter where you want dropping' : 'Enter your starting location'}
         autoFocus
         wrapperClassName={`flex items-center gap-3 px-4 py-3.5 rounded-xl bg-gray-100 transition-all ${search ? 'ring-2 ring-black bg-white' : 'focus-within:ring-2 focus-within:ring-black focus-within:bg-white'}`}

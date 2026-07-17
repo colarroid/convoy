@@ -98,6 +98,7 @@ export default function FindResultsPage() {
           lng: draft.startLng,
           results: found.length,
           direction,
+          locality: draft.startLocality,
         })
         setWantId(id)
       })

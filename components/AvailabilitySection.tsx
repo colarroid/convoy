@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import ScheduleCallButton from '@/components/ScheduleCallButton'
 import GlobeNetwork from '@/components/GlobeNetwork'
 
 function LiveRow({ flag, name }: { flag: string; name: string }) {
@@ -53,10 +52,15 @@ export default function AvailabilitySection() {
           </div>
 
           <p className="text-sm font-semibold text-white mb-1">Bring Veesaa to your community</p>
-          <p className="text-sm text-gray-500 mb-5 leading-relaxed">Not live near you yet? Book a quick call and we&apos;ll help bring Veesaa to your community.</p>
+          <p className="text-sm text-gray-500 mb-5 leading-relaxed">Not live near you yet? Create your community in minutes and we&apos;ll review and approve it.</p>
 
           <div className="flex flex-wrap items-center gap-3">
-            <ScheduleCallButton className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-100" />
+            <a
+              href="https://community.veesaa.co"
+              className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-gray-100"
+            >
+              Create your community
+            </a>
             <Link
               href="/communities"
               className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"

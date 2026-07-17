@@ -49,7 +49,11 @@
       "Bash(npm init *)",
       "Bash(node -e \"require\\('sharp'\\);console.log\\('sharp ready'\\)\")",
       "Bash(grep -n \"Ride to \\\\${trip\" app/my-trips/page.tsx)",
-      "Bash(grep -rniI \"AddToCalendar\\\\|Ride to\\\\|ride to\\\\|community_name}\\\\`\\\\|Driving to\" \"app/my-trips/[id]/page.tsx\" \"app/my-trips/[id]/requests/page.tsx\" \"app/find/requested/page.tsx\" \"app/offer/posted/page.tsx\")"
+      "Bash(grep -rniI \"AddToCalendar\\\\|Ride to\\\\|ride to\\\\|community_name}\\\\`\\\\|Driving to\" \"app/my-trips/[id]/page.tsx\" \"app/my-trips/[id]/requests/page.tsx\" \"app/find/requested/page.tsx\" \"app/offer/posted/page.tsx\")",
+      "Bash(mkdir -p \"C:/Users/HP/Desktop/veesaa-community/app\" \"C:/Users/HP/Desktop/veesaa-community/lib\" \"C:/Users/HP/Desktop/veesaa-community/public\")",
+      "Bash(cp \"C:/Users/HP/Desktop/convoy/public/veesaa-logo-black.svg\" \"C:/Users/HP/Desktop/veesaa-community/public/\")",
+      "Bash(cp \"C:/Users/HP/Desktop/convoy/public/icons/favicon-32.png\" \"C:/Users/HP/Desktop/convoy/public/icons/favicon-16.png\" \"C:/Users/HP/Desktop/veesaa-community/public/\")",
+      "Bash(grep -E \"^NEXT_PUBLIC_SUPABASE_\\(URL|ANON_KEY\\)=\" \"C:/Users/HP/Desktop/convoy/.env.local\")"
     ]
   }
 }

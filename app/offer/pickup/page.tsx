@@ -16,6 +16,7 @@ export default function OfferPickupPage() {
     draft.pickupLat != null && draft.pickupLng != null ? { lat: draft.pickupLat, lng: draft.pickupLng } : undefined
   )
   const [note, setNote] = useState(draft.pickupNote ?? '')
+  const [locality, setLocality] = useState<string | undefined>(draft.pickupLocality)
   const [saving, setSaving] = useState(false)
 
   const canContinue = search.trim().length > 0
@@ -29,7 +30,7 @@ export default function OfferPickupPage() {
       const g = await geocodeAddress(search.trim())
       if (g) { lat = g.lat; lng = g.lng }
     }
-    saveDraft({ pickupPlace: search.trim(), pickupNote: note.trim(), pickupLat: lat, pickupLng: lng })
+    saveDraft({ pickupPlace: search.trim(), pickupNote: note.trim(), pickupLat: lat, pickupLng: lng, pickupLocality: locality })
     router.push('/offer/datetime')
   }
 
@@ -55,7 +56,7 @@ export default function OfferPickupPage() {
     >
       <AddressAutocomplete
         value={search}
-        onChange={(text, c) => { setSearch(text); setCoords(c) }}
+        onChange={(text, c, loc) => { setSearch(text); setCoords(c); setLocality(loc) }}
         placeholder={returning ? 'Search your drop-off point or landmark' : 'Search your pickup point or landmark'}
         autoFocus
         leftAdornment={<svg className="w-4 h-4 text-gray-400 shrink-0" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /></svg>}

@@ -57,8 +57,17 @@ never write as if Veesaa is a church product.
 > is the only place the old name survives; all identifiers, copy and assets are
 > Veesaa.
 
-**Admin creates communities. The main app only reads them via a code.** The main
-app can never create a community.
+**Communities are created in two places, never in the member app.** Veesaa staff
+create them in convoy-admin, and community owners self-serve at the third app,
+**veesaa-community** (`Desktop/veesaa-community`, community.veesaa.co, migration
+0040). Owner-created communities start `pending`; only `active` codes resolve
+anywhere. Owners are a separate login (same Supabase project, `community_owners`
+table, one owner one community) and get a dashboard: members who used the code,
+unmet demand from `ride_wants`, and top areas (aggregate `locality`, minimum 3
+people, captured forward-only from Places). Code changes are instant with a
+30-day cooldown; rotation soft-revokes stored memberships (0021), which is the
+warned-about consequence. Approval/rejection happens in convoy-admin and
+notifies the owner through the notifications pipeline.
 
 ---
 

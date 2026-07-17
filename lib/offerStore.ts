@@ -10,6 +10,8 @@ export interface OfferDraft {
   direction?: TripDirection
   /** The member-side point: pickup going there, drop-off coming back. */
   pickupPlace?: string
+  /** Neighbourhood-level name from Places, for aggregate area stats. */
+  pickupLocality?: string
   pickupNote?: string
   pickupLat?: number
   pickupLng?: number

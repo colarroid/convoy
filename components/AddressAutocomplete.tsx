@@ -10,7 +10,8 @@ export interface PlaceCoords { lat: number; lng: number }
 
 interface AddressAutocompleteProps {
   value: string
-  onChange: (text: string, coords?: PlaceCoords) => void
+  /** locality is the neighbourhood/suburb from Places, used for aggregate area stats. */
+  onChange: (text: string, coords?: PlaceCoords, locality?: string) => void
   placeholder?: string
   /** ISO country code(s) to bias suggestions to. Defaults to all launch countries. */
   country?: string | string[]
@@ -79,16 +80,23 @@ export default function AddressAutocomplete({
     setPredictions([])
     if (!places.current) { onChange(p.secondary ? `${p.main}, ${p.secondary}` : p.main); return }
     places.current.getDetails(
-      { placeId: p.placeId, fields: ['formatted_address', 'geometry'], sessionToken: token.current },
+      { placeId: p.placeId, fields: ['formatted_address', 'geometry', 'address_components'], sessionToken: token.current },
       (place: any, status: string) => {
         const g = (window as any).google
         // fresh session token after a details lookup (billing best practice)
         token.current = new g.maps.places.AutocompleteSessionToken()
         if (status === 'OK' && place) {
           const loc = place.geometry?.location
+          // Neighbourhood-level name for aggregate stats (never the full address).
+          const comps: any[] = place.address_components ?? []
+          const byType = (t: string) => comps.find(c => c.types?.includes(t))?.long_name as string | undefined
+          const locality =
+            byType('sublocality_level_1') ?? byType('sublocality') ??
+            byType('neighborhood') ?? byType('locality')
           onChange(
             place.formatted_address ?? p.main,
             loc ? { lat: loc.lat(), lng: loc.lng() } : undefined,
+            locality,
           )
         } else {
           onChange(p.secondary ? `${p.main}, ${p.secondary}` : p.main)

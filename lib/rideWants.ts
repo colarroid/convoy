@@ -13,6 +13,7 @@ export async function recordRideWant(params: {
   lng?: number
   results: number
   direction?: TripDirection
+  locality?: string
 }): Promise<string | null> {
   const { data, error } = await supabase.rpc('record_ride_want', {
     p_code: params.code,
@@ -21,6 +22,7 @@ export async function recordRideWant(params: {
     p_lng: params.lng ?? null,
     p_results: params.results,
     p_direction: params.direction ?? 'to_community',
+    p_locality: params.locality ?? null,
   })
   // Never let the signal break the rider's search.
   if (error) return null
