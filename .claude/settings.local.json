@@ -47,7 +47,9 @@
       "Bash(mkdir -p C:/Users/HP/AppData/Local/Temp/claude/C--Users-HP-Desktop-convoy/12480014-6781-4f47-bc82-bb68f3522ba3/scratchpad/icons)",
       "Bash(cp \"C:/Users/HP/Desktop/SVG/Veesaa-logo-mark.svg\" mark.svg)",
       "Bash(npm init *)",
-      "Bash(node -e \"require\\('sharp'\\);console.log\\('sharp ready'\\)\")"
+      "Bash(node -e \"require\\('sharp'\\);console.log\\('sharp ready'\\)\")",
+      "Bash(grep -n \"Ride to \\\\${trip\" app/my-trips/page.tsx)",
+      "Bash(grep -rniI \"AddToCalendar\\\\|Ride to\\\\|ride to\\\\|community_name}\\\\`\\\\|Driving to\" \"app/my-trips/[id]/page.tsx\" \"app/my-trips/[id]/requests/page.tsx\" \"app/find/requested/page.tsx\" \"app/offer/posted/page.tsx\")"
     ]
   }
 }
