@@ -247,6 +247,13 @@ OneSignal app id, `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` (optional).
 Server-only: `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`,
 `SUPABASE_SERVICE_ROLE_KEY` (admin app only, never expose).
 
+Supabase **edge function secrets** (`supabase secrets set ...`):
+`RESEND_API_KEY`, `ONESIGNAL_APP_ID`, `ONESIGNAL_REST_API_KEY`.
+
+Auth mail is separate from all of the above: it is configured in
+**Supabase -> Authentication -> SMTP Settings** (custom SMTP pointed at Resend).
+Setting `RESEND_API_KEY` alone does **not** fix password reset.
+
 Migrations are **applied by hand** in the Supabase SQL editor, in order.
 
 ---
@@ -256,7 +263,7 @@ Migrations are **applied by hand** in the Supabase SQL editor, in order.
 See `docs/SCALING.md` for the full "fine for now" list. Outstanding:
 
 - Rotate the pre-launch secrets (Cloudinary secret, DB password, OneSignal REST key).
-- Email (Resend) not fully wired.
+- Supabase Auth **rate limits** still default low; raise before a launch burst.
 - Editing a live posted trip isn't built (cancel and repost instead).
 - Admin logo upload is signed; admin is single-tier (no RBAC).
 - On Supabase Pro: custom auth domain, leaked-password protection, backups.

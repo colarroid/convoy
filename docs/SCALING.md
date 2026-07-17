@@ -55,7 +55,14 @@ Grouped by area, with a rough trigger for when to act.
 (Anon/publishable key, OneSignal App ID, and the Maps key are public-by-design.)
 
 ## Deferred features (not bugs, just not built yet)
-- **Email (Resend)**: transactional/marketing email not wired up.
+- ~~**Email (Resend)**~~ Done, and verified by delivered mail on both channels:
+  - **Auth mail** (password reset, signup confirmation) goes through Supabase
+    Auth custom SMTP pointed at Resend. This is the one that matters: on the
+    built-in Supabase SMTP it is rate-limited and lands in spam.
+  - **Notification mail** goes through the `push-on-notification` edge function
+    (`RESEND_API_KEY` secret), sending from `noreply@veesaa.co`.
+  - Still worth checking: Supabase **Auth rate limits** apply even with custom
+    SMTP and default low. Raise before a launch burst.
 - **Premium / paid tiers**: deferred.
 - ~~**PWA icons**~~ Done: generated from the Veesaa mark into `public/icons`
   (192/512, maskable 192/512, apple-touch 180, favicons 32/16) and referenced
