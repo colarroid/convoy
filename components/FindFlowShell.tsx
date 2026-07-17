@@ -21,17 +21,10 @@ export default function FindFlowShell({
   footer,
 }: FindFlowShellProps) {
   return (
-    <div className="min-h-screen lg:h-screen flex flex-col bg-white lg:overflow-hidden">
+    <div className="min-h-screen lg:h-screen flex flex-col bg-[#f5f4f1] lg:overflow-hidden">
       <AppNav />
 
       <div className="relative flex-1 lg:min-h-0 lg:overflow-hidden">
-        {/* Full-bleed hero background. The container below is centred, so a
-            half-viewport layer always ends in the middle of the grid gap. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/2 border-r border-black/[0.04] bg-[#f5f4f1] lg:block"
-        />
-
         {/* Same container as the navbar, so the content lines up with the logo. */}
         <div className="relative mx-auto w-full max-w-6xl px-5 md:px-8 lg:grid lg:h-full lg:grid-cols-2 lg:gap-12">
           {/* ── Desktop hero ── */}
@@ -70,7 +63,7 @@ export default function FindFlowShell({
               </div>
             </div>
 
-            <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-5 py-4
+            <div className="fixed bottom-0 left-0 right-0 bg-[#f5f4f1] border-t border-black/[0.06] px-5 py-4
                             lg:static lg:border-t-0 lg:bg-transparent lg:px-0 lg:pb-8 lg:pt-0">
               {footer}
             </div>
