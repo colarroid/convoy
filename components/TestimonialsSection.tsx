@@ -5,15 +5,24 @@ import Link from 'next/link'
 import { getExperiences, type Experience } from '@/lib/experiences'
 import ExperienceCard from '@/components/ExperienceCard'
 
-// Placeholder content shown until at least MIN_REAL pinned experiences exist.
-const MIN_REAL = 3
+// Placeholder content, shown only until real pinned experiences exist. As soon
+// as MIN_REAL members have shared theirs, these are replaced entirely.
+const MIN_REAL = 2
 const DEMO: Experience[] = [
-  { id: 'demo-1', name: 'Amara O.', photo_url: null, created_at: '', body: 'I drive the same route every week with three empty seats. Now I post the trip with our community code and neighbours ride along. Same journey, better company.' },
-  { id: 'demo-2', name: 'Tunde A.', photo_url: null, created_at: '', body: 'I used to guess who was going. Now I enter our code, see who is already heading there, and ask for a seat. Sorted in under a minute.' },
-  { id: 'demo-3', name: 'Chidinma E.', photo_url: null, created_at: '', body: 'The host approves who gets in, and everyone holds the same community code. I always know exactly who I am travelling with.' },
-  { id: 'demo-4', name: 'Daniel M.', photo_url: null, created_at: '', body: 'Four of us from work live on the same side of town. One code, one destination, and now it is one car instead of four.' },
-  { id: 'demo-5', name: 'Kemi B.', photo_url: null, created_at: '', body: 'I never type an address. The code already knows where we are going, so I just set my pickup point and show up.' },
-  { id: 'demo-6', name: 'Sarah L.', photo_url: null, created_at: '', body: 'It genuinely costs nothing. A neighbour had a spare seat, we met at the pickup point, and that was that.' },
+  {
+    id: 'demo-1',
+    name: 'Amara O.',
+    photo_url: null,
+    created_at: '',
+    body: "I never knew two people from my church lived in my area. Now I'm more motivated to go every Sunday morning, because there's always someone to go with.",
+  },
+  {
+    id: 'demo-2',
+    name: 'Tunde A.',
+    photo_url: null,
+    created_at: '',
+    body: "Got a free ride in under five minutes. A neighbour had a spare seat, we met at the pickup point, and that was that. What a way to connect with someone you already know but have never really chatted with.",
+  },
 ]
 
 export default function TestimonialsSection() {
@@ -49,7 +58,8 @@ export default function TestimonialsSection() {
           )}
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 md:mt-14">
+        {/* Columns follow the count, so two cards don't leave an empty third. */}
+        <div className={`mt-12 grid gap-5 sm:grid-cols-2 md:mt-14 ${items.length > 2 ? 'lg:grid-cols-3' : ''}`}>
           {items.map((t, i) => (
             <ExperienceCard key={t.id} item={t} index={i} />
           ))}
