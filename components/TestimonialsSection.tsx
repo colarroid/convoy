@@ -21,7 +21,7 @@ const DEMO: Experience[] = [
     name: 'Tunde A.',
     photo_url: null,
     created_at: '',
-    body: "Got a free ride in under five minutes. A neighbour had a spare seat, we met at the pickup point, and that was that. What a way to connect with someone you already know but have never really chatted with.",
+    body: "Got a free ride in under five minutes. What a way to connect with someone you already know but have never really chatted with.",
   },
 ]
 
