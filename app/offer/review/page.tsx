@@ -175,28 +175,13 @@ export default function OfferReviewPage() {
         {returning && (
           <div className="border-t border-gray-100 px-4 py-4">
             {/* Date and drop-off are carried over from your trip and stay fixed. */}
-            <div className="mb-5 rounded-xl bg-gray-50 p-4">
-              <p className="mb-3 text-[11px] font-semibold uppercase tracking-wide text-gray-400">Same as your trip</p>
-              <div className="space-y-3.5">
-                <div className="flex items-start gap-2.5">
-                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" />
-                  </svg>
-                  <div className="min-w-0">
-                    <p className="text-[11px] text-gray-400">Date</p>
-                    <p className="text-sm font-semibold text-black">{formatDate(draft.date ?? '')}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <svg className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 01-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0116 0z" /><circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <div className="min-w-0">
-                    <p className="text-[11px] text-gray-400">Drop-off point</p>
-                    <p className="text-sm font-semibold text-black leading-snug">{draft.pickupPlace ?? '-'}</p>
-                  </div>
-                </div>
-              </div>
+            <div className="mb-4">
+              <p className="text-xs text-gray-400 mb-0.5">Date</p>
+              <p className="text-sm font-bold text-black">{formatDate(draft.date ?? '')}</p>
+            </div>
+            <div className="mb-5">
+              <p className="text-xs text-gray-400 mb-0.5">Drop-off point</p>
+              <p className="text-sm font-bold text-black leading-snug">{draft.pickupPlace ?? '-'}</p>
             </div>
 
             <p className="text-sm font-semibold text-black mb-3">Seats on the way back</p>
