@@ -27,7 +27,7 @@ export default function OfferFlowShell({
           {/* ── Desktop hero ── */}
           <div className="hidden lg:flex lg:flex-col lg:justify-end lg:pb-14 lg:pr-6">
             <h2 className="text-4xl lg:text-5xl font-bold text-black tracking-tight leading-[1.05] mb-4">
-              Share your ride,<br />help your community.
+              Help someone<br />get there.
             </h2>
 
             <p className="text-gray-500 text-base leading-relaxed mb-6 max-w-md">
