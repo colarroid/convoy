@@ -53,7 +53,8 @@
       "Bash(mkdir -p \"C:/Users/HP/Desktop/veesaa-community/app\" \"C:/Users/HP/Desktop/veesaa-community/lib\" \"C:/Users/HP/Desktop/veesaa-community/public\")",
       "Bash(cp \"C:/Users/HP/Desktop/convoy/public/veesaa-logo-black.svg\" \"C:/Users/HP/Desktop/veesaa-community/public/\")",
       "Bash(cp \"C:/Users/HP/Desktop/convoy/public/icons/favicon-32.png\" \"C:/Users/HP/Desktop/convoy/public/icons/favicon-16.png\" \"C:/Users/HP/Desktop/veesaa-community/public/\")",
-      "Bash(grep -E \"^NEXT_PUBLIC_SUPABASE_\\(URL|ANON_KEY\\)=\" \"C:/Users/HP/Desktop/convoy/.env.local\")"
+      "Bash(grep -E \"^NEXT_PUBLIC_SUPABASE_\\(URL|ANON_KEY\\)=\" \"C:/Users/HP/Desktop/convoy/.env.local\")",
+      "Bash(curl -s \"https://community.veesaa.co/signup\")"
     ]
   }
 }
