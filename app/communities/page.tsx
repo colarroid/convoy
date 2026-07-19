@@ -9,17 +9,13 @@ import { getUser } from '@/lib/userStore'
 import { getPublicCommunities, type PublicCommunity } from '@/lib/communities'
 import { requestCall } from '@/lib/calls'
 import CommunityLogo from '@/components/CommunityLogo'
+import { COUNTRY_CODES } from '@/lib/countries'
 
-// ISO-2 -> flag + display name. Falls back to the raw code for anything else.
-const COUNTRY_META: Record<string, { flag: string; name: string }> = {
-  NG: { flag: '🇳🇬', name: 'Nigeria' },
-  CA: { flag: '🇨🇦', name: 'Canada' },
-  US: { flag: '🇺🇸', name: 'United States' },
-  GB: { flag: '🇬🇧', name: 'United Kingdom' },
-  GH: { flag: '🇬🇭', name: 'Ghana' },
-  KE: { flag: '🇰🇪', name: 'Kenya' },
-  ZA: { flag: '🇿🇦', name: 'South Africa' },
-}
+// ISO-2 -> flag + display name, derived from the live-countries list so it stays
+// in sync. Falls back to the raw code for anything else.
+const COUNTRY_META: Record<string, { flag: string; name: string }> = Object.fromEntries(
+  COUNTRY_CODES.map(c => [c.code, { flag: c.flag, name: c.name }]),
+)
 
 interface Group { code: string; flag: string; name: string; communities: PublicCommunity[] }
 

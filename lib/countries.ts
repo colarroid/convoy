@@ -13,7 +13,7 @@ export const COUNTRY_CODES: Country[] = [
 ]
 
 /** Country codes (ISO-3166-1 alpha-2, lowercase) we bias Google Places to. */
-export const PLACES_COUNTRIES = ['ng', 'ca']
+export const PLACES_COUNTRIES = COUNTRY_CODES.map(c => c.code.toLowerCase())
 
 /** Split a stored full phone (e.g. "+2348012345678") into country + local digits. */
 export function parsePhone(full?: string): { country: Country; local: string } {

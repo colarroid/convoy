@@ -63,7 +63,13 @@
       "Bash(sed -n '/export function Band/,/^}/p;/export function BandCell/,/^}/p;/export function SectionStrip/,/^}/p' components/ui.tsx)",
       "Bash(cp \"C:/Users/HP/Downloads/copy.svg\" \"C:/Users/HP/Downloads/upload.svg\" \"C:/Users/HP/Desktop/veesaa-community/public/\")",
       "Bash(cp \"C:/Users/HP/Downloads/copy.svg\" \"C:/Users/HP/Downloads/upload.svg\" \"C:/Users/HP/Desktop/convoy-admin/public/\")",
-      "Bash(xargs grep -ln \"export.*CommunityLogo\\\\|function CommunityLogo\")"
+      "Bash(xargs grep -ln \"export.*CommunityLogo\\\\|function CommunityLogo\")",
+      "Bash(xargs grep -ln \"AddressAutocomplete\\\\|locality\")",
+      "Bash(grep -viE \"className=\\\\\"field|className=\\\\\"?\\\\{?\\\\`?field|class=\\\\\"field\")",
+      "Bash(grep -rn \"className={\\\\`chip\\\\|className=\\\\\"chip\" \"app/\\(dash\\)\")",
+      "Bash(grep -rln \"dial\\\\|country.*code\\\\|\\\\\\\\+234\\\\|\\\\\\\\+1\\\\|PhoneInput\\\\|type=\\\\\"tel\\\\\"\\\\|type='tel'\" convoy/app convoy/components veesaa-community/components)",
+      "Bash(grep -rn \"\\\\\\\\+234\\\\|dialCode\\\\|dial_code\\\\|callingCode\" convoy)",
+      "Bash(grep -viE \"node_modules|//|/\\\\*\")"
     ]
   }
 }
