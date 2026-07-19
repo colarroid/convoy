@@ -1,6 +1,9 @@
 /** Single source of truth for site-wide SEO values. */
 
-export const SITE_URL = 'https://veesaa.co'
+// Must match the host actually served (Vercel redirects the apex to www), so
+// canonical tags, the sitemap, robots and JSON-LD all agree with what Google
+// indexes. A mismatch splits ranking signals and suppresses sitelinks.
+export const SITE_URL = 'https://www.veesaa.co'
 export const SITE_NAME = 'Veesaa'
 export const LEGAL_NAME = 'VZA Technologies Limited'
 export const SUPPORT_EMAIL = 'hello@veesaa.co'

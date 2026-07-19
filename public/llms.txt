@@ -65,14 +65,14 @@ ride-hailing needs, intercity ticketing, or anywhere outside Nigeria and Canada.
 
 ## Pages
 
-- [Home](https://veesaa.co/): what Veesaa is and the two ways to ride.
-- [How it works](https://veesaa.co/how-it-works): the four steps, plus community codes and trust.
-- [About](https://veesaa.co/about): the mission, why we are building it, and what we stand for.
-- [Communities](https://veesaa.co/communities): communities already live, and how to bring Veesaa to yours.
-- [Experiences](https://veesaa.co/experiences): real member stories.
-- [Help centre](https://veesaa.co/help): FAQs on offering, finding, codes, account, cost and safety.
-- [Privacy Policy](https://veesaa.co/privacy): NDPA (Nigeria) and PIPEDA (Canada) compliant.
-- [Terms of Use](https://veesaa.co/terms-of-use)
+- [Home](https://www.veesaa.co/): what Veesaa is and the two ways to ride.
+- [How it works](https://www.veesaa.co/how-it-works): the four steps, plus community codes and trust.
+- [About](https://www.veesaa.co/about): the mission, why we are building it, and what we stand for.
+- [Communities](https://www.veesaa.co/communities): communities already live, and how to bring Veesaa to yours.
+- [Experiences](https://www.veesaa.co/experiences): real member stories.
+- [Help centre](https://www.veesaa.co/help): FAQs on offering, finding, codes, account, cost and safety.
+- [Privacy Policy](https://www.veesaa.co/privacy): NDPA (Nigeria) and PIPEDA (Canada) compliant.
+- [Terms of Use](https://www.veesaa.co/terms-of-use)
 
 ## Notes
 

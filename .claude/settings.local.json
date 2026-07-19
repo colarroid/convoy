@@ -72,7 +72,8 @@
       "Bash(grep -viE \"node_modules|//|/\\\\*\")",
       "Bash(awk '/function public.get_my_community_stats/,/^\\\\$\\\\$ language|^\\\\$\\\\$;/' supabase/migrations/0040_community_dashboard.sql)",
       "Bash(rm -f convoy/lib/calls.ts convoy/components/ScheduleCallButton.tsx \"convoy-admin/app/\\(dash\\)/call-requests/page.tsx\")",
-      "Bash(rmdir \"convoy-admin/app/\\(dash\\)/call-requests\")"
+      "Bash(rmdir \"convoy-admin/app/\\(dash\\)/call-requests\")",
+      "Bash(curl -s https://www.veesaa.co/sitemap.xml)"
     ]
   }
 }
