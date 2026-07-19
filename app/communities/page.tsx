@@ -134,17 +134,25 @@ export default function CommunitiesPage() {
         {/* CTA */}
         <div className="mt-4 flex flex-col items-start justify-between gap-4 rounded-2xl bg-gray-50 px-6 py-6 sm:flex-row sm:items-center">
           <div>
-            <p className="mb-0.5 text-sm font-bold text-black">Don&apos;t see your community?</p>
+            <p className="mb-0.5 text-sm font-bold text-black">Bring Veesaa to your community</p>
             <p className="text-sm leading-relaxed text-gray-500">
-              Tell us where you are and we&apos;ll reach out when Veesaa lands in your community.
+              Not live near you yet? Create your community in minutes and we&apos;ll review and approve it.
             </p>
           </div>
-          <button
-            onClick={() => setCallOpen(true)}
-            className="shrink-0 rounded-xl bg-black px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
-          >
-            Schedule a call
-          </button>
+          <div className="flex shrink-0 flex-col items-stretch gap-2 sm:items-end">
+            <a
+              href="https://community.veesaa.co/signup"
+              className="rounded-xl bg-black px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-gray-800"
+            >
+              Create your community
+            </a>
+            <button
+              onClick={() => setCallOpen(true)}
+              className="text-xs font-medium text-gray-500 transition-colors hover:text-black"
+            >
+              Or schedule a call
+            </button>
+          </div>
         </div>
 
         <p className="mt-6 text-center text-xs text-gray-400">
