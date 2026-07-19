@@ -10,7 +10,7 @@ export default function CommunityLogo({ src, name, className = 'w-12 h-12' }: Co
   return (
     <div className={`rounded-xl overflow-hidden flex items-center justify-center shrink-0 ${src ? 'bg-white border border-gray-200' : 'bg-gray-900'} ${className}`}>
       {src
-        ? <img src={src} alt={name ?? 'Community'} className="w-full h-full object-contain p-1" />
+        ? <img src={src} alt={name ?? 'Community'} className="w-full h-full object-contain" />
         : <span className="text-white font-bold">{(name?.trim()?.[0] ?? 'C').toUpperCase()}</span>}
     </div>
   )

@@ -70,7 +70,9 @@
       "Bash(grep -rln \"dial\\\\|country.*code\\\\|\\\\\\\\+234\\\\|\\\\\\\\+1\\\\|PhoneInput\\\\|type=\\\\\"tel\\\\\"\\\\|type='tel'\" convoy/app convoy/components veesaa-community/components)",
       "Bash(grep -rn \"\\\\\\\\+234\\\\|dialCode\\\\|dial_code\\\\|callingCode\" convoy)",
       "Bash(grep -viE \"node_modules|//|/\\\\*\")",
-      "Bash(awk '/function public.get_my_community_stats/,/^\\\\$\\\\$ language|^\\\\$\\\\$;/' supabase/migrations/0040_community_dashboard.sql)"
+      "Bash(awk '/function public.get_my_community_stats/,/^\\\\$\\\\$ language|^\\\\$\\\\$;/' supabase/migrations/0040_community_dashboard.sql)",
+      "Bash(rm -f convoy/lib/calls.ts convoy/components/ScheduleCallButton.tsx \"convoy-admin/app/\\(dash\\)/call-requests/page.tsx\")",
+      "Bash(rmdir \"convoy-admin/app/\\(dash\\)/call-requests\")"
     ]
   }
 }
