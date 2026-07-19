@@ -54,7 +54,16 @@
       "Bash(cp \"C:/Users/HP/Desktop/convoy/public/veesaa-logo-black.svg\" \"C:/Users/HP/Desktop/veesaa-community/public/\")",
       "Bash(cp \"C:/Users/HP/Desktop/convoy/public/icons/favicon-32.png\" \"C:/Users/HP/Desktop/convoy/public/icons/favicon-16.png\" \"C:/Users/HP/Desktop/veesaa-community/public/\")",
       "Bash(grep -E \"^NEXT_PUBLIC_SUPABASE_\\(URL|ANON_KEY\\)=\" \"C:/Users/HP/Desktop/convoy/.env.local\")",
-      "Bash(curl -s \"https://community.veesaa.co/signup\")"
+      "Bash(curl -s \"https://community.veesaa.co/signup\")",
+      "Bash(node -e ' *)",
+      "Bash(python -)",
+      "Bash(grep -c \"SectionStrip title=\\\\|SectionStrip$\" app/page.tsx)",
+      "Bash(curl -s \"https://administrator.veesaa.co/login\")",
+      "Bash(sed -n '/function SectionStrip/,/^}/p' app/page.tsx)",
+      "Bash(sed -n '/export function Band/,/^}/p;/export function BandCell/,/^}/p;/export function SectionStrip/,/^}/p' components/ui.tsx)",
+      "Bash(cp \"C:/Users/HP/Downloads/copy.svg\" \"C:/Users/HP/Downloads/upload.svg\" \"C:/Users/HP/Desktop/veesaa-community/public/\")",
+      "Bash(cp \"C:/Users/HP/Downloads/copy.svg\" \"C:/Users/HP/Downloads/upload.svg\" \"C:/Users/HP/Desktop/convoy-admin/public/\")",
+      "Bash(xargs grep -ln \"export.*CommunityLogo\\\\|function CommunityLogo\")"
     ]
   }
 }

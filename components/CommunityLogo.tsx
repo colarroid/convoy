@@ -5,12 +5,12 @@ interface CommunityLogoProps {
   className?: string
 }
 
-/** A community's logo as a rounded square, with an initial fallback. */
+/** A community's logo as a square, shown in full (never cropped), with an initial fallback. */
 export default function CommunityLogo({ src, name, className = 'w-12 h-12' }: CommunityLogoProps) {
   return (
-    <div className={`rounded-xl overflow-hidden bg-gray-900 flex items-center justify-center shrink-0 ${className}`}>
+    <div className={`rounded-xl overflow-hidden flex items-center justify-center shrink-0 ${src ? 'bg-white border border-gray-200' : 'bg-gray-900'} ${className}`}>
       {src
-        ? <img src={src} alt={name ?? 'Community'} className="w-full h-full object-cover" />
+        ? <img src={src} alt={name ?? 'Community'} className="w-full h-full object-contain p-1" />
         : <span className="text-white font-bold">{(name?.trim()?.[0] ?? 'C').toUpperCase()}</span>}
     </div>
   )

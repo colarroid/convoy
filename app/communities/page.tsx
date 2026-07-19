@@ -8,6 +8,7 @@ import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
 import { getPublicCommunities, type PublicCommunity } from '@/lib/communities'
 import { requestCall } from '@/lib/calls'
+import CommunityLogo from '@/components/CommunityLogo'
 
 // ISO-2 -> flag + display name. Falls back to the raw code for anything else.
 const COUNTRY_META: Record<string, { flag: string; name: string }> = {
@@ -19,9 +20,6 @@ const COUNTRY_META: Record<string, { flag: string; name: string }> = {
   KE: { flag: '🇰🇪', name: 'Kenya' },
   ZA: { flag: '🇿🇦', name: 'South Africa' },
 }
-
-const initials = (name: string) =>
-  name.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase()
 
 interface Group { code: string; flag: string; name: string; communities: PublicCommunity[] }
 
@@ -125,18 +123,7 @@ export default function CommunitiesPage() {
                     key={`${c.name}-${i}`}
                     className="flex items-center gap-3.5 rounded-2xl border border-gray-200 p-4 transition-all hover:border-gray-400 hover:shadow-sm"
                   >
-                    <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-900 text-sm font-bold text-white">
-                      {initials(c.name)}
-                      {c.logo_url && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={c.logo_url}
-                          alt=""
-                          className="absolute inset-0 h-full w-full object-cover"
-                          onError={(e) => { e.currentTarget.style.display = 'none' }}
-                        />
-                      )}
-                    </span>
+                    <CommunityLogo src={c.logo_url} name={c.name} className="h-11 w-11 text-sm" />
                     <span className="min-w-0">
                       <span className="block truncate text-sm font-semibold text-black">{c.name}</span>
                       {c.area && <span className="block truncate text-xs text-gray-500">{c.area}</span>}

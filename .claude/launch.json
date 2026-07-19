@@ -8,6 +8,12 @@
       "port": 3000
     },
     {
+      "name": "admin",
+      "runtimeExecutable": "C:\\Users\\HP\\AppData\\Local\\Temp\\claude\\C--Users-HP-Desktop-convoy\\12480014-6781-4f47-bc82-bb68f3522ba3\\scratchpad\\dev-admin.cmd",
+      "runtimeArgs": [],
+      "port": 3003
+    },
+    {
       "name": "community",
       "runtimeExecutable": "C:\\Users\\HP\\AppData\\Local\\Temp\\claude\\C--Users-HP-Desktop-convoy\\12480014-6781-4f47-bc82-bb68f3522ba3\\scratchpad\\dev-community.cmd",
       "runtimeArgs": [],
