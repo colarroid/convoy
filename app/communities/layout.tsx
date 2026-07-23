@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Communities',
   description:
-    'See the communities already sharing rides on Veesaa, and bring Veesaa to yours. Live in Nigeria and Canada, growing one trusted community at a time.',
+    'Veesaa is already bringing communities together by providing a free lift-sharing service to members, making every journey fun. Live in Nigeria and Canada.',
   alternates: { canonical: '/communities' },
   openGraph: {
     title: 'Communities on Veesaa',

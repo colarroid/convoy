@@ -12,7 +12,7 @@ export const SUPPORT_EMAIL = 'hello@veesaa.co'
 export const TAGLINE = 'Community lift-sharing'
 
 export const SITE_DESCRIPTION =
-  'Veesaa is free community lift-sharing. Enter your community code and Veesaa connects you with people from that same community heading to the same place at the same time, so you ride together. Live in Nigeria and Canada.'
+  'Veesaa is a free community lift-sharing platform that connects neighbours heading to the same community destination. Live in Nigeria and Canada.'
 
 /** Countries the service currently operates in. */
 export const COUNTRIES = ['Nigeria', 'Canada'] as const
