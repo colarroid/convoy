@@ -2,9 +2,8 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import Navbar from '@/components/Navbar'
+import SiteHeader from '@/components/SiteHeader'
 import HeroMap from '@/components/HeroMap'
-import AppNav from '@/components/AppNav'
 import MobileHero from '@/components/MobileHero'
 import ManifestoSection from '@/components/ManifestoSection'
 import AvailabilitySection from '@/components/AvailabilitySection'
@@ -47,7 +46,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {loggedIn ? <AppNav /> : <Navbar showAuth="both" />}
+      <SiteHeader />
 
       {/* Mobile hero:intent cards */}
       <section className="md:hidden bg-white">

@@ -1,26 +1,22 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Navbar from '@/components/Navbar'
-import AppNav from '@/components/AppNav'
+import SiteHeader from '@/components/SiteHeader'
 import Footer from '@/components/Footer'
-import { getUser } from '@/lib/userStore'
 import { getExperiences, type Experience } from '@/lib/experiences'
 import ExperienceCard from '@/components/ExperienceCard'
 
 export default function ExperiencesPage() {
-  const [loggedIn, setLoggedIn] = useState(false)
   const [items, setItems] = useState<Experience[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setLoggedIn(!!getUser())
     getExperiences(false).then(setItems).catch(() => {}).finally(() => setLoading(false))
   }, [])
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {loggedIn ? <AppNav /> : <Navbar showAuth="login" />}
+      <SiteHeader />
 
       <div className="border-b border-gray-200 bg-white">
         <div className="max-w-5xl mx-auto px-5 md:px-8 py-3">

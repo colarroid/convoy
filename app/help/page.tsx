@@ -2,8 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
-import AppNav from '@/components/AppNav'
+import SiteHeader from '@/components/SiteHeader'
 import Footer from '@/components/Footer'
 import ReportModal from '@/components/ReportModal'
 import { getUser } from '@/lib/userStore'
@@ -131,13 +130,11 @@ const SECTIONS: FaqSection[] = [
 ]
 
 export default function HelpPage() {
-  const [loggedIn, setLoggedIn] = useState(false)
   const [showReport, setShowReport] = useState(false)
   const [active, setActive] = useState(SECTIONS[0].id)
   const [openKey, setOpenKey] = useState<string | null>(null)
   const refs = useRef<Record<string, HTMLElement | null>>({})
 
-  useEffect(() => { setLoggedIn(!!getUser()) }, [])
 
   // Scrollspy: highlight the section nearest the top.
   useEffect(() => {
@@ -161,7 +158,7 @@ export default function HelpPage() {
           __html: JSON.stringify(faqGraph(SECTIONS.flatMap((s) => s.items))),
         }}
       />
-      {loggedIn ? <AppNav /> : <Navbar showAuth="login" />}
+      <SiteHeader />
 
       {/* Sub-header */}
       <div className="border-b border-gray-200 bg-white">

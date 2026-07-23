@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-import Navbar from '@/components/Navbar'
+import SiteHeader from '@/components/SiteHeader'
 import Footer from '@/components/Footer'
 
 /**
@@ -27,7 +27,7 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Navbar showAuth="both" />
+      <SiteHeader />
 
       {/* ── Bold parallax hero ── */}
       <section className="relative overflow-hidden bg-black text-white">

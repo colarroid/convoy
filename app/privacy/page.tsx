@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Navbar from '@/components/Navbar'
+import SiteHeader from '@/components/SiteHeader'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
@@ -202,7 +202,7 @@ function BlockView({ block }: { block: Block }) {
 export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      <Navbar showAuth="login" />
+      <SiteHeader />
 
       {/* Sub-header */}
       <div className="border-b border-gray-200 bg-white">

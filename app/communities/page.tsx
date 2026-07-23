@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
-import AppNav from '@/components/AppNav'
+import SiteHeader from '@/components/SiteHeader'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
 import { getPublicCommunities, type PublicCommunity } from '@/lib/communities'
@@ -19,12 +18,10 @@ const COUNTRY_META: Record<string, { flag: string; name: string }> = Object.from
 interface Group { code: string; flag: string; name: string; communities: PublicCommunity[] }
 
 export default function CommunitiesPage() {
-  const [loggedIn, setLoggedIn] = useState(false)
   const [groups, setGroups] = useState<Group[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setLoggedIn(!!getUser())
     getPublicCommunities()
       .then((list) => {
         const byCode = new Map<string, PublicCommunity[]>()
@@ -49,7 +46,7 @@ export default function CommunitiesPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {loggedIn ? <AppNav /> : <Navbar showAuth="login" />}
+      <SiteHeader />
 
       {/* Sub-header */}
       <div className="border-b border-gray-200 bg-white">

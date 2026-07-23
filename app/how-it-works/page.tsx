@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Navbar from '@/components/Navbar'
+import SiteHeader from '@/components/SiteHeader'
 import Footer from '@/components/Footer'
 import { howToGraph } from '@/lib/jsonLd'
 
@@ -20,7 +20,7 @@ export default function HowItWorksPage() {
           __html: JSON.stringify(howToGraph(STEPS.map((s) => ({ name: s.title, text: s.body })))),
         }}
       />
-      <Navbar showAuth="both" />
+      <SiteHeader />
 
       {/* ── Header ── */}
       <section className="bg-black px-5 py-24 text-white md:px-8 md:py-32">
