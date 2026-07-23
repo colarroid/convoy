@@ -24,10 +24,14 @@ export const COUNTRIES = ['Nigeria', 'Canada'] as const
  */
 export const SOCIAL_LINKS = {
   linkedin: 'https://www.linkedin.com/company/veesaa',
-  instagram: 'https://www.instagram.com/veesaa.co',
+  instagram: 'https://www.instagram.com/useveesaa',
+  x: 'https://x.com/useveesaa',
 } as const
 
 export const SAME_AS = Object.values(SOCIAL_LINKS)
+
+/** Handle used for X card attribution in metadata. */
+export const X_HANDLE = '@useveesaa'
 
 export const OG_IMAGE = {
   url: `${SITE_URL}/og.png`,

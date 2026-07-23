@@ -73,7 +73,11 @@
       "Bash(awk '/function public.get_my_community_stats/,/^\\\\$\\\\$ language|^\\\\$\\\\$;/' supabase/migrations/0040_community_dashboard.sql)",
       "Bash(rm -f convoy/lib/calls.ts convoy/components/ScheduleCallButton.tsx \"convoy-admin/app/\\(dash\\)/call-requests/page.tsx\")",
       "Bash(rmdir \"convoy-admin/app/\\(dash\\)/call-requests\")",
-      "Bash(curl -s https://www.veesaa.co/sitemap.xml)"
+      "Bash(curl -s https://www.veesaa.co/sitemap.xml)",
+      "Bash(curl -s -o /dev/null -w \"http=%{http_code}  type=%{content_type}  redirects=%{num_redirects}  final=%{url_effective}\\\\n\" -L \"https://www.veesaa.co/sitemap.xml\")",
+      "Bash(curl -s -o /dev/null -w \"http=%{http_code} -> %{redirect_url}\\\\n\" \"https://www.veesaa.co/sitemap.xml\")",
+      "Bash(curl -s \"https://www.veesaa.co/sitemap.xml\")",
+      "Bash(curl -s \"https://www.veesaa.co/robots.txt\")"
     ]
   }
 }

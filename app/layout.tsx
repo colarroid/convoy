@@ -5,7 +5,7 @@ import CookieNotice from '@/components/CookieNotice'
 import OneSignalInit from '@/components/OneSignalInit'
 import AuthGate from '@/components/AuthGate'
 import InstallPrompt from '@/components/InstallPrompt'
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, LEGAL_NAME, OG_IMAGE } from '@/lib/seo'
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, LEGAL_NAME, OG_IMAGE, X_HANDLE } from '@/lib/seo'
 import { siteGraph } from '@/lib/jsonLd'
 
 const sans = localFont({
@@ -52,6 +52,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: X_HANDLE,
+    creator: X_HANDLE,
     title: 'Veesaa | Free community lift-sharing',
     description: SITE_DESCRIPTION,
     images: [OG_IMAGE.url],
