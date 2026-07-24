@@ -46,6 +46,7 @@ export const PUBLIC_ROUTES = [
   { path: '/how-it-works', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/about', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/communities', priority: 0.8, changeFrequency: 'weekly' as const },
+  { path: '/blog', priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/experiences', priority: 0.7, changeFrequency: 'weekly' as const },
   { path: '/help', priority: 0.7, changeFrequency: 'monthly' as const },
   { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' as const },

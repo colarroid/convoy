@@ -80,7 +80,10 @@
       "Bash(curl -s \"https://www.veesaa.co/robots.txt\")",
       "Bash(curl -s https://www.veesaa.co/)",
       "Bash(grep -rniE \"code.{0,40}\\(destination|address|where|heading|shared place\\)|\\(destination|shared place\\).{0,40}code|code \\(is|doubles|both\\)\" app components lib public)",
-      "Bash(node -e 'const d=\"Enter your community code, pick a direction, offer or find a ride, and travel together for free. Your code unlocks the community and anchors one end of every trip, so you never type that address.\"; console.log\\(\"how-it-works meta:\", d.length, \"chars\", d.length<=160?\"OK\":\"over 160, will truncate\"\\)')"
+      "Bash(node -e 'const d=\"Enter your community code, pick a direction, offer or find a ride, and travel together for free. Your code unlocks the community and anchors one end of every trip, so you never type that address.\"; console.log\\(\"how-it-works meta:\", d.length, \"chars\", d.length<=160?\"OK\":\"over 160, will truncate\"\\)')",
+      "Bash(node -e 'const p=require\\(\"./package.json\"\\);console.log\\(JSON.stringify\\(p.dependencies,null,2\\)\\)')",
+      "Bash(npm audit *)",
+      "Bash(node -e 'console.log\\(require\\(\"tailwindcss/package.json\"\\).version\\)')"
     ]
   }
 }

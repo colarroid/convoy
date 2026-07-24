@@ -8,6 +8,7 @@ import MobileHero from '@/components/MobileHero'
 import ManifestoSection from '@/components/ManifestoSection'
 import AvailabilitySection from '@/components/AvailabilitySection'
 import TestimonialsSection from '@/components/TestimonialsSection'
+import NewsSection from '@/components/NewsSection'
 import StatCardSection from '@/components/StatCardSection'
 import Footer from '@/components/Footer'
 import { getUser } from '@/lib/userStore'
@@ -117,6 +118,7 @@ export default function LandingPage() {
       />
       <AvailabilitySection />
       <TestimonialsSection />
+      <NewsSection />
 
       {/* Footer */}
       <Footer id="contact" mobileSpacer />

@@ -54,6 +54,7 @@ const COLUMNS = [
     links: [
       { href: '/about', label: 'About' },
       { href: '/how-it-works', label: 'How it works' },
+      { href: '/blog', label: 'News and updates' },
     ],
   },
   {

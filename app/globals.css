@@ -103,3 +103,24 @@ h1, h2, h3, h4, h5, h6 {
     animation: none;
   }
 }
+
+/* Blog article body, rendered from markdown. Scoped so it only styles post
+   content and never leaks into the app UI. */
+.post-body { @apply text-[15px] leading-[1.75] text-gray-700; }
+.post-body > * + * { @apply mt-5; }
+.post-body h2 { @apply mt-10 text-xl font-bold tracking-tight text-black md:text-2xl; }
+.post-body h3 { @apply mt-8 text-lg font-bold tracking-tight text-black; }
+.post-body p { @apply leading-[1.75]; }
+.post-body a { @apply font-medium text-black underline underline-offset-2 hover:no-underline; }
+.post-body strong { @apply font-semibold text-black; }
+.post-body ul { @apply list-disc space-y-2 pl-5; }
+.post-body ol { @apply list-decimal space-y-2 pl-5; }
+.post-body blockquote { @apply border-l-2 border-gray-300 pl-4 italic text-gray-500; }
+.post-body img { @apply w-full rounded-2xl border border-gray-200; }
+.post-body hr { @apply border-gray-200; }
+.post-body code { @apply rounded bg-gray-100 px-1.5 py-0.5 text-[13px] text-black; }
+.post-body pre { @apply overflow-x-auto rounded-xl bg-gray-900 p-4 text-[13px] text-white; }
+.post-body pre code { @apply bg-transparent p-0 text-white; }
+.post-body table { @apply w-full border-collapse text-sm; }
+.post-body th, .post-body td { @apply border border-gray-200 px-3 py-2 text-left; }
+.post-body th { @apply bg-gray-50 font-semibold text-black; }
