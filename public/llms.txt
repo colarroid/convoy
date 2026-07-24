@@ -1,9 +1,10 @@
 # Veesaa
 
 > Veesaa is free community lift-sharing (carpooling). Members enter a private
-> community code, which both grants access to that community and identifies the
-> shared destination. Veesaa then connects people from that same community who
-> are heading to the same place at the same time, so they ride together.
+> community code, which both grants access to that community and anchors one end
+> of the trip: the place members travel to on the way there and set off from on
+> the way back. Veesaa then connects people from that same community who are
+> heading the same way at the same time, so they ride together.
 > Operated by VZA Technologies Limited. Live in Nigeria and Canada.
 
 ## What Veesaa is
@@ -24,8 +25,11 @@ Key facts:
   community.veesaa.co (name, code, destination address). Veesaa reviews and
   approves each one before its code goes live.
 - **The community code does two things**: it proves you have access to that
-  community, and it identifies the destination its trips are heading to. This is
-  why riders never type a destination address.
+  community, and it anchors one end of every trip, the place members travel to
+  and back from. This is why members never type the community address.
+- **Direction**: every trip is either heading to the community or coming back
+  from it. The member-side point is the pickup going there and the drop-off
+  coming back. One code covers both directions.
 - **Availability**: Nigeria and Canada.
 - **Operator**: VZA Technologies Limited.
 - **Contact**: hello@veesaa.co
@@ -33,14 +37,14 @@ Key facts:
 ## How it works
 
 1. **Enter your community code.** The code gives you access to a community and
-   lets you offer or join a ride to that destination. No destination address to type.
-2. **Offer a ride or find one.** Hosts post a departure time and pickup point.
-   Riders browse people from their community already heading the same way and
-   request a seat.
+   fixes one end of the trip. No community address to type.
+2. **Offer a ride or find one.** Pick a direction, to the community or back from
+   it. Hosts post a departure time and their pickup point. Riders browse people
+   from their community already heading the same way and request a seat.
 3. **Match with your neighbours.** The host sees who is seeking a ride and
    approves them. Everyone on a trip belongs to the same community.
-4. **Ride together.** Meet at the agreed pickup point and go to the destination
-   together, for free.
+4. **Ride together.** Meet at the agreed point and travel together, to the
+   community or home again, for free.
 
 ## Who it is for
 

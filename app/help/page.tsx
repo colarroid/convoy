@@ -60,7 +60,7 @@ const SECTIONS: FaqSection[] = [
     icon: ICONS.car,
     title: 'Offering a ride',
     items: [
-      { q: 'How do I offer a ride?', a: 'Tap Offer a ride, enter your community code, then add your destination, pickup point, date, time and how many seats you have. Once posted, members of that community can request to join.' },
+      { q: 'How do I offer a ride?', a: 'Tap Offer a ride and enter your community code. Choose which way you are driving, to the community or back from it, then add the date, time, your pickup point and how many seats you have. You never type the community address, the code already covers it. Once posted, members of that community can request to join.' },
       { q: 'Can I edit a ride after posting?', a: 'To keep things clear for anyone who has joined, posted rides are not edited in place. If details change, cancel the ride and post a fresh one so everyone sees the update.' },
       { q: 'How do I cancel a ride I offered?', a: 'Open the ride in My trips and choose to cancel it. Anyone who joined is notified automatically.' },
       { q: 'How do I approve or decline requests?', a: 'When someone asks to join you get a notification. Open the ride in My trips to see pending requests and approve or decline each one. Approving shares contact details so you can arrange the pickup.' },
@@ -73,7 +73,7 @@ const SECTIONS: FaqSection[] = [
     icon: ICONS.search,
     title: 'Finding a ride',
     items: [
-      { q: 'How do I find a ride?', a: 'Tap Find a ride, enter your community code and your destination. Veesaa shows rides from members of that community heading the same way, with the closest pickups first.' },
+      { q: 'How do I find a ride?', a: 'Tap Find a ride and enter your community code. Choose which way you are going, to the community or back from it, then set where you need picking up. Veesaa shows rides from members of that community heading the same way, with the closest pickups first.' },
       { q: 'How do I request to join a ride?', a: 'Open a ride that suits you and send a request to the host. They are notified and can approve or decline.' },
       { q: 'What happens after I send a request?', a: 'The host reviews it and you are notified when it is approved or declined. Once approved you will see the host’s contact details to arrange the pickup.' },
       { q: 'Can I cancel my request?', a: 'Yes. Go to My trips and withdraw your request or leave the ride. The host is notified so the seat can be freed up.' },
@@ -85,7 +85,7 @@ const SECTIONS: FaqSection[] = [
     icon: ICONS.building,
     title: 'Communities & codes',
     items: [
-      { q: 'What is a community code?', a: 'A community code is a private key to a trusted group, like your estate, parish or campus. It makes sure you only ride with verified members of that community.' },
+      { q: 'What is a community code?', a: 'A community code is a private key to a trusted group, like your estate, parish or campus. It does two things: it makes sure you only ride with verified members of that community, and it anchors one end of every trip, the place members travel to and back from, so you never type that address yourself.' },
       { q: 'Where do I get a community code?', a: 'From your community admin, the person who set Veesaa up for your group. Ask them to share it with you.' },
       { q: 'Do I need to enter the code every time?', a: 'No. Once you have entered a code, Veesaa remembers that community so you can jump straight back in next time.' },
       { q: 'Who creates community codes?', a: 'A community admin creates and manages the code from the admin dashboard, and decides who the community is for.' },

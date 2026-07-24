@@ -57,7 +57,8 @@ export function siteGraph() {
     },
     featureList: [
       'Join a private community with a community code',
-      'The community code doubles as the shared destination, so no address to type',
+      'The community code anchors one end of every trip, the place members travel to and back from, so no address to type',
+      'Offer or find rides in both directions, to the community and back again',
       'Offer a ride and approve neighbours who request a seat',
       'Find a ride from someone in your community heading the same way',
       'Agree a pickup point and travel together for free',
@@ -77,7 +78,7 @@ export function siteGraph() {
     provider: { '@id': `${SITE_URL}/#organization` },
     areaServed: COUNTRIES.map((name) => ({ '@type': 'Country', name })),
     description:
-      'Veesaa coordinates free shared rides inside closed communities. Members enter a community code, which both grants access to that community and identifies the shared destination. Hosts post a departure time and pickup point; riders request a seat and the host approves.',
+      'Veesaa coordinates free shared rides inside closed communities. Members enter a community code, which both grants access to that community and anchors one end of the trip: the place members travel to on the way there and set off from on the way back. Hosts pick a direction and post a departure time and pickup point; riders request a seat and the host approves.',
     isRelatedTo: ['Carpooling', 'Ridesharing', 'Commuting', 'Sustainable transport'],
   }
 

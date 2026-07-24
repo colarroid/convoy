@@ -149,7 +149,7 @@ const STEPS: { n: number; title: string; body: string; gradient: string; icon: R
   {
     n: 1,
     title: 'Enter your community code',
-    body: 'Your code is your destination. It gives you access to a community and lets you offer or join a ride to that destination, so you never type a destination address. Enter your community code and we know where you are going.',
+    body: 'Your code is one end of every trip. It is where you are heading on the way there, and where you set off from on the way back, so you never type that address. It is also your access pass, proving you belong to that community.',
     gradient: 'from-blue-500 to-blue-700',
     icon: (
       <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -161,7 +161,7 @@ const STEPS: { n: number; title: string; body: string; gradient: string; icon: R
   {
     n: 2,
     title: 'Offer a ride or find one',
-    body: 'Post your departure as a host with a pickup point and time, or browse neighbours who are already heading your way and request a seat. Either path takes under a minute.',
+    body: 'Choose which way you are going, to the community or back from it, then post your departure as a host with a time and a pickup point, or browse neighbours already heading that way and request a seat. Either path takes under a minute.',
     gradient: 'from-neutral-800 to-black',
     icon: (
       <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -185,7 +185,7 @@ const STEPS: { n: number; title: string; body: string; gradient: string; icon: R
   {
     n: 4,
     title: 'Ride together',
-    body: 'Meet at the agreed pickup point and go together to the destination. For free, no strangers, and every shared kilometre counts, bringing the community closer.',
+    body: 'Meet at the agreed point and travel together, to the community or home again. For free, no strangers, and every shared kilometre counts, bringing the community closer.',
     gradient: 'from-neutral-800 to-black',
     icon: (
       <svg className="h-14 w-14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -199,7 +199,7 @@ const STEPS: { n: number; title: string; body: string; gradient: string; icon: R
 const FEATURES: { title: string; body: string; icon: React.ReactNode }[] = [
   {
     title: 'Community codes',
-    body: 'Your code does two things: it gives you access to a closed community, and it tells us the destination its trips are heading to. Hold more than one code to belong to more than one community.',
+    body: 'Your code does two things: it gives you access to a closed community, and it anchors one end of every trip, the place members travel to and back from. Hold more than one code to belong to more than one community.',
     icon: (
       <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M9 9l-1.5 6M15 9l-1.5 6M8 12h8" />
