@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm'
 import SiteHeader from '@/components/SiteHeader'
 import Footer from '@/components/Footer'
 import PostCardLink from '@/components/PostCardLink'
-import { getPost, getPosts, formatPostDate, readingMinutes } from '@/lib/blog'
+import { getPost, getPosts, formatPostDate, readingMinutes, postDescription } from '@/lib/blog'
 import { SITE_URL, SITE_NAME, OG_IMAGE } from '@/lib/seo'
 
 export const revalidate = 60
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const post = await getPost(params.slug)
   if (!post) return { title: 'Post not found' }
 
-  const description = post.excerpt ?? undefined
+  const description = postDescription(post)
   const image = post.cover_url ?? OG_IMAGE.url
 
   return {
@@ -47,7 +47,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
     '@type': 'BlogPosting',
     '@id': `${SITE_URL}/blog/${post.slug}#post`,
     headline: post.title,
-    description: post.excerpt ?? undefined,
+    description: postDescription(post),
     image: post.cover_url ?? OG_IMAGE.url,
     datePublished: post.published_at,
     dateModified: post.updated_at,

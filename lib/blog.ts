@@ -13,9 +13,15 @@ export interface PostCard {
 
 /** A full article. */
 export interface Post extends PostCard {
+  /** Overrides the excerpt as the search snippet. Empty falls back to it. */
+  meta_description: string | null
   body_md: string
   updated_at: string
 }
+
+/** The search snippet for a post: its own override, else the excerpt. */
+export const postDescription = (post: Post) =>
+  post.meta_description?.trim() || post.excerpt?.trim() || undefined
 
 /** Published posts, newest first. */
 export async function getPosts(limit = 50, offset = 0): Promise<PostCard[]> {
